@@ -8,32 +8,32 @@
 :root{--bg:#f5f7fb;--card:#fff;--ink:#172033;--muted:#718096;--line:#e7ebf2;--green:#16845b;--green2:#e7f6ef;--red:#c94b4b;--amber:#a66b12;--blue:#4263a5;--shadow:0 8px 28px #24334d0b}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 Inter,system-ui,-apple-system,Segoe UI,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;background:var(--green);color:white;font-weight:650}button.secondary{background:#eef2f7;color:#344054}button.danger{background:#fff0f0;color:var(--red)}button.small{padding:6px 9px;font-size:12px}.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}.side{background:#122b25;color:#e9f5ef;padding:24px 16px}.brand{font-size:20px;font-weight:800;letter-spacing:-.5px;margin:2px 10px 6px}.subbrand{color:#a9c8ba;font-size:12px;margin:0 10px 28px}.nav{display:grid;gap:6px}.nav button{background:transparent;color:#c5d9d0;text-align:left;font-weight:550}.nav button.active,.nav button:hover{background:#21483c;color:white}.side-note{font-size:11px;color:#a9c8ba;margin:30px 10px}.main{padding:26px;max-width:1500px;width:100%;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}.top h1{font-size:24px;margin:0;letter-spacing:-.5px}.muted{color:var(--muted)}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}.card,.panel{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:17px;box-shadow:var(--shadow)}.metric-label{font-size:12px;color:var(--muted)}.metric{font-size:25px;font-weight:800;margin:7px 0 2px;letter-spacing:-.7px}.metric-note{font-size:11px;color:var(--muted)}.grid2{display:grid;grid-template-columns:1.35fr 1fr;gap:15px}.panel h2{font-size:16px;margin:0 0 14px}.toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:14px}.toolbar input,.toolbar select{max-width:230px}.field{display:grid;gap:5px;margin-bottom:12px}.field label{font-size:12px;font-weight:650;color:#526071}.field input,.field select,.field textarea,.toolbar input,.toolbar select{width:100%;padding:10px 11px;border:1px solid #dce2ea;border-radius:9px;background:white;color:var(--ink);outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:#58a98a;box-shadow:0 0 0 3px #16845b16}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--line);font-size:12px}th{color:var(--muted);font-weight:650;background:#fafbfd}td strong{font-size:13px}.positive{color:var(--green);font-weight:750}.negative{color:var(--red);font-weight:700}.tag{display:inline-block;border-radius:30px;padding:4px 8px;background:var(--green2);color:var(--green);font-size:11px}.tag.warn{background:#fff5df;color:var(--amber)}.empty{text-align:center;color:var(--muted);padding:30px}.hidden{display:none!important}.modal{position:fixed;inset:0;background:#10231f88;display:grid;place-items:center;padding:15px;z-index:5}.dialog{background:white;border-radius:16px;padding:20px;width:min(680px,100%);max-height:90vh;overflow:auto;box-shadow:0 20px 70px #0003}.dialoghead{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.dialoghead h2{margin:0;font-size:19px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.span2{grid-column:1/-1}.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.lineitem{display:grid;grid-template-columns:2fr .7fr 1fr 36px;gap:7px;align-items:end;margin-bottom:8px}.lineitem input,.lineitem select{min-width:0;width:100%;padding:9px;border:1px solid #dce2ea;border-radius:8px}.summaryline{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dashed var(--line)}.bars{display:flex;align-items:end;gap:9px;height:150px;padding-top:12px}.barcol{flex:1;display:flex;flex-direction:column;justify-content:end;align-items:center;gap:6px;height:100%;font-size:10px;color:var(--muted)}.bar{width:min(35px,75%);background:#54a987;border-radius:6px 6px 2px 2px;min-height:3px}.barval{font-size:10px;color:#344054}.customerbox{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.notice{background:#f0f7f3;border:1px solid #d9eee2;border-radius:10px;padding:11px;color:#37634f;font-size:12px;margin-bottom:14px}.mobiletop{display:none}
 @media(max-width:850px){.app{grid-template-columns:1fr}.side{padding:12px 14px;position:sticky;top:0;z-index:3}.brand{display:inline-block;margin:0 12px 0 0}.subbrand{display:none}.nav{display:flex;overflow:auto;gap:4px}.nav button{white-space:nowrap;padding:8px 10px;font-size:12px}.side-note{display:none}.main{padding:18px 13px}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.metric{font-size:21px}.grid2{grid-template-columns:1fr}.top h1{font-size:21px}.top{align-items:flex-start}.lineitem{grid-template-columns:1.4fr .6fr 1fr 32px}.formgrid{grid-template-columns:1fr}.span2{grid-column:auto}}
 @media(max-width:420px){.metric{font-size:18px}.card{padding:12px}.top{flex-direction:column}.top button{width:100%}}
- 
+
 /* Thương hiệu vui nhộn: Kiếm được 10 tỷ sẽ nghỉ làm */
 .brand{
-  display:flex;align-items:center;gap:9px;
-  font-family:Arial,"Segoe UI",Tahoma,sans-serif;
-  font-size:17px;font-weight:900;line-height:1.18;
-  letter-spacing:-.45px;color:#17243a;
-  margin:2px 8px 8px;
+  display:flex;align-items:center;gap:9px;
+  font-family:Arial,"Segoe UI",Tahoma,sans-serif;
+  font-size:17px;font-weight:900;line-height:1.18;
+  letter-spacing:-.45px;color:#17243a;
+  margin:2px 8px 8px;
 }
 .brand:before{content:none!important;display:none!important}
 .brand-emoji{
-  display:inline-flex;align-items:center;justify-content:center;
-  flex:0 0 38px;width:38px;height:38px;border-radius:13px;
-  background:linear-gradient(145deg,#ffe28a,#ffb52e);
-  font-size:23px;box-shadow:0 5px 12px #e6a52b35;
-  transform:rotate(-5deg)
+  display:inline-flex;align-items:center;justify-content:center;
+  flex:0 0 38px;width:38px;height:38px;border-radius:13px;
+  background:linear-gradient(145deg,#ffe28a,#ffb52e);
+  font-size:23px;box-shadow:0 5px 12px #e6a52b35;
+  transform:rotate(-5deg)
 }
 .subbrand{
-  font-family:Arial,"Segoe UI",Tahoma,sans-serif;
-  font-size:11px;font-weight:700;color:#718096;
-  margin:0 8px 26px;letter-spacing:.1px
+  font-family:Arial,"Segoe UI",Tahoma,sans-serif;
+  font-size:11px;font-weight:700;color:#718096;
+  margin:0 8px 26px;letter-spacing:.1px
 }
 .side-note{font-family:Arial,"Segoe UI",Tahoma,sans-serif}
- 
- 
- 
+
+
+
 /* Mobile readability and customer picker */
 .customer-picker{position:relative}
 .customer-picker-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;text-align:left;min-height:44px;padding:11px 12px}
@@ -43,73 +43,73 @@
 .customer-option strong{font-size:15px;line-height:1.35}
 .customer-option small{font-size:12px;color:#8995a7;font-weight:400;line-height:1.35}
 @media(max-width:850px){
- body{font-size:16px;line-height:1.55}
- .main{padding:16px 14px calc(24px + env(safe-area-inset-bottom))}
- .side{padding:12px 12px}
- .brand{font-size:19px}
- .nav button{font-size:13px;padding:10px 11px}
- .top h1{font-size:24px}
- .welcome-strip h2{font-size:21px}
- .welcome-strip p,.panel-heading p{font-size:14px}
- .metric-label{font-size:14px}
- .metric{font-size:21px}
- .metric-note{font-size:12px}
- .panel h2{font-size:17px}
- .field label{font-size:14px}
- .field input,.field select,.field textarea,.toolbar input,.toolbar select{font-size:16px;min-height:44px;padding:11px 12px}
- button{font-size:15px;min-height:42px}
- .customer-option strong{font-size:16px}
- .customer-option small{font-size:13px}
- .dialog{width:100%;max-height:92dvh;padding:18px}
+ body{font-size:16px;line-height:1.55}
+ .main{padding:16px 14px calc(24px + env(safe-area-inset-bottom))}
+ .side{padding:12px 12px}
+ .brand{font-size:19px}
+ .nav button{font-size:13px;padding:10px 11px}
+ .top h1{font-size:24px}
+ .welcome-strip h2{font-size:21px}
+ .welcome-strip p,.panel-heading p{font-size:14px}
+ .metric-label{font-size:14px}
+ .metric{font-size:21px}
+ .metric-note{font-size:12px}
+ .panel h2{font-size:17px}
+ .field label{font-size:14px}
+ .field input,.field select,.field textarea,.toolbar input,.toolbar select{font-size:16px;min-height:44px;padding:11px 12px}
+ button{font-size:15px;min-height:42px}
+ .customer-option strong{font-size:16px}
+ .customer-option small{font-size:13px}
+ .dialog{width:100%;max-height:92dvh;padding:18px}
 }
 @media(max-width:480px){.chart-value-label{font-size:8px;stroke-width:2.5px}
- .main{padding-left:12px;padding-right:12px}
- .metric{font-size:20px}
- .metric-label{font-size:13px}
- .card,.panel{padding:15px}
- .nav button{font-size:12px}
+ .main{padding-left:12px;padding-right:12px}
+ .metric{font-size:20px}
+ .metric-label{font-size:13px}
+ .card,.panel{padding:15px}
+ .nav button{font-size:12px}
 }
- 
+
 /* Mobile usability refinement: readable controls, full-width layout, no input focus zoom */
 @media (max-width: 850px) {
-  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-  body { font-size: 16px; line-height: 1.55; }
-  .main { width: 100%; max-width: 100%; padding: 14px 12px 28px; }
-  .side { width: 100%; }
-  .nav { width: 100%; }
-  .nav button { font-size: 14px; min-height: 44px; padding: 10px 12px; }
-  .brand { font-size: 19px; }
-  .top h1 { font-size: 24px; }
-  .panel h2 { font-size: 18px; }
-  .metric-label { font-size: 14px; }
-  .metric { font-size: 21px; }
-  .metric-note { font-size: 13px; }
-  button, .link-btn { min-height: 44px; font-size: 15px; }
-  button.small { min-height: 40px; font-size: 13px; }
-  input, select, textarea,
-  .field input, .field select, .field textarea,
-  .toolbar input, .toolbar select,
-  .searchbox input {
-    font-size: 16px !important;
-    line-height: 1.35;
-    min-height: 44px;
-  }
-  .field label { font-size: 14px; }
-  .analytics-chart svg { min-width: 0; width: 100%; }
-  .analytics-chart { overflow-x: auto; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  body { font-size: 16px; line-height: 1.55; }
+  .main { width: 100%; max-width: 100%; padding: 14px 12px 28px; }
+  .side { width: 100%; }
+  .nav { width: 100%; }
+  .nav button { font-size: 14px; min-height: 44px; padding: 10px 12px; }
+  .brand { font-size: 19px; }
+  .top h1 { font-size: 24px; }
+  .panel h2 { font-size: 18px; }
+  .metric-label { font-size: 14px; }
+  .metric { font-size: 21px; }
+  .metric-note { font-size: 13px; }
+  button, .link-btn { min-height: 44px; font-size: 15px; }
+  button.small { min-height: 40px; font-size: 13px; }
+  input, select, textarea,
+  .field input, .field select, .field textarea,
+  .toolbar input, .toolbar select,
+  .searchbox input {
+    font-size: 16px !important;
+    line-height: 1.35;
+    min-height: 44px;
+  }
+  .field label { font-size: 14px; }
+  .analytics-chart svg { min-width: 0; width: 100%; }
+  .analytics-chart { overflow-x: auto; }
 }
 @media (max-width: 480px) {
-  .main { padding-left: 10px; padding-right: 10px; }
-  .nav button { font-size: 13px; padding: 9px 10px; }
-  .cards { gap: 9px; }
-  .card, .panel { padding: 13px; }
-  .metric { font-size: 20px; }
-  .chart-value-label { font-size: 9px; }
-  .chart-axis { font-size: 10px; }
-  .analytics-chart svg { min-width: 0; }
-  .toolbar { gap: 7px; }
+  .main { padding-left: 10px; padding-right: 10px; }
+  .nav button { font-size: 13px; padding: 9px 10px; }
+  .cards { gap: 9px; }
+  .card, .panel { padding: 13px; }
+  .metric { font-size: 20px; }
+  .chart-value-label { font-size: 9px; }
+  .chart-axis { font-size: 10px; }
+  .analytics-chart svg { min-width: 0; }
+  .toolbar { gap: 7px; }
 }
- 
+
 </style>
 <style>
 :root{--bg:#f3f6fc;--card:#fff;--ink:#17243a;--muted:#7c899d;--line:#e8edf5;--green:#18a875;--green2:#e8f8f1;--red:#d94d5c;--amber:#b97819;--blue:#3478ee;--shadow:0 5px 22px rgba(34,67,115,.055)}
@@ -119,274 +119,231 @@ body{background:#f3f6fc;color:var(--ink);font-family:Arial,"Segoe UI",Tahoma,san
 @media(max-width:480px){.chart-value-label{font-size:8px;stroke-width:2.5px}.app-topbar{gap:8px}.searchbox{width:72%;height:38px}.profile-chip{gap:5px}.profile-chip strong{display:none}.profile-avatar{width:32px;height:32px}.welcome-strip{align-items:flex-start;gap:8px}.welcome-strip>button{font-size:11px;padding:9px}.card{padding:13px}.metric{font-size:18px}.chart-legend{display:none}.chart-area{height:165px}.chart-foot{gap:7px}}
 /* Biểu đồ doanh thu, lợi nhuận và chi phí */
 .analytics-chart{width:100%;overflow-x:auto;margin-top:14px}.compact-chart svg{max-height:190px}.analytics-chart svg{display:block;width:100%;min-width:520px;height:auto}.analytics-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;color:#718096;margin-top:10px}.analytics-legend span{display:inline-flex;align-items:center;gap:6px}.legend-dot{width:9px;height:9px;border-radius:50%;display:inline-block}.chart-gridline{stroke:#e9eef6;stroke-width:1}.chart-value-label{font-size:10px;font-weight:700;fill:#46566d;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round}.chart-axis{fill:#8b98aa;font-size:10px}.chart-line{fill:none;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}.chart-point{stroke:white;stroke-width:2}.cost-breakdown{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}.cost-chip{background:#f7f9fc;border:1px solid #e8edf5;border-radius:9px;padding:8px 10px;font-size:11px;color:#718096}.cost-chip strong{display:block;color:#17243a;font-size:13px;margin-top:3px}
- 
+
 </style>
- 
- 
+
+
 <style id="mobile-readable-100-percent">
 /* Mobile: open at normal 100% scale, keep pinch zoom available, and make text easier to read. */
 @media (max-width: 850px) {
-  html { width: 100%; }
-  body { width: 100%; max-width: 100%; font-size: 19px !important; line-height: 1.55 !important; }
-  .main { width: 100%; max-width: 100%; padding: 16px 12px !important; }
-  .brand { font-size: 22px !important; }
-  .nav button { font-size: 16px !important; min-height: 48px; padding: 12px 14px !important; }
-  .top h1 { font-size: 28px !important; line-height: 1.25; }
-  .welcome-strip h2, .panel h2 { font-size: 22px !important; line-height: 1.3; }
-  .welcome-strip p, .panel-heading p, .muted, .notice { font-size: 17px !important; }
-  .metric-label { font-size: 17px !important; }
-  .metric { font-size: 25px !important; }
-  .metric-note { font-size: 15px !important; }
-  .field label { font-size: 17px !important; }
-  .field input, .field select, .field textarea,
-  .toolbar input, .toolbar select, .lineitem input, .lineitem select {
-    font-size: 16px !important;
-    min-height: 48px;
-    padding: 12px !important;
-  }
-  button, .link-btn { font-size: 17px !important; min-height: 48px; padding: 12px 15px; }
-  button.small { font-size: 15px !important; min-height: 44px; }
-  th, td { font-size: 15px !important; padding: 13px 11px !important; }
-  td strong { font-size: 16px !important; }
-  .tag, .cost-chip { font-size: 14px !important; }
-  .summary-stat, .summary-stat strong { font-size: 15px !important; }
-  .chart-axis, .chart-foot, .analytics-legend { font-size: 14px !important; }
-  .chart-value-label { font-size: 12px !important; }
-  .dialog { max-width: 100%; }
+  html { width: 100%; }
+  body { width: 100%; max-width: 100%; font-size: 19px !important; line-height: 1.55 !important; }
+  .main { width: 100%; max-width: 100%; padding: 16px 12px !important; }
+  .brand { font-size: 22px !important; }
+  .nav button { font-size: 16px !important; min-height: 48px; padding: 12px 14px !important; }
+  .top h1 { font-size: 28px !important; line-height: 1.25; }
+  .welcome-strip h2, .panel h2 { font-size: 22px !important; line-height: 1.3; }
+  .welcome-strip p, .panel-heading p, .muted, .notice { font-size: 17px !important; }
+  .metric-label { font-size: 17px !important; }
+  .metric { font-size: 25px !important; }
+  .metric-note { font-size: 15px !important; }
+  .field label { font-size: 17px !important; }
+  .field input, .field select, .field textarea,
+  .toolbar input, .toolbar select, .lineitem input, .lineitem select {
+    font-size: 16px !important;
+    min-height: 48px;
+    padding: 12px !important;
+  }
+  button, .link-btn { font-size: 17px !important; min-height: 48px; padding: 12px 15px; }
+  button.small { font-size: 15px !important; min-height: 44px; }
+  th, td { font-size: 15px !important; padding: 13px 11px !important; }
+  td strong { font-size: 16px !important; }
+  .tag, .cost-chip { font-size: 14px !important; }
+  .summary-stat, .summary-stat strong { font-size: 15px !important; }
+  .chart-axis, .chart-foot, .analytics-legend { font-size: 14px !important; }
+  .chart-value-label { font-size: 12px !important; }
+  .dialog { max-width: 100%; }
 }
 @media (max-width: 480px) {
-  body { font-size: 18px !important; }
-  .main { padding: 14px 10px !important; }
-  .card, .panel { padding: 15px !important; }
-  .metric { font-size: 23px !important; }
-  .top h1 { font-size: 26px !important; }
-  .welcome-strip h2, .panel h2 { font-size: 21px !important; }
+  body { font-size: 18px !important; }
+  .main { padding: 14px 10px !important; }
+  .card, .panel { padding: 15px !important; }
+  .metric { font-size: 23px !important; }
+  .top h1 { font-size: 26px !important; }
+  .welcome-strip h2, .panel h2 { font-size: 21px !important; }
 }
 /* Prevent iOS focus auto-zoom: inputs stay at >=16px. Pinch zoom remains enabled. */
 input, select, textarea { font-size: 16px; }
 </style>
- 
- 
+
+
 <style id="mobile-final-readable">
 /* Final mobile rules are deliberately placed last so older page styles cannot override them. */
 @media screen and (max-width: 850px) {
-  html, body { width:100% !important; min-width:0 !important; max-width:100% !important; margin:0 !important; }
-  body { font-size:20px !important; line-height:1.6 !important; }
-  .app { display:block !important; width:100% !important; min-width:0 !important; }
-  .side { width:100% !important; padding:14px 12px !important; }
-  .brand { font-size:25px !important; line-height:1.35 !important; }
-  .nav { gap:7px !important; }
-  .nav button { font-size:17px !important; line-height:1.35 !important; min-height:50px !important; padding:12px 14px !important; }
-  .main { width:100% !important; max-width:none !important; min-width:0 !important; padding:18px 12px 30px !important; margin:0 !important; }
-  .top h1 { font-size:30px !important; line-height:1.3 !important; }
-  .welcome-strip h2, .panel h2, .dialoghead h2 { font-size:25px !important; line-height:1.35 !important; }
-  .welcome-strip p, .panel p, .notice, .muted { font-size:18px !important; line-height:1.5 !important; }
-  .card, .panel { padding:18px !important; }
-  .metric-label, .field label { font-size:18px !important; line-height:1.4 !important; }
-  .metric { font-size:29px !important; line-height:1.25 !important; }
-  .metric-note, .subbrand, .side-note { font-size:16px !important; }
-  button, .link-btn { font-size:18px !important; line-height:1.35 !important; min-height:50px !important; padding:12px 15px !important; }
-  button.small { font-size:16px !important; min-height:46px !important; }
-  input, select, textarea, .field input, .field select, .field textarea,
-  .toolbar input, .toolbar select, .lineitem input, .lineitem select {
-    font-size:18px !important; line-height:1.4 !important; min-height:50px !important; padding:12px !important;
-  }
-  th, td { font-size:16px !important; line-height:1.45 !important; padding:14px 12px !important; }
-  td strong { font-size:17px !important; }
-  .tag, .cost-chip { font-size:16px !important; }
-  .chart-axis, .chart-foot, .analytics-legend { font-size:15px !important; }
-  .chart-value-label { font-size:13px !important; }
-  .dialog { width:100% !important; max-width:100% !important; }
+  html, body { width:100% !important; min-width:0 !important; max-width:100% !important; margin:0 !important; }
+  body { font-size:20px !important; line-height:1.6 !important; }
+  .app { display:block !important; width:100% !important; min-width:0 !important; }
+  .side { width:100% !important; padding:14px 12px !important; }
+  .brand { font-size:25px !important; line-height:1.35 !important; }
+  .nav { gap:7px !important; }
+  .nav button { font-size:17px !important; line-height:1.35 !important; min-height:50px !important; padding:12px 14px !important; }
+  .main { width:100% !important; max-width:none !important; min-width:0 !important; padding:18px 12px 30px !important; margin:0 !important; }
+  .top h1 { font-size:30px !important; line-height:1.3 !important; }
+  .welcome-strip h2, .panel h2, .dialoghead h2 { font-size:25px !important; line-height:1.35 !important; }
+  .welcome-strip p, .panel p, .notice, .muted { font-size:18px !important; line-height:1.5 !important; }
+  .card, .panel { padding:18px !important; }
+  .metric-label, .field label { font-size:18px !important; line-height:1.4 !important; }
+  .metric { font-size:29px !important; line-height:1.25 !important; }
+  .metric-note, .subbrand, .side-note { font-size:16px !important; }
+  button, .link-btn { font-size:18px !important; line-height:1.35 !important; min-height:50px !important; padding:12px 15px !important; }
+  button.small { font-size:16px !important; min-height:46px !important; }
+  input, select, textarea, .field input, .field select, .field textarea,
+  .toolbar input, .toolbar select, .lineitem input, .lineitem select {
+    font-size:18px !important; line-height:1.4 !important; min-height:50px !important; padding:12px !important;
+  }
+  th, td { font-size:16px !important; line-height:1.45 !important; padding:14px 12px !important; }
+  td strong { font-size:17px !important; }
+  .tag, .cost-chip { font-size:16px !important; }
+  .chart-axis, .chart-foot, .analytics-legend { font-size:15px !important; }
+  .chart-value-label { font-size:13px !important; }
+  .dialog { width:100% !important; max-width:100% !important; }
 }
 @media screen and (max-width: 480px) {
-  body { font-size:19px !important; }
-  .main { padding-left:10px !important; padding-right:10px !important; }
-  .top h1 { font-size:28px !important; }
-  .welcome-strip h2, .panel h2, .dialoghead h2 { font-size:23px !important; }
-  .metric { font-size:27px !important; }
+  body { font-size:19px !important; }
+  .main { padding-left:10px !important; padding-right:10px !important; }
+  .top h1 { font-size:28px !important; }
+  .welcome-strip h2, .panel h2, .dialoghead h2 { font-size:23px !important; }
+  .metric { font-size:27px !important; }
 }
 /* Keep input text at 18px to prevent iPhone Safari's focus auto-zoom. Do not disable pinch zoom. */
 input, select, textarea { font-size:18px !important; }
 </style>
- 
- 
+
+
 <style id="mobile-width-layout-fix">
 /* Fix mobile page being rendered as a narrow column with unused space on the right. */
 @media screen and (max-width: 850px) {
-  html, body {
-    width: 100% !important;
-    min-width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow-x: hidden !important;
-  }
-  body { display: block !important; }
-  .app {
-    display: flex !important;
-    flex-direction: column !important;
-    width: 100vw !important;
-    min-width: 100vw !important;
-    max-width: 100vw !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  .side, .main {
-    display: block !important;
-    box-sizing: border-box !important;
-    width: 100% !important;
-    min-width: 0 !important;
-    max-width: none !important;
-    margin: 0 !important;
-  }
-  .side {
-    position: relative !important;
-    top: auto !important;
-    padding: 14px 16px !important;
-    overflow: hidden !important;
-  }
-  .brand {
-    display: flex !important;
-    width: 100% !important;
-    align-items: center !important;
-    font-size: 24px !important;
-    line-height: 1.3 !important;
-    margin: 0 0 10px !important;
-  }
-  .nav {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow-x: auto !important;
-    white-space: nowrap !important;
-    gap: 6px !important;
-  }
-  .nav button {
-    flex: 0 0 auto !important;
-    font-size: 16px !important;
-    min-height: 48px !important;
-    padding: 10px 12px !important;
-  }
-  .main {
-    padding: 18px 16px 32px !important;
-    overflow: visible !important;
-  }
-  .app-topbar {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    gap: 10px !important;
-  }
-  .searchbox {
-    width: min(100%, 440px) !important;
-    max-width: 100% !important;
-    flex: 1 1 220px !important;
-  }
-  .cards {
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    width: 100% !important;
-    gap: 12px !important;
-  }
-  .card, .panel {
-    min-width: 0 !important;
-    max-width: 100% !important;
-  }
-  .lower-grid, .dashboard-grid, .grid2 {
-    width: 100% !important;
-    min-width: 0 !important;
-    grid-template-columns: minmax(0, 1fr) !important;
-  }
+  html, body {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+  }
+  body { display: block !important; }
+  .app {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100vw !important;
+    min-width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .side, .main {
+    display: block !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+  .side {
+    position: relative !important;
+    top: auto !important;
+    padding: 14px 16px !important;
+    overflow: hidden !important;
+  }
+  .brand {
+    display: flex !important;
+    width: 100% !important;
+    align-items: center !important;
+    font-size: 24px !important;
+    line-height: 1.3 !important;
+    margin: 0 0 10px !important;
+  }
+  .nav {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    gap: 6px !important;
+  }
+  .nav button {
+    flex: 0 0 auto !important;
+    font-size: 16px !important;
+    min-height: 48px !important;
+    padding: 10px 12px !important;
+  }
+  .main {
+    padding: 18px 16px 32px !important;
+    overflow: visible !important;
+  }
+  .app-topbar {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    gap: 10px !important;
+  }
+  .searchbox {
+    width: min(100%, 440px) !important;
+    max-width: 100% !important;
+    flex: 1 1 220px !important;
+  }
+  .cards {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    width: 100% !important;
+    gap: 12px !important;
+  }
+  .card, .panel {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  .lower-grid, .dashboard-grid, .grid2 {
+    width: 100% !important;
+    min-width: 0 !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
 }
 @media screen and (max-width: 380px) {
-  .cards { grid-template-columns: minmax(0, 1fr) !important; }
-  .main { padding-left: 12px !important; padding-right: 12px !important; }
+  .cards { grid-template-columns: minmax(0, 1fr) !important; }
+  .main { padding-left: 12px !important; padding-right: 12px !important; }
 }
 </style>
- 
-<style id="mobile-v3-big-popup">
-/* ===== V4: chữ vừa phải (không như bị zoom) + popup lớn cố định ===== */
+
+
+<style id="mobile-single-line-fix">
 @media screen and (max-width: 850px) {
-  html { -webkit-text-size-adjust:100%; text-size-adjust:100%; width:100% !important; overflow-x:hidden !important; }
-  body { font-size:16px !important; line-height:1.5 !important; width:100% !important; max-width:100% !important; overflow-x:hidden !important; }
-  body.modal-open { overflow:hidden !important; }
-  .app { width:100% !important; min-width:0 !important; max-width:100% !important; }
-  .main, .side, .panel, .card, .grid2, .cards { min-width:0 !important; max-width:100% !important; }
-  img, svg { max-width:100%; }
-  .tablewrap { overflow-x:auto !important; -webkit-overflow-scrolling:touch; }
-
-  /* Chữ rõ hơn nhưng giữ bố cục gọn */
-  .brand { font-size:19px !important; }
-  .nav { gap:6px !important; }
-  .nav button { font-size:16px !important; min-height:46px !important; padding:9px 13px !important; font-weight:700 !important; }
-  .top h1 { font-size:24px !important; line-height:1.25 !important; }
-  .welcome-strip h2, .panel h2 { font-size:20px !important; line-height:1.3 !important; }
-  .welcome-strip p, .panel p, .notice, .muted { font-size:15px !important; }
-  .card, .panel { padding:14px !important; }
-  .cards { gap:10px !important; }
-  .metric-label { font-size:14px !important; }
-  .metric { font-size:23px !important; line-height:1.25 !important; }
-  .metric-note { font-size:13px !important; }
-  th, td { font-size:15px !important; padding:11px 10px !important; line-height:1.4 !important; }
-  td strong { font-size:16px !important; }
-  .tag, .cost-chip { font-size:13px !important; }
-  .customerbox, .summaryline { font-size:16px !important; }
-  button, .link-btn { font-size:16px !important; min-height:46px !important; padding:10px 14px !important; }
-  button.small { font-size:14px !important; min-height:40px !important; }
-  .toolbar input, .toolbar select { max-width:none !important; }
-  input, select, textarea { font-size:16px !important; }
-
-  /* --- Popup: cao cố định, gần full màn hình, không co giãn --- */
-  .modal { padding:0 !important; place-items:end center !important; background:#10231fa8 !important; }
-  .dialog {
-    width:100% !important; max-width:100% !important;
-    height:92dvh !important; max-height:92dvh !important;
-    padding:0 !important; border-radius:20px 20px 0 0 !important;
-    display:flex !important; flex-direction:column !important; overflow:hidden !important;
+  /* Date stays on one line above the page title. */
+  .top { align-items: center !important; flex-wrap: nowrap !important; gap: 8px !important; }
+  .top > div { min-width: 0 !important; flex: 1 1 auto !important; }
+  #today {
+    white-space: nowrap !important;
+    overflow: visible !important;
+    font-size: clamp(11px, 3.35vw, 14px) !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.25px !important;
   }
-  .dialoghead { flex:0 0 auto; margin:0 !important; padding:14px 16px; border-bottom:1px solid var(--line); background:#fff; }
-  .dialoghead h2 { font-size:20px !important; }
-  .dialoghead button { min-width:46px; min-height:46px !important; font-size:18px !important; }
-  #modalBody { flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; padding:14px 16px 0; }
-
-  .dialog .field { margin-bottom:14px; gap:6px; }
-  .dialog .field label { font-size:15px !important; }
-  .dialog input, .dialog select, .dialog textarea {
-    font-size:17px !important; min-height:50px !important; padding:11px 12px !important; border-radius:11px !important; width:100%;
+  /* Keep the amount and currency symbol together on a single line. */
+  .metric {
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+    font-size: clamp(18px, 5.4vw, 25px) !important;
+    letter-spacing: -0.6px !important;
+    line-height: 1.25 !important;
   }
-  .dialog textarea { min-height:90px !important; }
-  .formgrid { grid-template-columns:1fr !important; }
-  .span2 { grid-column:auto !important; }
-  .customer-picker-trigger { min-height:50px !important; font-size:17px !important; }
-  .customer-picker-list { position:static !important; margin-top:8px; max-height:40dvh !important; }
-  .customer-option { padding:13px 12px !important; }
-  .customer-option strong { font-size:17px !important; }
-  .customer-option small { font-size:14px !important; }
-
-  .lineitem { grid-template-columns:1fr 1fr !important; gap:9px !important; padding:12px; margin-bottom:12px !important; background:#f7f9fc; border:1px solid var(--line); border-radius:13px; align-items:stretch !important; }
-  .lineitem > select { grid-column:1 / -1; }
-  .lineitem > div[style*="grid-column"] { grid-column:1 / -1 !important; flex-direction:column !important; }
-  .lineitem > div[style*="grid-column"] input { width:100% !important; flex:none !important; }
-  .lineitem > button.danger { grid-column:1 / -1; font-size:0 !important; min-height:46px !important; }
-  .lineitem > button.danger::after { content:"✕ Xóa dòng này"; font-size:15px; }
-  .dialog .field[style*="max-width"] { max-width:none !important; }
-  .summaryline { font-size:16px !important; }
-
-  .dialog .actions {
-    position:sticky; bottom:0; z-index:2;
-    display:grid; grid-template-columns:1fr 2fr; gap:10px;
-    margin:16px -16px 0 !important; padding:12px 16px calc(12px + env(safe-area-inset-bottom));
-    background:#fff; border-top:1px solid var(--line);
-  }
-  .dialog .actions button { min-height:52px !important; font-size:17px !important; }
+  .metric-card { min-width: 0 !important; overflow: hidden !important; }
+  .metric-top { min-width: 0 !important; }
 }
 @media screen and (max-width: 380px) {
-  .cards { grid-template-columns:minmax(0,1fr) !important; }
-  .nav button { font-size:15px !important; }
+  #today { font-size: 11px !important; letter-spacing: -0.45px !important; }
+  .metric { font-size: clamp(17px, 5vw, 21px) !important; letter-spacing: -0.7px !important; }
 }
 </style>
+
+
+<style id="order-details-and-mobile-kpis">
+.order-row{cursor:pointer;transition:background .15s}.order-row:hover,.order-row:focus{background:#f2f6ff;outline:none}.order-hint{font-size:12px;margin:12px 2px 0}.order-detail-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:4px 0 15px;border-bottom:1px solid var(--line)}.order-code{font-size:21px;display:block;margin-top:3px}.detail-section{padding:15px 0;border-bottom:1px solid var(--line)}.detail-section:last-of-type{border-bottom:0}.detail-section h3{font-size:15px;margin:0 0 10px}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.detail-grid small,.detail-grid strong{display:block}.detail-grid small{font-size:12px;color:var(--muted);margin-bottom:3px}.detail-grid strong{font-size:14px;overflow-wrap:anywhere}.detail-lines{min-width:580px}.detail-profit{padding-top:12px;margin-top:5px}.report-profit-strip{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px 18px;margin:-5px 0 16px;background:#fff;border:1px solid #e9eef6;border-radius:14px;box-shadow:var(--shadow)}.report-profit-strip span,.report-profit-strip small{display:block}.report-profit-strip small{font-size:12px;color:var(--muted);margin-top:3px}.report-profit-strip>strong{font-size:21px;white-space:nowrap}
+@media screen and (max-width:850px){.cards,.report-metrics{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}.metric-card{min-width:0!important;overflow:hidden!important}.metric{font-size:clamp(16px,4.8vw,22px)!important;letter-spacing:-.6px!important}.metric-label{font-size:clamp(13px,3.8vw,16px)!important}.metric-note{font-size:clamp(11px,3.2vw,14px)!important}.card{padding:12px!important}.report-profit-strip{padding:13px 14px}.report-profit-strip>strong{font-size:clamp(17px,4.8vw,22px)!important}}
+@media screen and (max-width:380px){.cards,.report-metrics{grid-template-columns:repeat(2,minmax(0,1fr))!important}.metric{font-size:16px!important}.metric-label{font-size:12px!important}.metric-note{font-size:11px!important}.card{padding:10px!important}.metric-icon{width:30px;height:30px;font-size:15px}}
+</style>
+
 </head>
 <body><div class="app">
 <aside class="side"><div class="brand"><span class="brand-emoji">🤑</span><span>Kiếm được 10 tỷ<br> sẽ nghỉ làm</span></div><div class="subbrand">Làm hết mình, nghỉ hưu thật sớm 😎</div><nav class="nav">
@@ -399,7 +356,7 @@ input, select, textarea { font-size:18px !important; }
 const KEY='mysales_v1';let db=load();let page='dashboard';let orderLines=[];let cloud=null,cloudUser=null,cloudBusy=false,cloudChannel=null;
 function load(){try{return JSON.parse(localStorage.getItem(KEY))||{orders:[],customers:[],products:[],expenses:[]}}catch{return{orders:[],customers:[],products:[],expenses:[]}}}
 function save(){localStorage.setItem(KEY,JSON.stringify(db));render();cloudPush()}
-const money=n=>(Number(n)||0).toLocaleString('vi-VN')+' ₫';const num=v=>Number(String(v??'').replace(/[^0-9-]/g,''))||0;
+const money=n=>(Number(n)||0).toLocaleString('vi-VN')+'\u00a0₫';const num=v=>Number(String(v??'').replace(/[^0-9-]/g,''))||0;
 const fmtMoneyInput=v=>{let d=String(v??'').replace(/[^0-9]/g,'');return d?d.replace(/\B(?=(\d{3})+(?!\d))/g,'.'):''};
 document.addEventListener('input',e=>{if(e.target.matches('[data-money],#pCost,#pPrice,#eAmount,#oExtra')||((e.target.tagName==='INPUT')&&e.target.inputMode==='numeric'&&e.target.title!=='Số lượng')){let el=e.target,pos=el.selectionStart,old=el.value,next=fmtMoneyInput(old);if(next!==old){el.value=next;try{el.setSelectionRange(next.length,next.length)}catch(_){}}}});
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const today=()=>new Date().toISOString().slice(0,10);const dateFmt=d=>d?new Date(d+'T00:00:00').toLocaleDateString('vi-VN'):'—';
@@ -409,73 +366,74 @@ function totals(orders,expenses){let r=orders.reduce((s,o)=>s+revenue(o),0),c=or
 function render(){document.getElementById('today').textContent=new Date().toLocaleDateString('vi-VN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});document.getElementById('pageTitle').textContent=({dashboard:'Tổng quan',orders:'Đơn hàng',customers:'Khách hàng',products:'Sản phẩm',expenses:'Chi phí',reports:'Báo cáo',settings:'Dữ liệu'})[page];document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));let el=document.getElementById('page');el.innerHTML=({dashboard:dashboardPage,orders:ordersPage,customers:customersPage,products:productsPage,expenses:expensesPage,reports:reportsPage,settings:settingsPage})[page]();}
 function metric(label,value,note='',ico='•',tone='blue'){return `<div class="card metric-card"><div class="metric-top"><div class="metric-label">${label}</div><span class="metric-icon ${tone}">${ico}</span></div><div class="metric">${value}</div><div class="metric-note">${note}</div></div>`}
 function analyticsChart(data,series,compact=false){
- if(!data.length)return '<div class="empty">Chưa có dữ liệu để vẽ biểu đồ.</div>';
- const W=820,H=compact?190:250,L=58,R=18,T=18,B=38,innerW=W-L-R,innerH=H-T-B;
- const vals=data.flatMap(d=>series.map(z=>num(d[z.key]))),lo=Math.min(0,...vals),hi=Math.max(1,...vals),pad=(hi-lo)*.12||1,min=lo-pad,max=hi+pad;
- const x=i=>L+(data.length===1?innerW/2:i*innerW/(data.length-1)),y=v=>T+(max-v)/(max-min)*innerH;
- let grid='';for(let i=0;i<5;i++){let v=max-(max-min)*i/4,yy=y(v);grid+=`<line class="chart-gridline" x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}"/><text class="chart-axis" x="${L-8}" y="${yy+3}" text-anchor="end">${Math.abs(v)>=1000000?(v/1000000).toFixed(1)+'tr':Math.abs(v)>=1000?Math.round(v/1000)+'k':Math.round(v)}</text>`}
- const bars=series.filter(z=>z.type==='bar'),barW=Math.min(compact?25:34,innerW/Math.max(data.length,1)*.42);
- const chartAmount=v=>{let n=Math.round(num(v)),a=Math.abs(n);if(a>=1000000)return (n/1000000).toLocaleString('vi-VN',{maximumFractionDigits:1})+'tr';if(a>=1000)return (n/1000).toLocaleString('vi-VN',{maximumFractionDigits:1})+'k';return String(n)};
- // Nhãn cột đặt trên đầu cột; nhãn đường đặt dưới điểm để giảm va chạm.
- let shapes=data.map((d,i)=>{let group=bars.length,each=barW/Math.max(group,1);return bars.map((z,j)=>{let xx=x(i)+(j-(group-1)/2)*each-each/2,yy=y(num(d[z.key])),base=y(0),top=Math.min(yy,base),labelY=Math.max(T+12,top-7),labelX=xx+each*.41;return `<rect x="${xx}" y="${top}" width="${each*.82}" height="${Math.max(1,Math.abs(base-yy))}" rx="3" fill="${z.color}"><title>${z.label}: ${money(d[z.key])}</title></rect>`}).join('')}).join('');
- let lines=series.filter(z=>z.type!=='bar').map((z,zi)=>{let pts=data.map((d,i)=>`${x(i)},${y(num(d[z.key]))}`).join(' ');let dots=data.map((d,i)=>{let cy=y(num(d[z.key])),labelY=Math.min(H-B-16,cy+18+(zi*10));return `<circle class="chart-point" cx="${x(i)}" cy="${cy}" r="3.5" fill="${z.color}"><title>${z.label}: ${money(d[z.key])}</title></circle><text x="${x(i)}" y="${labelY}" text-anchor="middle" class="chart-value-label" fill="${z.color}">${chartAmount(d[z.key])}</text>`}).join('');return `<polyline class="chart-line" stroke="${z.color}" points="${pts}"/>${dots}`}).join('');
- let labels=data.map((d,i)=>`<text class="chart-axis" x="${x(i)}" y="${H-10}" text-anchor="middle">${esc(d.label)}</text>`).join('');
- return `<div class="analytics-chart ${compact?'compact-chart':''}"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Biểu đồ ${series.map(z=>z.label).join(', ')}">${grid}${shapes}${lines}${labels}</svg></div><div class="analytics-legend">${series.map(z=>`<span><i class="legend-dot" style="background:${z.color}"></i>${z.label}</span>`).join('')}</div>`;
+ if(!data.length)return '<div class="empty">Chưa có dữ liệu để vẽ biểu đồ.</div>';
+ const W=820,H=compact?190:250,L=58,R=18,T=18,B=38,innerW=W-L-R,innerH=H-T-B;
+ const vals=data.flatMap(d=>series.map(z=>num(d[z.key]))),lo=Math.min(0,...vals),hi=Math.max(1,...vals),pad=(hi-lo)*.12||1,min=lo-pad,max=hi+pad;
+ const x=i=>L+(data.length===1?innerW/2:i*innerW/(data.length-1)),y=v=>T+(max-v)/(max-min)*innerH;
+ let grid='';for(let i=0;i<5;i++){let v=max-(max-min)*i/4,yy=y(v);grid+=`<line class="chart-gridline" x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}"/><text class="chart-axis" x="${L-8}" y="${yy+3}" text-anchor="end">${Math.abs(v)>=1000000?(v/1000000).toFixed(1)+'tr':Math.abs(v)>=1000?Math.round(v/1000)+'k':Math.round(v)}</text>`}
+ const bars=series.filter(z=>z.type==='bar'),barW=Math.min(compact?25:34,innerW/Math.max(data.length,1)*.42);
+ const chartAmount=v=>{let n=Math.round(num(v)),a=Math.abs(n);if(a>=1000000)return (n/1000000).toLocaleString('vi-VN',{maximumFractionDigits:1})+'tr';if(a>=1000)return (n/1000).toLocaleString('vi-VN',{maximumFractionDigits:1})+'k';return String(n)};
+ // Nhãn cột đặt trên đầu cột; nhãn đường đặt dưới điểm để giảm va chạm.
+ let shapes=data.map((d,i)=>{let group=bars.length,each=barW/Math.max(group,1);return bars.map((z,j)=>{let xx=x(i)+(j-(group-1)/2)*each-each/2,yy=y(num(d[z.key])),base=y(0),top=Math.min(yy,base),labelY=Math.max(T+12,top-7),labelX=xx+each*.41;return `<rect x="${xx}" y="${top}" width="${each*.82}" height="${Math.max(1,Math.abs(base-yy))}" rx="3" fill="${z.color}"><title>${z.label}: ${money(d[z.key])}</title></rect>`}).join('')}).join('');
+ let lines=series.filter(z=>z.type!=='bar').map((z,zi)=>{let pts=data.map((d,i)=>`${x(i)},${y(num(d[z.key]))}`).join(' ');let dots=data.map((d,i)=>{let cy=y(num(d[z.key])),labelY=Math.min(H-B-16,cy+18+(zi*10));return `<circle class="chart-point" cx="${x(i)}" cy="${cy}" r="3.5" fill="${z.color}"><title>${z.label}: ${money(d[z.key])}</title></circle><text x="${x(i)}" y="${labelY}" text-anchor="middle" class="chart-value-label" fill="${z.color}">${chartAmount(d[z.key])}</text>`}).join('');return `<polyline class="chart-line" stroke="${z.color}" points="${pts}"/>${dots}`}).join('');
+ let labels=data.map((d,i)=>`<text class="chart-axis" x="${x(i)}" y="${H-10}" text-anchor="middle">${esc(d.label)}</text>`).join('');
+ return `<div class="analytics-chart ${compact?'compact-chart':''}"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Biểu đồ ${series.map(z=>z.label).join(', ')}">${grid}${shapes}${lines}${labels}</svg></div><div class="analytics-legend">${series.map(z=>`<span><i class="legend-dot" style="background:${z.color}"></i>${z.label}</span>`).join('')}</div>`;
 }
 function expenseBreakdown(orders,expenses){let ads=expensesTotal(expenses.filter(e=>(e.type||(e.category==='Quảng cáo'?'ads':'other'))==='ads'));let other=expensesTotal(expenses.filter(e=>(e.type||(e.category==='Quảng cáo'?'ads':'other'))!=='ads'))+orders.reduce((a,o)=>a+num(o.extraCost),0);return{ads,other}}
- 
+
 function dashboardPage(){
- let now=today(),month=now.slice(0,7),ws=weekStart(now);let mo=db.orders.filter(o=>o.date.startsWith(month)),we=db.orders.filter(o=>inRange(o.date,ws,now));let me=db.expenses.filter(e=>e.date.startsWith(month)),mt=totals(mo,me),wt=totals(we,db.expenses.filter(e=>inRange(e.date,ws,now))),mb=expenseBreakdown(mo,me);let recent=[...db.orders].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);let overdue=db.customers.map(c=>({...c,last:db.orders.filter(o=>o.customerId===c.id).map(o=>o.date).sort().at(-1)})).filter(c=>c.last&&Math.floor((Date.now()-new Date(c.last+'T00:00:00'))/86400000)>=30);
- let days=Array.from({length:7},(_,i)=>{let d=new Date();d.setDate(d.getDate()-6+i);let k=d.toISOString().slice(0,10),os=db.orders.filter(o=>o.date===k),es=db.expenses.filter(e=>e.date===k);let t=totals(os,es);return{key:k,label:k.slice(8)+'/'+k.slice(5,7),...t,totalCost:t.c+t.e}});
- let weeks=Array.from({length:6},(_,i)=>{let d=new Date();d.setDate(d.getDate()-((d.getDay()+6)%7)-7*(5-i));let from=d.toISOString().slice(0,10),to=new Date(d.getTime()+6*86400000).toISOString().slice(0,10),os=db.orders.filter(o=>inRange(o.date,from,to)),es=db.expenses.filter(e=>inRange(e.date,from,to));return{key:from,label:'T'+(i+1),...totals(os,es)}});
- const rp=[{key:'r',label:'Doanh số',color:'#3478ee',type:'bar'},{key:'totalCost',label:'Chi phí',color:'#f29b38',type:'bar'},{key:'p',label:'Lợi nhuận',color:'#18a875',type:'line'}];
- return `<div class="welcome-strip"><div><div class="eyebrow">BẢNG ĐIỀU KHIỂN</div><h2>Xin chào! 👋</h2><p>Theo dõi tình hình kinh doanh của bạn hôm nay.</p></div></div>
- <div class="cards">${metric('Doanh thu tháng',money(mt.r),month,'↗','blue')}${metric('Số đơn hàng',String(mo.length),'Đơn trong tháng','▤','green')}${metric('Chi phí tháng',money(mt.c+mt.e),'Giá vốn + chi phí','↘','orange')}${metric('Lợi nhuận tháng',`<span class="${mt.p<0?'negative':'positive'}">${money(mt.p)}</span>`,'Sau khi trừ chi phí','◷','purple')}</div>
- <section class="panel" style="margin-bottom:16px"><div class="panel-heading"><div><h2>Doanh thu, chi phí & lợi nhuận theo ngày</h2><p>7 ngày gần nhất</p></div></div>${analyticsChart(days,rp,true)}</section>
- <div class="dashboard-grid"><section class="panel"><h2>Chi phí tháng ${month}</h2><div class="cost-breakdown"><div class="cost-chip">Chi phí quảng cáo<strong>${money(mb.ads)}</strong></div><div class="cost-chip">Chi phí khác<strong>${money(mb.other)}</strong></div><div class="cost-chip">Giá vốn hàng bán<strong>${money(mt.c)}</strong></div></div></section><section class="panel summary-panel"><h2>Tổng kết nhanh</h2><div class="summary-stat"><span>Doanh thu tuần này</span><strong>${money(wt.r)}</strong></div><div class="summary-stat"><span>Lợi nhuận tuần này</span><strong class="${wt.p<0?'negative':'positive'}">${money(wt.p)}</strong></div><div class="summary-stat"><span>Đơn hàng tuần này</span><strong>${we.length}</strong></div><div class="summary-stat"><span>Khách hàng</span><strong>${db.customers.length}</strong></div><button class="secondary full-btn" onclick="page='reports';render()">Xem báo cáo chi tiết →</button></section></div>
- <div class="grid2 lower-grid"><section class="panel"><div class="panel-heading"><h2>Đơn hàng gần đây</h2><button class="link-btn" onclick="page='orders';render()">Xem tất cả →</button></div>${recent.length?`<div class="tablewrap"><table><thead><tr><th>Ngày</th><th>Khách hàng</th><th>Doanh thu</th><th>Lợi nhuận</th></tr></thead><tbody>${recent.map(o=>`<tr><td>${dateFmt(o.date)}</td><td><strong>${esc(customer(o.customerId)?.name||'Khách lẻ')}</strong></td><td>${money(revenue(o))}</td><td class="${orderProfit(o)<0?'negative':'positive'}">${money(orderProfit(o))}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">Chưa có đơn hàng. Hãy tạo đơn đầu tiên.</div>'}</section><section class="panel"><h2>Khách hàng cần chăm sóc</h2>${overdue.length?overdue.map(c=>`<div class="customerbox"><div><strong>${esc(c.name)}</strong><div class="muted">${esc(c.area||c.address||'Chưa có địa chỉ')}</div></div><span class="tag warn">${Math.floor((Date.now()-new Date(c.last+'T00:00:00'))/86400000)} ngày</span></div>`).join(''):'<div class="empty">Chưa có khách nào quá 30 ngày chưa mua.</div>'}</section></div>`
+ let now=today(),month=now.slice(0,7),ws=weekStart(now);let mo=db.orders.filter(o=>o.date.startsWith(month)),we=db.orders.filter(o=>inRange(o.date,ws,now));let me=db.expenses.filter(e=>e.date.startsWith(month)),mt=totals(mo,me),wt=totals(we,db.expenses.filter(e=>inRange(e.date,ws,now))),mb=expenseBreakdown(mo,me);let recent=[...db.orders].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);let overdue=db.customers.map(c=>({...c,last:db.orders.filter(o=>o.customerId===c.id).map(o=>o.date).sort().at(-1)})).filter(c=>c.last&&Math.floor((Date.now()-new Date(c.last+'T00:00:00'))/86400000)>=30);
+ let days=Array.from({length:7},(_,i)=>{let d=new Date();d.setDate(d.getDate()-6+i);let k=d.toISOString().slice(0,10),os=db.orders.filter(o=>o.date===k),es=db.expenses.filter(e=>e.date===k);let t=totals(os,es);return{key:k,label:k.slice(8)+'/'+k.slice(5,7),...t,totalCost:t.c+t.e}});
+ let weeks=Array.from({length:6},(_,i)=>{let d=new Date();d.setDate(d.getDate()-((d.getDay()+6)%7)-7*(5-i));let from=d.toISOString().slice(0,10),to=new Date(d.getTime()+6*86400000).toISOString().slice(0,10),os=db.orders.filter(o=>inRange(o.date,from,to)),es=db.expenses.filter(e=>inRange(e.date,from,to));return{key:from,label:'T'+(i+1),...totals(os,es)}});
+ const rp=[{key:'r',label:'Doanh số',color:'#3478ee',type:'bar'},{key:'totalCost',label:'Chi phí',color:'#f29b38',type:'bar'},{key:'p',label:'Lợi nhuận',color:'#18a875',type:'line'}];
+ return `<div class="welcome-strip"><div><div class="eyebrow">BẢNG ĐIỀU KHIỂN</div><h2>Xin chào! 👋</h2><p>Theo dõi tình hình kinh doanh của bạn hôm nay.</p></div></div>
+ <div class="cards">${metric('Doanh thu tháng',money(mt.r),month,'↗','blue')}${metric('Số đơn hàng',String(mo.length),'Đơn trong tháng','▤','green')}${metric('Chi phí tháng',money(mt.c+mt.e),'Giá vốn + chi phí','↘','orange')}${metric('Lợi nhuận tháng',`<span class="${mt.p<0?'negative':'positive'}">${money(mt.p)}</span>`,'Sau khi trừ chi phí','◷','purple')}</div>
+ <section class="panel" style="margin-bottom:16px"><div class="panel-heading"><div><h2>Doanh thu, chi phí & lợi nhuận theo ngày</h2><p>7 ngày gần nhất</p></div></div>${analyticsChart(days,rp,true)}</section>
+ <div class="dashboard-grid"><section class="panel"><h2>Chi phí tháng ${month}</h2><div class="cost-breakdown"><div class="cost-chip">Chi phí quảng cáo<strong>${money(mb.ads)}</strong></div><div class="cost-chip">Chi phí khác<strong>${money(mb.other)}</strong></div><div class="cost-chip">Giá vốn hàng bán<strong>${money(mt.c)}</strong></div></div></section><section class="panel summary-panel"><h2>Tổng kết nhanh</h2><div class="summary-stat"><span>Doanh thu tuần này</span><strong>${money(wt.r)}</strong></div><div class="summary-stat"><span>Lợi nhuận tuần này</span><strong class="${wt.p<0?'negative':'positive'}">${money(wt.p)}</strong></div><div class="summary-stat"><span>Đơn hàng tuần này</span><strong>${we.length}</strong></div><div class="summary-stat"><span>Khách hàng</span><strong>${db.customers.length}</strong></div><button class="secondary full-btn" onclick="page='reports';render()">Xem báo cáo chi tiết →</button></section></div>
+ <div class="grid2 lower-grid"><section class="panel"><div class="panel-heading"><h2>Đơn hàng gần đây</h2><button class="link-btn" onclick="page='orders';render()">Xem tất cả →</button></div>${recent.length?`<div class="tablewrap"><table><thead><tr><th>Ngày</th><th>Khách hàng</th><th>Doanh thu</th><th>Lợi nhuận</th></tr></thead><tbody>${recent.map(o=>`<tr><td>${dateFmt(o.date)}</td><td><strong>${esc(customer(o.customerId)?.name||'Khách lẻ')}</strong></td><td>${money(revenue(o))}</td><td class="${orderProfit(o)<0?'negative':'positive'}">${money(orderProfit(o))}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">Chưa có đơn hàng. Hãy tạo đơn đầu tiên.</div>'}</section><section class="panel"><h2>Khách hàng cần chăm sóc</h2>${overdue.length?overdue.map(c=>`<div class="customerbox"><div><strong>${esc(c.name)}</strong><div class="muted">${esc(c.area||c.address||'Chưa có địa chỉ')}</div></div><span class="tag warn">${Math.floor((Date.now()-new Date(c.last+'T00:00:00'))/86400000)} ngày</span></div>`).join(''):'<div class="empty">Chưa có khách nào quá 30 ngày chưa mua.</div>'}</section></div>`
 }
-function ordersPage(){let rows=[...db.orders].sort((a,b)=>b.date.localeCompare(a.date));return `<div class="toolbar"><input id="orderSearch" placeholder="Tìm khách hàng, mã đơn..."><button onclick="openOrder()">＋ Thêm đơn hàng</button></div><section class="panel"><div class="tablewrap"><table><thead><tr><th>Ngày</th><th>Mã đơn</th><th>Khách hàng</th><th>Sản phẩm</th><th>Doanh thu</th><th>Giá vốn</th><th>Lợi nhuận</th><th></th></tr></thead><tbody id="orderRows">${rows.map(orderRow).join('')||'<tr><td colspan="8" class="empty">Chưa có đơn hàng</td></tr>'}</tbody></table></div></section>`}
-function orderRow(o){return `<tr data-search="${esc((customer(o.customerId)?.name||'')+' '+o.id).toLowerCase()}"><td>${dateFmt(o.date)}</td><td>${esc(o.id)}</td><td>${esc(customer(o.customerId)?.name||'Khách lẻ')}</td><td>${o.lines.map(l=>esc(l.name)+' × '+l.qty).join(', ')}</td><td>${money(revenue(o))}</td><td>${money(cost(o))}</td><td class="${orderProfit(o)<0?'negative':'positive'}">${money(orderProfit(o))}</td><td><button class="small danger" onclick="del('orders','${o.id}')">Xóa</button></td></tr>`}
+function ordersPage(){let rows=[...db.orders].sort((a,b)=>b.date.localeCompare(a.date));return `<div class="toolbar"><input id="orderSearch" placeholder="Tìm khách hàng, mã đơn..."><button onclick="openOrder()">＋ Thêm đơn hàng</button></div><section class="panel"><div class="tablewrap"><table><thead><tr><th>Ngày</th><th>Mã đơn</th><th>Khách hàng</th><th>Sản phẩm</th><th>Doanh thu</th><th>Giá vốn</th><th>Lợi nhuận</th><th></th></tr></thead><tbody id="orderRows">${rows.map(orderRow).join('')||'<tr><td colspan="8" class="empty">Chưa có đơn hàng</td></tr>'}</tbody></table></div><p class="muted order-hint">Nhấn vào một dòng đơn hàng để xem toàn bộ chi tiết.</p></section>`}
+function orderRow(o){return `<tr class="order-row" tabindex="0" role="button" aria-label="Xem chi tiết đơn ${esc(o.id)}" onclick="showOrderDetail('${esc(o.id)}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showOrderDetail('${esc(o.id)}')}" data-search="${esc((customer(o.customerId)?.name||'')+' '+o.id).toLowerCase()}"><td>${dateFmt(o.date)}</td><td><strong>${esc(o.id)}</strong></td><td>${esc(customer(o.customerId)?.name||'Khách lẻ')}</td><td>${o.lines.map(l=>esc(l.name)+' × '+l.qty).join(', ')}</td><td>${money(revenue(o))}</td><td>${money(cost(o))}</td><td class="${orderProfit(o)<0?'negative':'positive'}">${money(orderProfit(o))}</td><td><button class="small danger" onclick="event.stopPropagation();del('orders','${esc(o.id)}')">Xóa</button></td></tr>`}
+function showOrderDetail(id){let o=db.orders.find(x=>x.id===id);if(!o)return;let c=customer(o.customerId),linked=db.expenses.filter(e=>e.orderId===o.id),extra=num(o.extraCost),rev=revenue(o),baseCost=cost(o),linkedCost=expensesTotal(linked),profit=orderProfit(o);openModal('Chi tiết đơn hàng',`<div class="order-detail"><div class="order-detail-head"><div><div class="muted">Mã đơn hàng</div><strong class="order-code">${esc(o.id)}</strong></div><span class="tag">${dateFmt(o.date)}</span></div><section class="detail-section"><h3>Khách hàng</h3><div class="detail-grid"><div><small>Tên khách hàng</small><strong>${esc(c?.name||'Khách lẻ / chưa lưu')}</strong></div><div><small>Số điện thoại</small><strong>${esc(c?.phone||'—')}</strong></div><div><small>Khu vực</small><strong>${esc(c?.area||'—')}</strong></div><div><small>Địa chỉ</small><strong>${esc(c?.address||'—')}</strong></div></div></section><section class="detail-section"><h3>Sản phẩm trong đơn (${o.lines.length})</h3><div class="tablewrap"><table class="detail-lines"><thead><tr><th>Sản phẩm</th><th>SL</th><th>Đơn giá</th><th>Giá vốn/đv</th><th>Thành tiền</th></tr></thead><tbody>${o.lines.map(l=>`<tr><td><strong>${esc(l.name)}</strong></td><td>${num(l.qty)}</td><td>${money(l.price)}</td><td>${money(l.cost)}</td><td><strong>${money(num(l.price)*num(l.qty))}</strong></td></tr>`).join('')}</tbody></table></div></section><section class="detail-section"><h3>Tổng kết tài chính</h3><div class="summaryline"><span>Doanh thu</span><strong>${money(rev)}</strong></div><div class="summaryline"><span>Giá vốn hàng bán</span><strong>${money(baseCost)}</strong></div><div class="summaryline"><span>Chi phí riêng của đơn</span><strong>${money(extra)}</strong></div><div class="summaryline"><span>Chi phí khác gắn với đơn</span><strong>${money(linkedCost)}</strong></div><div class="summaryline detail-profit"><strong>Lợi nhuận thực tế</strong><strong class="${profit<0?'negative':'positive'}">${money(profit)}</strong></div></section>${linked.length?`<section class="detail-section"><h3>Các khoản chi gắn với đơn</h3>${linked.map(e=>`<div class="summaryline"><span>${esc(e.name)} · ${dateFmt(e.date)}</span><strong>${money(e.amount)}</strong></div>`).join('')}</section>`:''}<section class="detail-section"><h3>Ghi chú</h3><p>${esc(o.note||'Không có ghi chú')}</p></section><div class="actions"><button class="secondary" onclick="closeModal()">Đóng</button><button class="danger" onclick="if(confirm('Bạn chắc chắn muốn xóa đơn hàng này?')){del('orders','${esc(o.id)}');closeModal()}">Xóa đơn hàng</button></div></div>`) }
 function customersPage(){let filt=window.customerFilter||'all';let rows=db.customers.map(c=>{let os=db.orders.filter(o=>o.customerId===c.id),last=os.map(o=>o.date).sort().at(-1),days=last?Math.floor((Date.now()-new Date(last+'T00:00:00'))/86400000):null;return{c,os,last,days}}).filter(x=>filt==='all'||(filt==='never'&&x.days===null)||(filt!=='never'&&x.days!==null&&x.days>=Number(filt))).sort((a,b)=>(b.days??-1)-(a.days??-1));return `<div class="toolbar"><input id="customerSearch" placeholder="Tìm tên, số điện thoại, khu vực..."><button onclick="openCustomer()">＋ Thêm khách hàng</button></div><div class="toolbar"><button class="${filt==='all'?'':'secondary'} small" onclick="setCustomerFilter('all')">Tất cả</button><button class="${filt==='15'?'':'secondary'} small" onclick="setCustomerFilter('15')">≥ 15 ngày</button><button class="${filt==='30'?'':'secondary'} small" onclick="setCustomerFilter('30')">≥ 30 ngày</button><button class="${filt==='60'?'':'secondary'} small" onclick="setCustomerFilter('60')">≥ 60 ngày</button><button class="${filt==='never'?'':'secondary'} small" onclick="setCustomerFilter('never')">Chưa có đơn</button><span class="muted" style="font-size:12px">Hiển thị ${rows.length} khách</span></div><section class="panel"><div class="tablewrap"><table><thead><tr><th>Khách hàng</th><th>Liên hệ</th><th>Khu vực / địa chỉ</th><th>Số đơn</th><th>Tổng mua</th><th>Lần mua gần nhất</th><th>Chưa nhập hàng</th><th></th></tr></thead><tbody id="customerRows">${rows.map(({c,os,last,days})=>`<tr data-search="${esc((c.name+' '+c.phone+' '+c.area+' '+c.address).toLowerCase())}"><td><strong>${esc(c.name)}</strong></td><td>${esc(c.phone||'—')}</td><td>${esc([c.area,c.address].filter(Boolean).join(' · ')||'—')}</td><td>${os.length}</td><td>${money(os.reduce((s,o)=>s+revenue(o),0))}</td><td>${dateFmt(last)}</td><td>${days===null?'<span class="tag warn">Chưa có đơn</span>':days>=60?`<span class="tag warn">${days} ngày</span>`:days>=30?`<span class="tag warn">${days} ngày</span>`:`${days} ngày`}</td><td><button class="small secondary" onclick="editCustomer('${c.id}')">Sửa</button> <button class="small danger" onclick="del('customers','${c.id}')">Xóa</button></td></tr>`).join('')||'<tr><td colspan="8" class="empty">Không có khách hàng trong nhóm này</td></tr>'}</tbody></table></div></section>`}
 function setCustomerFilter(v){window.customerFilter=v;render()}
 function productsPage(){return `<div class="notice">Thêm ảnh sản phẩm để dễ nhận diện. Ảnh được thu nhỏ trước khi lưu và đồng bộ cùng dữ liệu.</div><div class="toolbar"><button onclick="openProduct()">＋ Thêm sản phẩm</button></div><section class="panel"><div class="tablewrap"><table><thead><tr><th>Ảnh</th><th>Sản phẩm</th><th>Giá vốn</th><th>Giá bán mặc định</th><th>Lãi dự kiến</th><th>Ghi chú</th><th></th></tr></thead><tbody>${db.products.map(p=>`<tr><td>${p.image?`<img class="product-thumb" src="${p.image}" alt="${esc(p.name)}">`:'<div class="product-placeholder">📦</div>'}</td><td><strong>${esc(p.name)}</strong></td><td>${money(p.cost)}</td><td>${money(p.price)}</td><td class="positive">${money(num(p.price)-num(p.cost))}</td><td>${esc(p.note||'—')}</td><td><button class="small secondary" onclick="editProduct('${p.id}')">Sửa</button> <button class="small danger" onclick="del('products','${p.id}')">Xóa</button></td></tr>`).join('')||'<tr><td colspan="7" class="empty">Chưa có sản phẩm</td></tr>'}</tbody></table></div></section>`}
 function expensesPage(){return `<div class="toolbar"><button onclick="openExpense()">＋ Ghi chi phí</button></div><section class="panel"><div class="tablewrap"><table><thead><tr><th>Ngày</th><th>Khoản chi</th><th>Loại chi phí</th><th>Nhóm</th><th>Gắn với đơn</th><th>Số tiền</th><th>Ghi chú</th><th></th></tr></thead><tbody>${[...db.expenses].sort((a,b)=>b.date.localeCompare(a.date)).map(e=>`<tr><td>${dateFmt(e.date)}</td><td>${esc(e.name)}</td><td>${(e.type|| (e.category==='Quảng cáo'?'ads':'other'))==='ads'?'Quảng cáo':'Chi phí khác'}</td><td>${esc(e.category)}</td><td>${esc(e.orderId||'Chi phí chung')}</td><td>${money(e.amount)}</td><td>${esc(e.note||'—')}</td><td><button class="small danger" onclick="del('expenses','${e.id}')">Xóa</button></td></tr>`).join('')||'<tr><td colspan="8" class="empty">Chưa có chi phí</td></tr>'}</tbody></table></div></section>`}
 function reportsPage(){
- let mode=window.reportMode||'day',now=today(),anchor=window.reportDate||now,buckets=[];
- if(mode==='day'){
-  for(let i=6;i>=0;i--){let d=new Date(anchor+'T00:00:00');d.setDate(d.getDate()-i);let k=d.toISOString().slice(0,10);buckets.push({from:k,to:k,label:k.slice(8)+'/'+k.slice(5,7),caption:dateFmt(k)});}
- }else if(mode==='week'){
-  let end=weekStart(anchor);for(let i=6;i>=0;i--){let d=new Date(end+'T00:00:00');d.setDate(d.getDate()-7*i);let f=d.toISOString().slice(0,10),t=new Date(d.getTime()+6*86400000).toISOString().slice(0,10);buckets.push({from:f,to:t,label:'T'+(i+1),caption:dateFmt(f)+' – '+dateFmt(t)});}
- }else{
-  let base=new Date(anchor+'T00:00:00');base.setDate(1);for(let i=6;i>=0;i--){let d=new Date(base.getFullYear(),base.getMonth()-i,1),f=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-01',last=new Date(d.getFullYear(),d.getMonth()+1,0),t=last.toISOString().slice(0,10);buckets.push({from:f,to:t,label:String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear().toString().slice(-2),caption:f.slice(0,7)});}
- }
- let rows=buckets.map(b=>{let oo=db.orders.filter(o=>inRange(o.date,b.from,b.to)),ee=db.expenses.filter(e=>inRange(e.date,b.from,b.to)),tt=totals(oo,ee),bb=expenseBreakdown(oo,ee);return{...b,...tt,ads:bb.ads,other:bb.other,allCost:tt.c+bb.ads+bb.other}});
- let total={r:rows.reduce((a,x)=>a+x.r,0),c:rows.reduce((a,x)=>a+x.c,0),p:rows.reduce((a,x)=>a+x.p,0),n:rows.reduce((a,x)=>a+x.n,0),ads:rows.reduce((a,x)=>a+x.ads,0),other:rows.reduce((a,x)=>a+x.other,0),allCost:rows.reduce((a,x)=>a+x.allCost,0)};
- let title=mode==='day'?'7 ngày gần nhất':mode==='week'?'7 tuần gần nhất':'7 tháng gần nhất';
- let chartSeries=[{key:'r',label:'Doanh thu',color:'#3478ee',type:'bar'},{key:'allCost',label:'Tổng chi phí',color:'#f29b38',type:'bar'},{key:'p',label:'Lợi nhuận',color:'#18a875',type:'line'}];
- return `<div class="toolbar"><button class="${mode==='day'?'':'secondary'}" onclick="window.reportMode='day';render()">Theo ngày</button><button class="${mode==='week'?'':'secondary'}" onclick="window.reportMode='week';render()">Theo tuần</button><button class="${mode==='month'?'':'secondary'}" onclick="window.reportMode='month';render()">Theo tháng</button><label class="muted">Mốc xem: <input type="date" value="${anchor}" onchange="window.reportDate=this.value;render()" style="padding:8px;border:1px solid #dce2ea;border-radius:8px"></label></div>
- <div class="notice">${title} tính đến mốc ${dateFmt(anchor)}. Chọn mốc khác để xem 7 khoảng thời gian tương ứng.</div>
- <div class="cards">${metric('Doanh thu',money(total.r),title)}${metric('Tổng chi phí',money(total.allCost),'Giá vốn + quảng cáo + chi phí khác')}${metric('Chi phí quảng cáo',money(total.ads))}${metric('Chi phí khác',money(total.other))}</div><div class="cards">${metric('Lợi nhuận ròng',`<span class="${total.p<0?'negative':'positive'}">${money(total.p)}</span>`,`${total.n} đơn hàng`)}</div>
- <section class="panel" style="margin-bottom:16px"><h2>Doanh thu, lợi nhuận & chi phí</h2><p class="muted" style="font-size:12px">Cột thể hiện doanh thu và tổng chi phí; đường thể hiện lợi nhuận</p>${analyticsChart(rows,chartSeries)}</section>
- <section class="panel"><h2>Chi tiết theo ${mode==='day'?'ngày':mode==='week'?'tuần':'tháng'}</h2><div class="tablewrap"><table><thead><tr><th>Khoảng thời gian</th><th>Số đơn</th><th>Doanh thu</th><th>Giá vốn</th><th>Chi phí quảng cáo</th><th>Chi phí khác</th><th>Lợi nhuận</th></tr></thead><tbody>${rows.map(d=>`<tr><td>${d.caption}</td><td>${d.n}</td><td>${money(d.r)}</td><td>${money(d.c)}</td><td>${money(d.ads)}</td><td>${money(d.other)}</td><td class="${d.p<0?'negative':'positive'}">${money(d.p)}</td></tr>`).join('')}</tbody></table></div></section>`
+ let mode=window.reportMode||'day',now=today(),anchor=window.reportDate||now,buckets=[];
+ if(mode==='day'){
+  for(let i=6;i>=0;i--){let d=new Date(anchor+'T00:00:00');d.setDate(d.getDate()-i);let k=d.toISOString().slice(0,10);buckets.push({from:k,to:k,label:k.slice(8)+'/'+k.slice(5,7),caption:dateFmt(k)});}
+ }else if(mode==='week'){
+  let end=weekStart(anchor);for(let i=6;i>=0;i--){let d=new Date(end+'T00:00:00');d.setDate(d.getDate()-7*i);let f=d.toISOString().slice(0,10),t=new Date(d.getTime()+6*86400000).toISOString().slice(0,10);buckets.push({from:f,to:t,label:'T'+(i+1),caption:dateFmt(f)+' – '+dateFmt(t)});}
+ }else{
+  let base=new Date(anchor+'T00:00:00');base.setDate(1);for(let i=6;i>=0;i--){let d=new Date(base.getFullYear(),base.getMonth()-i,1),f=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-01',last=new Date(d.getFullYear(),d.getMonth()+1,0),t=last.toISOString().slice(0,10);buckets.push({from:f,to:t,label:String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear().toString().slice(-2),caption:f.slice(0,7)});}
+ }
+ let rows=buckets.map(b=>{let oo=db.orders.filter(o=>inRange(o.date,b.from,b.to)),ee=db.expenses.filter(e=>inRange(e.date,b.from,b.to)),tt=totals(oo,ee),bb=expenseBreakdown(oo,ee);return{...b,...tt,ads:bb.ads,other:bb.other,allCost:tt.c+bb.ads+bb.other}});
+ let total={r:rows.reduce((a,x)=>a+x.r,0),c:rows.reduce((a,x)=>a+x.c,0),p:rows.reduce((a,x)=>a+x.p,0),n:rows.reduce((a,x)=>a+x.n,0),ads:rows.reduce((a,x)=>a+x.ads,0),other:rows.reduce((a,x)=>a+x.other,0),allCost:rows.reduce((a,x)=>a+x.allCost,0)};
+ let title=mode==='day'?'7 ngày gần nhất':mode==='week'?'7 tuần gần nhất':'7 tháng gần nhất';
+ let chartSeries=[{key:'r',label:'Doanh thu',color:'#3478ee',type:'bar'},{key:'allCost',label:'Tổng chi phí',color:'#f29b38',type:'bar'},{key:'p',label:'Lợi nhuận',color:'#18a875',type:'line'}];
+ return `<div class="toolbar"><button class="${mode==='day'?'':'secondary'}" onclick="window.reportMode='day';render()">Theo ngày</button><button class="${mode==='week'?'':'secondary'}" onclick="window.reportMode='week';render()">Theo tuần</button><button class="${mode==='month'?'':'secondary'}" onclick="window.reportMode='month';render()">Theo tháng</button><label class="muted">Mốc xem: <input type="date" value="${anchor}" onchange="window.reportDate=this.value;render()" style="padding:8px;border:1px solid #dce2ea;border-radius:8px"></label></div>
+ <div class="notice">${title} tính đến mốc ${dateFmt(anchor)}. Chọn mốc khác để xem 7 khoảng thời gian tương ứng.</div>
+ <div class="cards report-metrics">${metric('Doanh thu',money(total.r),title)}${metric('Tổng chi phí',money(total.allCost),'Giá vốn + quảng cáo + chi phí khác')}${metric('Chi phí quảng cáo',money(total.ads))}${metric('Chi phí khác',money(total.other))}</div><div class="report-profit-strip"><span><strong>Lợi nhuận ròng</strong><small>${total.n} đơn hàng</small></span><strong class="${total.p<0?'negative':'positive'}">${money(total.p)}</strong></div>
+ <section class="panel" style="margin-bottom:16px"><h2>Doanh thu, lợi nhuận & chi phí</h2><p class="muted" style="font-size:12px">Cột thể hiện doanh thu và tổng chi phí; đường thể hiện lợi nhuận</p>${analyticsChart(rows,chartSeries)}</section>
+ <section class="panel"><h2>Chi tiết theo ${mode==='day'?'ngày':mode==='week'?'tuần':'tháng'}</h2><div class="tablewrap"><table><thead><tr><th>Khoảng thời gian</th><th>Số đơn</th><th>Doanh thu</th><th>Giá vốn</th><th>Chi phí quảng cáo</th><th>Chi phí khác</th><th>Lợi nhuận</th></tr></thead><tbody>${rows.map(d=>`<tr><td>${d.caption}</td><td>${d.n}</td><td>${money(d.r)}</td><td>${money(d.c)}</td><td>${money(d.ads)}</td><td>${money(d.other)}</td><td class="${d.p<0?'negative':'positive'}">${money(d.p)}</td></tr>`).join('')}</tbody></table></div></section>`
 }
 function settingsPage(){let cfg=JSON.parse(localStorage.getItem('mysales_supabase_config')||'{}');return `<section class="panel"><h2>Đồng bộ điện thoại và máy tính</h2><div class="notice">${cloudUser?`Đã đăng nhập: ${esc(cloudUser.email)} · Đồng bộ đám mây đang bật.`:'Kết nối Supabase một lần để dùng chung dữ liệu trên nhiều thiết bị. Mỗi thiết bị cần nhập cùng Project URL và publishable key, sau đó đăng nhập cùng tài khoản.'}</div><div class="formgrid"><div class="field span2"><label>Supabase Project URL</label><input id="sbUrl" placeholder="https://xxxxxxxx.supabase.co" value="${esc(cfg.url||'')}"></div><div class="field span2"><label>Supabase publishable key (hoặc anon key cũ)</label><input id="sbKey" placeholder="sb_publishable_... hoặc anon key" value="${esc(cfg.key||'')}"></div><div class="field"><label>Email</label><input id="sbEmail" type="email" placeholder="email của bạn"></div><div class="field"><label>Mật khẩu</label><input id="sbPass" type="password" placeholder="Mật khẩu tài khoản"></div></div><div class="toolbar"><button onclick="connectCloud()">Lưu cấu hình / kết nối</button><button class="secondary" onclick="cloudSignUp()">Tạo tài khoản</button><button class="secondary" onclick="cloudSignIn()">Đăng nhập & đồng bộ</button><button class="secondary" onclick="cloudSignOut()">Đăng xuất</button></div><p class="muted" style="font-size:12px">Không gửi mật khẩu cho bất kỳ ai. Mật khẩu chỉ được gửi trực tiếp tới Supabase Auth. Dữ liệu cục bộ vẫn được giữ làm bản dự phòng.</p><h3>Thiết lập cơ sở dữ liệu (chỉ làm một lần)</h3><p class="muted">Trong Supabase → SQL Editor → New query, chạy đoạn SQL sau:</p><pre style="white-space:pre-wrap;overflow-wrap:anywhere;background:#f5f7fb;padding:12px;border-radius:9px;font-size:12px">create table if not exists public.mysales_data (
-  id uuid primary key references auth.users(id) on delete cascade,
-  data jsonb not null default '{}'::jsonb,
-  updated_at timestamptz not null default now()
+  id uuid primary key references auth.users(id) on delete cascade,
+  data jsonb not null default '{}'::jsonb,
+  updated_at timestamptz not null default now()
 );
 alter table public.mysales_data enable row level security;
 grant select, insert, update, delete on public.mysales_data to authenticated;
 do $$ begin
-  if not exists (select 1 from pg_policies where schemaname='public' and tablename='mysales_data' and policyname='user owns own MySales data') then
-    create policy "user owns own MySales data" on public.mysales_data for all to authenticated using (auth.uid() = id) with check (auth.uid() = id);
-  end if;
+  if not exists (select 1 from pg_policies where schemaname='public' and tablename='mysales_data' and policyname='user owns own MySales data') then
+    create policy "user owns own MySales data" on public.mysales_data for all to authenticated using (auth.uid() = id) with check (auth.uid() = id);
+  end if;
 end $$;
 do $$ begin
-  if not exists (select 1 from pg_publication_tables where pubname='supabase_realtime' and schemaname='public' and tablename='mysales_data') then
-    alter publication supabase_realtime add table public.mysales_data;
-  end if;
+  if not exists (select 1 from pg_publication_tables where pubname='supabase_realtime' and schemaname='public' and tablename='mysales_data') then
+    alter publication supabase_realtime add table public.mysales_data;
+  end if;
 end $$;</pre><button class="secondary small" onclick="copySql()">Sao chép SQL</button><p class="muted" style="font-size:12px">Sau khi tạo bảng, nhập Project URL và publishable key ở trên. Tạo tài khoản hoặc đăng nhập. Trên điện thoại, mở cùng file/website, nhập cùng cấu hình và đăng nhập cùng email để nhận dữ liệu.</p></section><section class="panel" style="margin-top:15px"><h2>Sao lưu và khôi phục dữ liệu</h2><p class="muted">Nên xuất bản sao lưu định kỳ dù đã bật đồng bộ đám mây.</p><div class="toolbar"><button onclick="backup()">↓ Xuất bản sao lưu JSON</button><label class="secondary" style="padding:10px 14px;border-radius:10px;cursor:pointer"><input type="file" id="restoreFile" accept="application/json" style="display:none" onchange="restore(event)">↑ Khôi phục từ JSON</label><button class="secondary" onclick="exportOrders()">Xuất đơn hàng CSV</button></div><div class="summaryline"><span>Đơn hàng</span><strong>${db.orders.length}</strong></div><div class="summaryline"><span>Khách hàng</span><strong>${db.customers.length}</strong></div><div class="summaryline"><span>Sản phẩm</span><strong>${db.products.length}</strong></div><div class="summaryline"><span>Khoản chi</span><strong>${db.expenses.length}</strong></div></section>`}
 function openModal(title,html,after){document.getElementById('modalTitle').textContent=title;document.getElementById('modalBody').innerHTML=html;document.getElementById('modal').classList.remove('hidden');if(after)after()}
 function closeModal(){document.getElementById('modal').classList.add('hidden')}
@@ -492,7 +450,7 @@ function openExpense(){openModal('Ghi nhận chi phí',`<div class="formgrid"><d
 function saveExpense(){if(!eName.value.trim()||num(eAmount.value)<=0)return alert('Nhập tên khoản chi và số tiền hợp lệ');let obj={id:uid('CP'),date:eDate.value||today(),name:eName.value.trim(),category:eCat.value,type:eType.value,amount:num(eAmount.value),orderId:eOrder.value,note:eNote.value.trim()};db.expenses.push(obj);closeModal();save()}
 function toggleCustomerPicker(){document.getElementById('customerPickerList')?.classList.toggle('hidden')}
 function chooseOrderCustomer(id){let c=customer(id);document.getElementById('oCustomer').value=id;document.getElementById('customerPickerCurrent').textContent=c?c.name:'Khách lẻ / chưa lưu';document.getElementById('customerPickerList').classList.add('hidden')}
-function openOrder(){orderLines=[];openModal('Tạo đơn hàng',`<div class="formgrid"><div class="field"><label>Ngày bán *</label><input id="oDate" type="date" value="${today()}"></div><div class="field"><label>Khách hàng</label><input type="hidden" id="oCustomer" value=""><div class="customer-picker"><button type="button" class="customer-picker-trigger secondary" id="customerPickerTrigger" onclick="toggleCustomerPicker()"><span id="customerPickerCurrent">Khách lẻ / chưa lưu</span><span aria-hidden="true">⌄</span></button><div id="customerPickerList" class="customer-picker-list hidden"><button type="button" class="customer-option" onclick="chooseOrderCustomer('')"><strong>Khách lẻ / chưa lưu</strong></button>${db.customers.map(c=>{let addr=[c.area,c.address].filter(Boolean).join(' · ');return `<button type="button" class="customer-option" onclick="chooseOrderCustomer('${String(c.id).replace(/'/g,"'")}')"><strong>${esc(c.name)}</strong><small>${esc(addr||'Chưa có địa chỉ')}</small></button>`}).join('')}</div></div></div><div class="field span2"><label>Ghi chú đơn hàng</label><input id="oNote"></div></div><div style="display:flex;justify-content:space-between;align-items:center;margin:12px 0"><strong>Sản phẩm trong đơn</strong><button class="secondary small" onclick="addLine()">＋ Thêm dòng</button></div><div id="orderLines"></div><div class="field" style="max-width:230px;margin-top:12px"><label>Chi phí riêng của đơn (đ)</label><input id="oExtra" type="text" inputmode="numeric" autocomplete="off" value="0" oninput="updateOrderSummary()"></div><div id="orderSummary"></div><div class="actions"><button class="secondary" onclick="closeModal()">Hủy</button><button onclick="saveOrder()">Lưu đơn hàng</button></div>`,()=>{addLine()})}
+function openOrder(){orderLines=[];openModal('Tạo đơn hàng',`<div class="formgrid"><div class="field"><label>Ngày bán *</label><input id="oDate" type="date" value="${today()}"></div><div class="field"><label>Khách hàng</label><input type="hidden" id="oCustomer" value=""><div class="customer-picker"><button type="button" class="customer-picker-trigger secondary" id="customerPickerTrigger" onclick="toggleCustomerPicker()"><span id="customerPickerCurrent">Khách lẻ / chưa lưu</span><span aria-hidden="true">⌄</span></button><div id="customerPickerList" class="customer-picker-list hidden"><button type="button" class="customer-option" onclick="chooseOrderCustomer('')"><strong>Khách lẻ / chưa lưu</strong></button>${db.customers.map(c=>{let addr=[c.area,c.address].filter(Boolean).join(' · ');return `<button type="button" class="customer-option" onclick="chooseOrderCustomer('${String(c.id).replace(/'/g,"&#39;")}')"><strong>${esc(c.name)}</strong><small>${esc(addr||'Chưa có địa chỉ')}</small></button>`}).join('')}</div></div></div><div class="field span2"><label>Ghi chú đơn hàng</label><input id="oNote"></div></div><div style="display:flex;justify-content:space-between;align-items:center;margin:12px 0"><strong>Sản phẩm trong đơn</strong><button class="secondary small" onclick="addLine()">＋ Thêm dòng</button></div><div id="orderLines"></div><div class="field" style="max-width:230px;margin-top:12px"><label>Chi phí riêng của đơn (đ)</label><input id="oExtra" type="text" inputmode="numeric" autocomplete="off" value="0" oninput="updateOrderSummary()"></div><div id="orderSummary"></div><div class="actions"><button class="secondary" onclick="closeModal()">Hủy</button><button onclick="saveOrder()">Lưu đơn hàng</button></div>`,()=>{addLine()})}
 function addLine(){orderLines.push({productId:'',name:'',qty:1,price:0,cost:0});renderLines()}
 function renderLines(){let box=document.getElementById('orderLines');if(!box)return;box.innerHTML=orderLines.map((l,i)=>`<div class="lineitem"><select onchange="lineProduct(${i},this.value)"><option value="">Chọn sản phẩm</option>${db.products.map(p=>`<option value="${p.id}" ${p.id===l.productId?'selected':''}>${esc(p.name)}</option>`).join('')}<option value="__custom">Nhập tên khác</option></select><input type="number" min="1" value="${l.qty}" title="Số lượng" onchange="orderLines[${i}].qty=Math.max(1,num(this.value));updateOrderSummary()"><input type="text" inputmode="numeric" autocomplete="off" value="${fmtMoneyInput(l.price)}" title="Giá bán" placeholder="Giá bán" onchange="orderLines[${i}].price=num(this.value);updateOrderSummary()"><button class="small danger" onclick="orderLines.splice(${i},1);renderLines()">×</button>${!l.productId?`<div style="grid-column:1/4;display:flex;gap:7px"><input style="flex:1" value="${esc(l.name)}" placeholder="Tên sản phẩm" onchange="orderLines[${i}].name=this.value"><input style="width:42%" type="text" inputmode="numeric" autocomplete="off" value="${fmtMoneyInput(l.cost)}" placeholder="Giá vốn/đv" title="Giá vốn mỗi đơn vị" onchange="orderLines[${i}].cost=num(this.value);updateOrderSummary()"></div>`:``}</div>`).join('');updateOrderSummary()}
 function lineProduct(i,id){if(id==='__custom'){orderLines[i]={...orderLines[i],productId:'',name:'',price:0,cost:0}}else{let p=product(id);orderLines[i]={...orderLines[i],productId:id,name:p?.name||'',price:num(p?.price),cost:num(p?.cost)}}renderLines()}
@@ -515,17 +473,4 @@ async function cloudPush(){if(cloudBusy||!cloudUser||!ensureCloud())return;let {
 async function cloudSignOut(){if(!ensureCloud())return;await cloud.auth.signOut();cloudUser=null;alert('Đã đăng xuất khỏi Supabase. Dữ liệu trên thiết bị vẫn còn.');render()}
 ensureCloud();if(cloud){cloud.auth.getSession().then(async({data})=>{if(data.session){cloudUser=data.session.user;startCloudRealtime();let r=await cloud.from('mysales_data').select('data').eq('id',cloudUser.id).maybeSingle();if(r.data?.data){db=r.data.data;localStorage.setItem(KEY,JSON.stringify(db));render()}}})}
 document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{page=b.dataset.page;render()});document.getElementById('quickAdd').onclick=()=>openOrder();document.getElementById('page').addEventListener('input',e=>{if(e.target.id==='orderSearch'){let q=e.target.value.toLowerCase();document.querySelectorAll('#orderRows tr').forEach(r=>r.classList.toggle('hidden',!r.dataset.search?.includes(q)))}if(e.target.id==='customerSearch'){let q=e.target.value.toLowerCase();document.querySelectorAll('#customerRows tr').forEach(r=>r.classList.toggle('hidden',!r.dataset.search?.includes(q)))}});render();
-</script><script>
-/* V3: khóa cuộn nền khi mở popup + tự cuộn ô đang nhập vào giữa màn hình */
-(function(){
-  var m=document.getElementById('modal');
-  if(!m)return;
-  function sync(){document.body.classList.toggle('modal-open',!m.classList.contains('hidden'))}
-  new MutationObserver(sync).observe(m,{attributes:true,attributeFilter:['class']});sync();
-  m.addEventListener('focusin',function(e){
-    var t=e.target;
-    if(/^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName)){setTimeout(function(){try{t.scrollIntoView({block:'center',behavior:'smooth'})}catch(_){}},350)}
-  });
-})();
-</script>
-</body></html>
+</script></body></html>
