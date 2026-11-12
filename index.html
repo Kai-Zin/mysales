@@ -306,6 +306,37 @@ input, select, textarea { font-size:18px !important; }
 }
 </style>
 
+
+<style id="mobile-single-line-fix">
+@media screen and (max-width: 850px) {
+  /* Date stays on one line above the page title. */
+  .top { align-items: center !important; flex-wrap: nowrap !important; gap: 8px !important; }
+  .top > div { min-width: 0 !important; flex: 1 1 auto !important; }
+  #today {
+    white-space: nowrap !important;
+    overflow: visible !important;
+    font-size: clamp(11px, 3.35vw, 14px) !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.25px !important;
+  }
+  /* Keep the amount and currency symbol together on a single line. */
+  .metric {
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+    font-size: clamp(18px, 5.4vw, 25px) !important;
+    letter-spacing: -0.6px !important;
+    line-height: 1.25 !important;
+  }
+  .metric-card { min-width: 0 !important; overflow: hidden !important; }
+  .metric-top { min-width: 0 !important; }
+}
+@media screen and (max-width: 380px) {
+  #today { font-size: 11px !important; letter-spacing: -0.45px !important; }
+  .metric { font-size: clamp(17px, 5vw, 21px) !important; letter-spacing: -0.7px !important; }
+}
+</style>
+
 </head>
 <body><div class="app">
 <aside class="side"><div class="brand"><span class="brand-emoji">🤑</span><span>Kiếm được 10 tỷ<br> sẽ nghỉ làm</span></div><div class="subbrand">Làm hết mình, nghỉ hưu thật sớm 😎</div><nav class="nav">
@@ -318,7 +349,7 @@ input, select, textarea { font-size:18px !important; }
 const KEY='mysales_v1';let db=load();let page='dashboard';let orderLines=[];let cloud=null,cloudUser=null,cloudBusy=false,cloudChannel=null;
 function load(){try{return JSON.parse(localStorage.getItem(KEY))||{orders:[],customers:[],products:[],expenses:[]}}catch{return{orders:[],customers:[],products:[],expenses:[]}}}
 function save(){localStorage.setItem(KEY,JSON.stringify(db));render();cloudPush()}
-const money=n=>(Number(n)||0).toLocaleString('vi-VN')+' ₫';const num=v=>Number(String(v??'').replace(/[^0-9-]/g,''))||0;
+const money=n=>(Number(n)||0).toLocaleString('vi-VN')+'\u00a0₫';const num=v=>Number(String(v??'').replace(/[^0-9-]/g,''))||0;
 const fmtMoneyInput=v=>{let d=String(v??'').replace(/[^0-9]/g,'');return d?d.replace(/\B(?=(\d{3})+(?!\d))/g,'.'):''};
 document.addEventListener('input',e=>{if(e.target.matches('[data-money],#pCost,#pPrice,#eAmount,#oExtra')||((e.target.tagName==='INPUT')&&e.target.inputMode==='numeric'&&e.target.title!=='Số lượng')){let el=e.target,pos=el.selectionStart,old=el.value,next=fmtMoneyInput(old);if(next!==old){el.value=next;try{el.setSelectionRange(next.length,next.length)}catch(_){}}}});
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const today=()=>new Date().toISOString().slice(0,10);const dateFmt=d=>d?new Date(d+'T00:00:00').toLocaleDateString('vi-VN'):'—';
