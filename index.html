@@ -121,6 +121,50 @@ body{background:#f3f6fc;color:var(--ink);font-family:Arial,"Segoe UI",Tahoma,san
 
 </style>
 
+
+<style id="mobile-readable-100-percent">
+/* Mobile: open at normal 100% scale, keep pinch zoom available, and make text easier to read. */
+@media (max-width: 850px) {
+  html { width: 100%; }
+  body { width: 100%; max-width: 100%; font-size: 19px !important; line-height: 1.55 !important; }
+  .main { width: 100%; max-width: 100%; padding: 16px 12px !important; }
+  .brand { font-size: 22px !important; }
+  .nav button { font-size: 16px !important; min-height: 48px; padding: 12px 14px !important; }
+  .top h1 { font-size: 28px !important; line-height: 1.25; }
+  .welcome-strip h2, .panel h2 { font-size: 22px !important; line-height: 1.3; }
+  .welcome-strip p, .panel-heading p, .muted, .notice { font-size: 17px !important; }
+  .metric-label { font-size: 17px !important; }
+  .metric { font-size: 25px !important; }
+  .metric-note { font-size: 15px !important; }
+  .field label { font-size: 17px !important; }
+  .field input, .field select, .field textarea,
+  .toolbar input, .toolbar select, .lineitem input, .lineitem select {
+    font-size: 16px !important;
+    min-height: 48px;
+    padding: 12px !important;
+  }
+  button, .link-btn { font-size: 17px !important; min-height: 48px; padding: 12px 15px; }
+  button.small { font-size: 15px !important; min-height: 44px; }
+  th, td { font-size: 15px !important; padding: 13px 11px !important; }
+  td strong { font-size: 16px !important; }
+  .tag, .cost-chip { font-size: 14px !important; }
+  .summary-stat, .summary-stat strong { font-size: 15px !important; }
+  .chart-axis, .chart-foot, .analytics-legend { font-size: 14px !important; }
+  .chart-value-label { font-size: 12px !important; }
+  .dialog { max-width: 100%; }
+}
+@media (max-width: 480px) {
+  body { font-size: 18px !important; }
+  .main { padding: 14px 10px !important; }
+  .card, .panel { padding: 15px !important; }
+  .metric { font-size: 23px !important; }
+  .top h1 { font-size: 26px !important; }
+  .welcome-strip h2, .panel h2 { font-size: 21px !important; }
+}
+/* Prevent iOS focus auto-zoom: inputs stay at >=16px. Pinch zoom remains enabled. */
+input, select, textarea { font-size: 16px; }
+</style>
+
 </head>
 <body><div class="app">
 <aside class="side"><div class="brand"><span class="brand-emoji">🤑</span><span>Kiếm được 10 tỷ<br> sẽ nghỉ làm</span></div><div class="subbrand">Làm hết mình, nghỉ hưu thật sớm 😎</div><nav class="nav">
