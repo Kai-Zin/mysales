@@ -344,6 +344,96 @@ input, select, textarea { font-size:18px !important; }
 @media screen and (max-width:380px){.cards,.report-metrics{grid-template-columns:repeat(2,minmax(0,1fr))!important}.metric{font-size:16px!important}.metric-label{font-size:12px!important}.metric-note{font-size:11px!important}.card{padding:10px!important}.metric-icon{width:30px;height:30px;font-size:15px}}
 </style>
 
+<style id="order-modal-mobile-polish">
+/* Chú thích cột sản phẩm trong đơn */
+.lineitem-head {
+  display: grid;
+  grid-template-columns: 1.55fr 0.72fr 1.05fr 32px;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #526071;
+  margin-bottom: 6px;
+  padding: 0 2px;
+}
+.lineitem-head span:nth-child(2),
+.lineitem-head span:nth-child(3) {
+  text-align: center;
+}
+
+/* Tối ưu cỡ chữ & bố cục popup Tạo đơn hàng trên điện thoại */
+@media screen and (max-width: 850px) {
+  #modal .dialog {
+    padding: 15px 14px !important;
+    border-radius: 14px !important;
+  }
+  #modal .dialoghead {
+    margin-bottom: 10px !important;
+  }
+  #modal .dialoghead h2 {
+    font-size: 19px !important;
+  }
+  #modal .dialoghead button {
+    min-height: 36px !important;
+    padding: 6px 10px !important;
+    font-size: 14px !important;
+  }
+  #modal .field {
+    margin-bottom: 9px !important;
+    gap: 4px !important;
+  }
+  #modal .field label {
+    font-size: 13px !important;
+  }
+  #modal .field input,
+  #modal .field select,
+  #modal .field textarea,
+  #modal .customer-picker-trigger {
+    font-size: 16px !important;
+    min-height: 40px !important;
+    padding: 8px 10px !important;
+  }
+  #modal .lineitem-head {
+    grid-template-columns: 1.55fr 0.72fr 1.05fr 30px;
+    gap: 5px;
+    font-size: 11px !important;
+  }
+  #modal .lineitem {
+    grid-template-columns: 1.55fr 0.72fr 1.05fr 30px !important;
+    gap: 5px !important;
+    margin-bottom: 7px !important;
+  }
+  #modal .lineitem input,
+  #modal .lineitem select {
+    font-size: 16px !important;
+    min-height: 40px !important;
+    padding: 7px 6px !important;
+  }
+  #modal .lineitem input[type="number"] {
+    text-align: center;
+  }
+  #modal .lineitem button.small {
+    min-height: 40px !important;
+    padding: 0 !important;
+    font-size: 15px !important;
+  }
+  #modal .summaryline {
+    font-size: 14px !important;
+    padding: 6px 0 !important;
+  }
+  #modal .summaryline strong {
+    font-size: 14.5px !important;
+  }
+  #modal .actions {
+    margin-top: 12px !important;
+  }
+  #modal .actions button {
+    min-height: 42px !important;
+    font-size: 15px !important;
+    padding: 9px 14px !important;
+  }
+}
+</style>
 </head>
 <body><div class="app">
 <aside class="side"><div class="brand"><span class="brand-emoji">🤑</span><span>Kiếm được 10 tỷ<br> sẽ nghỉ làm</span></div><div class="subbrand">Làm hết mình, nghỉ hưu thật sớm 😎</div><nav class="nav">
@@ -450,9 +540,70 @@ function openExpense(){openModal('Ghi nhận chi phí',`<div class="formgrid"><d
 function saveExpense(){if(!eName.value.trim()||num(eAmount.value)<=0)return alert('Nhập tên khoản chi và số tiền hợp lệ');let obj={id:uid('CP'),date:eDate.value||today(),name:eName.value.trim(),category:eCat.value,type:eType.value,amount:num(eAmount.value),orderId:eOrder.value,note:eNote.value.trim()};db.expenses.push(obj);closeModal();save()}
 function toggleCustomerPicker(){document.getElementById('customerPickerList')?.classList.toggle('hidden')}
 function chooseOrderCustomer(id){let c=customer(id);document.getElementById('oCustomer').value=id;document.getElementById('customerPickerCurrent').textContent=c?c.name:'Khách lẻ / chưa lưu';document.getElementById('customerPickerList').classList.add('hidden')}
-function openOrder(){orderLines=[];openModal('Tạo đơn hàng',`<div class="formgrid"><div class="field"><label>Ngày bán *</label><input id="oDate" type="date" value="${today()}"></div><div class="field"><label>Khách hàng</label><input type="hidden" id="oCustomer" value=""><div class="customer-picker"><button type="button" class="customer-picker-trigger secondary" id="customerPickerTrigger" onclick="toggleCustomerPicker()"><span id="customerPickerCurrent">Khách lẻ / chưa lưu</span><span aria-hidden="true">⌄</span></button><div id="customerPickerList" class="customer-picker-list hidden"><button type="button" class="customer-option" onclick="chooseOrderCustomer('')"><strong>Khách lẻ / chưa lưu</strong></button>${db.customers.map(c=>{let addr=[c.area,c.address].filter(Boolean).join(' · ');return `<button type="button" class="customer-option" onclick="chooseOrderCustomer('${String(c.id).replace(/'/g,"&#39;")}')"><strong>${esc(c.name)}</strong><small>${esc(addr||'Chưa có địa chỉ')}</small></button>`}).join('')}</div></div></div><div class="field span2"><label>Ghi chú đơn hàng</label><input id="oNote"></div></div><div style="display:flex;justify-content:space-between;align-items:center;margin:12px 0"><strong>Sản phẩm trong đơn</strong><button class="secondary small" onclick="addLine()">＋ Thêm dòng</button></div><div id="orderLines"></div><div class="field" style="max-width:230px;margin-top:12px"><label>Chi phí riêng của đơn (đ)</label><input id="oExtra" type="text" inputmode="numeric" autocomplete="off" value="0" oninput="updateOrderSummary()"></div><div id="orderSummary"></div><div class="actions"><button class="secondary" onclick="closeModal()">Hủy</button><button onclick="saveOrder()">Lưu đơn hàng</button></div>`,()=>{addLine()})}
+function openOrder(){
+  orderLines=[];
+  openModal('Tạo đơn hàng',`
+    <div class="formgrid">
+      <div class="field"><label>Ngày bán *</label><input id="oDate" type="date" value="${today()}"></div>
+      <div class="field"><label>Khách hàng</label><input type="hidden" id="oCustomer" value="">
+        <div class="customer-picker">
+          <button type="button" class="customer-picker-trigger secondary" id="customerPickerTrigger" onclick="toggleCustomerPicker()">
+            <span id="customerPickerCurrent">Khách lẻ / chưa lưu</span><span aria-hidden="true">⌄</span>
+          </button>
+          <div id="customerPickerList" class="customer-picker-list hidden">
+            <button type="button" class="customer-option" onclick="chooseOrderCustomer('')"><strong>Khách lẻ / chưa lưu</strong></button>
+            ${db.customers.map(c=>{let addr=[c.area,c.address].filter(Boolean).join(' · ');return `<button type="button" class="customer-option" onclick="chooseOrderCustomer('${String(c.id).replace(/'/g,"&#39;")}')"><strong>${esc(c.name)}</strong><small>${esc(addr||'Chưa có địa chỉ')}</small></button>`}).join('')}
+          </div>
+        </div>
+      </div>
+      <div class="field span2"><label>Ghi chú đơn hàng</label><input id="oNote" placeholder="Ví dụ: Giao sáng trước 9h..."></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin:10px 0 8px">
+      <strong style="font-size:14px">Sản phẩm trong đơn</strong>
+      <button type="button" class="secondary small" onclick="addLine()" style="min-height:34px;padding:6px 10px;font-size:13px">＋ Thêm dòng</button>
+    </div>
+    <div class="lineitem-head">
+      <span>Sản phẩm</span>
+      <span>SL (kg)</span>
+      <span>Giá bán / 1kg</span>
+      <span></span>
+    </div>
+    <div id="orderLines"></div>
+    <div class="field" style="max-width:240px;margin-top:10px">
+      <label>Chi phí riêng của đơn (đ)</label>
+      <input id="oExtra" type="text" inputmode="numeric" autocomplete="off" value="0" oninput="updateOrderSummary()">
+    </div>
+    <div id="orderSummary"></div>
+    <div class="actions">
+      <button type="button" class="secondary" onclick="closeModal()">Hủy</button>
+      <button type="button" onclick="saveOrder()">Lưu đơn hàng</button>
+    </div>
+  `,()=>{addLine()});
+}
 function addLine(){orderLines.push({productId:'',name:'',qty:1,price:0,cost:0});renderLines()}
-function renderLines(){let box=document.getElementById('orderLines');if(!box)return;box.innerHTML=orderLines.map((l,i)=>`<div class="lineitem"><select onchange="lineProduct(${i},this.value)"><option value="">Chọn sản phẩm</option>${db.products.map(p=>`<option value="${p.id}" ${p.id===l.productId?'selected':''}>${esc(p.name)}</option>`).join('')}<option value="__custom">Nhập tên khác</option></select><input type="number" min="1" value="${l.qty}" title="Số lượng" onchange="orderLines[${i}].qty=Math.max(1,num(this.value));updateOrderSummary()"><input type="text" inputmode="numeric" autocomplete="off" value="${fmtMoneyInput(l.price)}" title="Giá bán" placeholder="Giá bán" onchange="orderLines[${i}].price=num(this.value);updateOrderSummary()"><button class="small danger" onclick="orderLines.splice(${i},1);renderLines()">×</button>${!l.productId?`<div style="grid-column:1/4;display:flex;gap:7px"><input style="flex:1" value="${esc(l.name)}" placeholder="Tên sản phẩm" onchange="orderLines[${i}].name=this.value"><input style="width:42%" type="text" inputmode="numeric" autocomplete="off" value="${fmtMoneyInput(l.cost)}" placeholder="Giá vốn/đv" title="Giá vốn mỗi đơn vị" onchange="orderLines[${i}].cost=num(this.value);updateOrderSummary()"></div>`:``}</div>`).join('');updateOrderSummary()}
+function renderLines(){
+  let box=document.getElementById('orderLines');
+  if(!box)return;
+  box.innerHTML=orderLines.map((l,i)=>`
+    <div class="lineitem">
+      <select onchange="lineProduct(${i},this.value)">
+        <option value="">Chọn SP</option>
+        ${db.products.map(p=>`<option value="${p.id}" ${p.id===l.productId?'selected':''}>${esc(p.name)}</option>`).join('')}
+        <option value="__custom">+ Nhập tên khác</option>
+      </select>
+      <input type="number" step="any" min="0.01" value="${l.qty}" title="Số lượng (kg)" placeholder="kg" onchange="orderLines[${i}].qty=Math.max(0.01,Number(this.value)||0);updateOrderSummary()">
+      <input type="text" inputmode="numeric" autocomplete="off" value="${fmtMoneyInput(l.price)}" title="Đơn giá trên 1kg (đ)" placeholder="đ / 1kg" onchange="orderLines[${i}].price=num(this.value);updateOrderSummary()">
+      <button type="button" class="small danger" onclick="orderLines.splice(${i},1);renderLines()">×</button>
+      ${!l.productId?`
+        <div style="grid-column:1/4;display:flex;gap:6px;margin-top:2px">
+          <input style="flex:1" value="${esc(l.name)}" placeholder="Tên sản phẩm ngoài..." onchange="orderLines[${i}].name=this.value">
+          <input style="width:44%" type="text" inputmode="numeric" autocomplete="off" value="${fmtMoneyInput(l.cost)}" placeholder="Giá vốn / 1kg" title="Giá vốn trên 1kg" onchange="orderLines[${i}].cost=num(this.value);updateOrderSummary()">
+        </div>
+      `:``}
+    </div>
+  `).join('');
+  updateOrderSummary();
+}
 function lineProduct(i,id){if(id==='__custom'){orderLines[i]={...orderLines[i],productId:'',name:'',price:0,cost:0}}else{let p=product(id);orderLines[i]={...orderLines[i],productId:id,name:p?.name||'',price:num(p?.price),cost:num(p?.cost)}}renderLines()}
 function updateOrderSummary(){let rev=orderLines.reduce((s,l)=>s+l.qty*l.price,0),c=orderLines.reduce((s,l)=>s+l.qty*l.cost,0),extra=num(document.getElementById('oExtra')?.value);let x=document.getElementById('orderSummary');if(x)x.innerHTML=`<div class="summaryline"><span>Doanh thu</span><strong>${money(rev)}</strong></div><div class="summaryline"><span>Giá vốn</span><strong>${money(c)}</strong></div><div class="summaryline"><span>Chi phí riêng</span><strong>${money(extra)}</strong></div><div class="summaryline"><strong>Lợi nhuận dự kiến</strong><strong class="${rev-c-extra<0?'negative':'positive'}">${money(rev-c-extra)}</strong></div>`}
 function saveOrder(){let lines=orderLines.filter(l=>l.name.trim()&&l.qty>0);if(!lines.length)return alert('Thêm ít nhất một sản phẩm có tên');let o={id:'DH-'+Date.now().toString().slice(-7),date:oDate.value||today(),customerId:oCustomer.value,lines:lines.map(l=>({...l})),extraCost:num(oExtra.value),note:oNote.value.trim()};db.orders.push(o);closeModal();save()}
