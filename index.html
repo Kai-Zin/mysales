@@ -434,13 +434,109 @@ input, select, textarea { font-size:18px !important; }
   }
 }
 </style>
+<style id="compact-menu">
+.app{display:block!important;width:100%!important;min-width:0!important;max-width:none!important;padding:0!important}
+.app-topbar{display:none!important}
+.modal{z-index:60!important}
+.topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;padding:8px 14px;padding-top:max(8px,env(safe-area-inset-top));background:#fff;border-bottom:1px solid #e9eef6}
+html body .menu-btn{width:40px;height:40px;min-height:40px!important;padding:0!important;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;background:#edf4ff;border-radius:10px;box-shadow:none}
+.menu-btn span{display:block;width:20px;height:2.5px;border-radius:2px;background:#3478ee}
+.tb-brand{font-weight:800;font-size:15px;color:#17243a}
+.drawer-bg{position:fixed;inset:0;background:#172b4880;z-index:40}
+.drawer{position:fixed;top:0;left:0;bottom:0;width:min(280px,82vw);background:#fff;z-index:50;transform:translateX(-104%);transition:transform .2s;padding:18px 12px;overflow:auto;box-shadow:6px 0 24px #0002}
+.drawer.open{transform:none}
+.drawer-head{font-weight:800;font-size:16px;padding:4px 8px 14px;color:#17243a}
+.drawer-head small{display:block;font-weight:600;font-size:11px;color:#8b98aa;margin-top:3px}
+.menu{display:grid;gap:4px}
+html body .menu button{width:100%;text-align:left;background:transparent;color:#52627a;font-size:15px;font-weight:600;padding:12px;border-radius:10px;min-height:44px;box-shadow:none}
+html body .menu button.active{background:#edf4ff;color:#3478ee}
+.drawer-note{font-size:12px;color:#8b98aa;padding:18px 10px}
+html body .main{padding:14px 16px 30px!important}
+.dash{display:block}
+.fold{background:#fff;border:1px solid #e9eef6;border-radius:14px;box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
+.fold>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;font-weight:700;font-size:14px;color:#17243a}
+.fold>summary::-webkit-details-marker{display:none}
+.fold>summary:after{content:'▾';color:#8b98aa;transition:transform .2s}
+.fold:not([open])>summary:after{transform:rotate(90deg)}
+.fold-body{padding:0 14px 14px}
+.fin-grid{display:grid;grid-template-columns:1fr 1fr;text-align:center;padding:2px 0 10px}
+.fin-grid>div+div{border-left:1px solid var(--line)}
+.fin-grid small{display:block;font-size:12px;color:var(--muted)}
+.fin-grid strong{display:block;font-size:clamp(16px,5vw,21px);margin-top:3px;white-space:nowrap}
+.fin-grid .rev{color:#3478ee}
+.stat-table th,.stat-table td{text-align:center}
+.stat-table th:first-child,.stat-table td:first-child{text-align:left}
+@media(min-width:1000px){.dash{display:grid;grid-template-columns:1fr 1fr;gap:0 14px;align-items:start}.dash .d-chart{grid-column:1/-1;order:3}.dash .d-fin{order:1}.dash .d-stat{order:2}.dash .d-recent{order:4}.dash .d-care{order:5}}
+@media screen and (max-width:850px){
+html body{font-size:14px!important;line-height:1.45!important}
+html body .top h1{font-size:19px!important}
+html body #today{font-size:12px!important}
+html body .panel h2,html body .dialoghead h2{font-size:15px!important}
+html body .muted,html body .notice,html body .panel-heading p{font-size:12px!important}
+html body .metric-label{font-size:12px!important}
+html body .metric{font-size:clamp(15px,4.6vw,19px)!important}
+html body .metric-note{font-size:11px!important}
+html body .field label{font-size:12px!important}
+html body button,html body .link-btn{font-size:14px!important;min-height:40px!important;padding:8px 12px!important}
+html body button.small{font-size:12px!important;min-height:34px!important;padding:6px 9px!important}
+html body .menu-btn{padding:0!important}
+html body .menu button{font-size:15px!important;min-height:44px!important;padding:12px!important}
+html body th,html body td{font-size:12.5px!important;padding:9px 8px!important;line-height:1.4!important}
+html body td strong{font-size:13px!important}
+html body .tag,html body .cost-chip{font-size:12px!important}
+html body .chart-axis,html body .chart-foot,html body .analytics-legend{font-size:11px!important}
+html body .chart-value-label{font-size:9px!important}
+html body .summary-stat{font-size:13px}
+html body input,html body select,html body textarea,html body .field input,html body .field select,html body .field textarea,html body .toolbar input,html body .toolbar select,html body .lineitem input,html body .lineitem select{font-size:16px!important;min-height:42px!important;padding:9px 10px!important}
+html body .top{margin-bottom:12px!important}
+}
+</style>
+<style id="order-fullpage">
+.fp{position:fixed;inset:0;z-index:70;background:#f3f6fc;display:flex;flex-direction:column}
+.fp-head{display:flex;align-items:center;gap:8px;padding:8px 10px;padding-top:max(8px,env(safe-area-inset-top));background:#3478ee;color:#fff}
+.fp-head h2{flex:1;margin:0;font-size:17px}
+html body .fp-head button{background:transparent!important;color:#fff!important;box-shadow:none;font-size:15px!important}
+html body .fp-head button:first-child{font-size:30px!important;line-height:1;padding:0 12px!important}
+html body .fp-head .fp-save{background:#fff!important;color:#3478ee!important;font-weight:700}
+.fp-body{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding-bottom:16px}
+.fp-search{padding:8px 12px;background:#fff;border-bottom:1px solid #e9eef6}
+html body .fp-search input{width:100%;border:1px solid #dce2ea;border-radius:10px}
+.fp-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;padding-bottom:max(10px,env(safe-area-inset-bottom));background:#fff;border-top:1px solid #e9eef6}
+.fp-foot strong{font-size:20px;color:#3478ee}
+.fp-foot button{flex:1}
+.sec{background:#fff;margin:8px auto 0;padding:12px 14px;max-width:760px}
+.sec-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.grow{flex:1;min-width:0}
+.kv{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-top:1px solid #eef2f7;font-size:14px}
+.kv:first-of-type{margin-top:8px}
+html body .kv input{width:60%;text-align:right}
+html body .sec select{font-size:16px!important;font-weight:700;border:0;padding:4px 0!important;min-height:36px!important;background:transparent;width:100%;box-shadow:none}
+.ol{display:grid;grid-template-columns:56px 1fr auto;gap:10px;padding:10px 0;border-bottom:1px solid #eef2f7;align-items:start}
+.ol img,.ol .ph{width:56px;height:56px;border-radius:10px;object-fit:cover;background:#edf4ff;display:grid;place-items:center;font-size:22px}
+.ol-name{font-weight:700;font-size:14px;overflow-wrap:anywhere}
+.stepper{display:inline-flex;border:1px solid #dce2ea;border-radius:9px;overflow:hidden;margin-top:6px;vertical-align:middle}
+html body .stepper button{background:#fff!important;color:#3478ee!important;width:40px;min-height:36px!important;padding:0!important;border-radius:0!important;font-size:22px!important;box-shadow:none}
+html body .stepper input{width:58px;text-align:center;border:0;border-left:1px solid #dce2ea;border-right:1px solid #dce2ea;border-radius:0;min-height:36px!important;padding:0!important;font-size:16px!important}
+.ol-price{text-align:right;display:grid;gap:6px;justify-items:end}
+.ol-total{font-weight:800;font-size:14px}
+html body .ol-unit{width:104px;text-align:right;min-height:36px!important;padding:4px 8px!important;font-size:16px!important;border:1px solid #dce2ea;border-radius:8px}
+html body .ol-nm,html body .ol-cost{width:100%;min-height:36px!important;padding:4px 8px!important;font-size:16px!important;margin-top:4px;border:1px solid #dce2ea;border-radius:8px}
+.pk{display:flex;gap:12px;padding:10px 14px;background:#fff;border-bottom:1px solid #eef2f7;align-items:center;cursor:pointer}
+.pk .th{width:56px;height:56px;border-radius:10px;overflow:hidden;position:relative;flex:none;background:#edf4ff;display:grid;place-items:center;font-size:22px}
+.pk .th img{width:100%;height:100%;object-fit:cover}
+.pk .tick{position:absolute;inset:0;background:#3478eecc;color:#fff;display:none;place-items:center;font-size:28px}
+.pk.on{background:#f0f6ff}
+.pk.on .tick{display:grid}
+.pk .nm{flex:1;font-weight:700;font-size:14px}
+.pk .pr{color:#3478ee;font-weight:800;font-size:14px;white-space:nowrap}
+</style>
 </head>
 <body><div class="app">
-<aside class="side"><div class="brand"><span class="brand-emoji">🤑</span><span>Kiếm được 10 tỷ<br> sẽ nghỉ làm</span></div><div class="subbrand">Làm hết mình, nghỉ hưu thật sớm 😎</div><nav class="nav">
-<button class="active" data-page="dashboard">▦ Tổng quan</button><button data-page="orders">▤ Đơn hàng</button><button data-page="customers">♙ Khách hàng</button><button data-page="products">▣ Sản phẩm</button><button data-page="expenses">＋ Chi phí</button><button data-page="reports">▥ Báo cáo</button><button data-page="settings">⚙ Dữ liệu</button>
-</nav><div class="side-note">💸 Mục tiêu: 10 tỷ rồi tính tiếp!</div></aside>
+<div class="topbar"><button id="menuBtn" class="menu-btn" aria-label="Mở menu" aria-expanded="false"><span></span><span></span><span></span></button><span class="tb-brand">🤑 Kiếm được 10 tỷ sẽ nghỉ làm</span></div><div id="drawerBg" class="drawer-bg hidden"></div><aside id="drawer" class="drawer"><div class="drawer-head">🤑 Kiếm được 10 tỷ sẽ nghỉ làm<small>Làm hết mình, nghỉ hưu thật sớm 😎</small></div><nav class="menu"><button class="active" data-page="dashboard">▦ Tổng quan</button><button data-page="orders">▤ Đơn hàng</button><button data-page="customers">♙ Khách hàng</button><button data-page="products">▣ Sản phẩm</button><button data-page="expenses">＋ Chi phí</button><button data-page="reports">▥ Báo cáo</button><button data-page="settings">⚙ Dữ liệu</button></nav><div class="drawer-note">💸 Mục tiêu: 10 tỷ rồi tính tiếp!</div></aside>
 <main class="main"><header class="app-topbar"><div class="searchbox">⌕ <input id="globalSearch" placeholder="Tìm kiếm đơn hàng, khách hàng, sản phẩm..."></div><div class="profile-chip"><span class="profile-avatar">M</span><span><strong>Team nghỉ hưu sớm 😎</strong><small>Quản lý bán hàng</small></span></div></header><div class="top"><div><div class="muted" id="today"></div><h1 id="pageTitle">Tổng quan</h1></div><button id="quickAdd">＋ Tạo đơn hàng</button></div><div id="page"></div></main></div>
 <div id="modal" class="modal hidden"><div class="dialog"><div class="dialoghead"><h2 id="modalTitle"></h2><button class="secondary small" id="closeModal">✕</button></div><div id="modalBody"></div></div></div>
+<div id="orderPage" class="fp hidden"></div>
+<div id="pickPage" class="fp hidden" style="z-index:75"><div class="fp-head"><button type="button" onclick="closePicker()" aria-label="Quay lại">‹</button><h2>Chọn hàng hóa</h2></div><div class="fp-search"><input id="pickQ" placeholder="Lọc theo tên hàng..." oninput="renderPick()"></div><div class="fp-body" id="pickList"></div><div class="fp-foot"><button type="button" class="secondary" onclick="pickCustom()">＋ Sản phẩm ngoài</button><button type="button" onclick="pickDone()">Tiếp tục (<span id="pickCount">0</span>)</button></div></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const KEY='mysales_v1';let db=load();let page='dashboard';let orderLines=[];let cloud=null,cloudUser=null,cloudBusy=false,cloudChannel=null;
@@ -449,11 +545,11 @@ function save(){localStorage.setItem(KEY,JSON.stringify(db));render();cloudPush(
 const money=n=>(Number(n)||0).toLocaleString('vi-VN')+'\u00a0₫';const num=v=>Number(String(v??'').replace(/[^0-9-]/g,''))||0;const qtyVal=v=>{let n=parseFloat(String(v??'').replace(',','.'));return Number.isFinite(n)?n:0};
 const fmtMoneyInput=v=>{let d=String(v??'').replace(/[^0-9]/g,'');return d?d.replace(/\B(?=(\d{3})+(?!\d))/g,'.'):''};
 document.addEventListener('input',e=>{if(e.target.matches('[data-money],#pCost,#pPrice,#eAmount,#oExtra')||((e.target.tagName==='INPUT')&&e.target.inputMode==='numeric'&&e.target.title!=='Số lượng'&&!e.target.title?.includes('Số lượng'))){let el=e.target,pos=el.selectionStart,old=el.value,next=fmtMoneyInput(old);if(next!==old){el.value=next;try{el.setSelectionRange(next.length,next.length)}catch(_){}}}});
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const today=()=>new Date().toISOString().slice(0,10);const dateFmt=d=>d?new Date(d+'T00:00:00').toLocaleDateString('vi-VN'):'—';
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const today=()=>new Date().toLocaleDateString('sv-SE');const dateFmt=d=>d?new Date(d+'T00:00:00').toLocaleDateString('vi-VN'):'—';
 function customer(id){return db.customers.find(x=>x.id===id)}function product(id){return db.products.find(x=>x.id===id)}function orderProfit(o){return o.lines.reduce((s,l)=>s+(num(l.price)-num(l.cost))*qtyVal(l.qty),0)-num(o.extraCost)-expensesTotal(db.expenses.filter(e=>e.orderId===o.id))}function revenue(o){return o.lines.reduce((s,l)=>s+num(l.price)*qtyVal(l.qty),0)}function cost(o){return o.lines.reduce((s,l)=>s+num(l.cost)*qtyVal(l.qty),0)}function expensesTotal(list){return list.reduce((s,x)=>s+num(x.amount),0)}
-function inRange(d,from,to){return d>=from&&d<=to}function weekStart(d){let x=new Date(d+'T00:00:00');let day=(x.getDay()+6)%7;x.setDate(x.getDate()-day);return x.toISOString().slice(0,10)}
+function inRange(d,from,to){return d>=from&&d<=to}function weekStart(d){let x=new Date(d+'T00:00:00');let day=(x.getDay()+6)%7;x.setDate(x.getDate()-day);return x.toLocaleDateString('sv-SE')}
 function totals(orders,expenses){let r=orders.reduce((s,o)=>s+revenue(o),0),c=orders.reduce((s,o)=>s+cost(o),0),e=expensesTotal(expenses)+orders.reduce((s,o)=>s+num(o.extraCost),0);return{r,c,e,p:r-c-e,n:orders.length}}
-function render(){document.getElementById('today').textContent=new Date().toLocaleDateString('vi-VN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});document.getElementById('pageTitle').textContent=({dashboard:'Tổng quan',orders:'Đơn hàng',customers:'Khách hàng',products:'Sản phẩm',expenses:'Chi phí',reports:'Báo cáo',settings:'Dữ liệu'})[page];document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));let el=document.getElementById('page');el.innerHTML=({dashboard:dashboardPage,orders:ordersPage,customers:customersPage,products:productsPage,expenses:expensesPage,reports:reportsPage,settings:settingsPage})[page]();}
+function render(){document.getElementById('today').textContent=new Date().toLocaleDateString('vi-VN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});document.getElementById('pageTitle').textContent=({dashboard:'Tổng quan',orders:'Đơn hàng',customers:'Khách hàng',products:'Sản phẩm',expenses:'Chi phí',reports:'Báo cáo',settings:'Dữ liệu'})[page];document.querySelectorAll('.menu button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));let el=document.getElementById('page');el.innerHTML=({dashboard:dashboardPage,orders:ordersPage,customers:customersPage,products:productsPage,expenses:expensesPage,reports:reportsPage,settings:settingsPage})[page]();}
 function metric(label,value,note='',ico='•',tone='blue'){return `<div class="card metric-card"><div class="metric-top"><div class="metric-label">${label}</div><span class="metric-icon ${tone}">${ico}</span></div><div class="metric">${value}</div><div class="metric-note">${note}</div></div>`}
 function analyticsChart(data,series,compact=false){
  if(!data.length)return '<div class="empty">Chưa có dữ liệu để vẽ biểu đồ.</div>';
@@ -473,14 +569,19 @@ function expenseBreakdown(orders,expenses){let ads=expensesTotal(expenses.filter
 
 function dashboardPage(){
  let now=today(),month=now.slice(0,7),ws=weekStart(now);let mo=db.orders.filter(o=>o.date.startsWith(month)),we=db.orders.filter(o=>inRange(o.date,ws,now));let me=db.expenses.filter(e=>e.date.startsWith(month)),mt=totals(mo,me),wt=totals(we,db.expenses.filter(e=>inRange(e.date,ws,now))),mb=expenseBreakdown(mo,me);let recent=[...db.orders].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);let overdue=db.customers.map(c=>({...c,last:db.orders.filter(o=>o.customerId===c.id).map(o=>o.date).sort().at(-1)})).filter(c=>c.last&&Math.floor((Date.now()-new Date(c.last+'T00:00:00'))/86400000)>=30);
- let days=Array.from({length:7},(_,i)=>{let d=new Date();d.setDate(d.getDate()-6+i);let k=d.toISOString().slice(0,10),os=db.orders.filter(o=>o.date===k),es=db.expenses.filter(e=>e.date===k);let t=totals(os,es);return{key:k,label:k.slice(8)+'/'+k.slice(5,7),...t,totalCost:t.c+t.e}});
- let weeks=Array.from({length:6},(_,i)=>{let d=new Date();d.setDate(d.getDate()-((d.getDay()+6)%7)-7*(5-i));let from=d.toISOString().slice(0,10),to=new Date(d.getTime()+6*86400000).toISOString().slice(0,10),os=db.orders.filter(o=>inRange(o.date,from,to)),es=db.expenses.filter(e=>inRange(e.date,from,to));return{key:from,label:'T'+(i+1),...totals(os,es)}});
+ let days=Array.from({length:7},(_,i)=>{let d=new Date();d.setDate(d.getDate()-6+i);let k=d.toLocaleDateString('sv-SE'),os=db.orders.filter(o=>o.date===k),es=db.expenses.filter(e=>e.date===k);let t=totals(os,es);return{key:k,label:k.slice(8)+'/'+k.slice(5,7),...t,totalCost:t.c+t.e}});
+ let weeks=Array.from({length:6},(_,i)=>{let d=new Date();d.setDate(d.getDate()-((d.getDay()+6)%7)-7*(5-i));let from=d.toLocaleDateString('sv-SE'),to=new Date(d.getTime()+6*86400000).toLocaleDateString('sv-SE'),os=db.orders.filter(o=>inRange(o.date,from,to)),es=db.expenses.filter(e=>inRange(e.date,from,to));return{key:from,label:'T'+(i+1),...totals(os,es)}});
  const rp=[{key:'r',label:'Doanh số',color:'#3478ee',type:'bar'},{key:'totalCost',label:'Chi phí',color:'#f29b38',type:'bar'},{key:'p',label:'Lợi nhuận',color:'#18a875',type:'line'}];
- return `<div class="welcome-strip"><div><div class="eyebrow">BẢNG ĐIỀU KHIỂN</div><h2>Xin chào! 👋</h2><p>Theo dõi tình hình kinh doanh của bạn hôm nay.</p></div></div>
- <div class="cards">${metric('Doanh thu tháng',money(mt.r),month,'↗','blue')}${metric('Số đơn hàng',String(mo.length),'Đơn trong tháng','▤','green')}${metric('Chi phí tháng',money(mb.ads+mb.other),`Quảng cáo: ${money(mb.ads)} · Khác: ${money(mb.other)}`,'↘','orange')}${metric('Lợi nhuận tháng',`<span class="${mt.p<0?'negative':'positive'}">${money(mt.p)}</span>`,'Sau khi trừ chi phí','◷','purple')}</div>
- <section class="panel" style="margin-bottom:16px"><div class="panel-heading"><div><h2>Doanh thu, chi phí & lợi nhuận theo ngày</h2><p>7 ngày gần nhất</p></div></div>${analyticsChart(days,rp,true)}</section>
- <div class="dashboard-grid"><section class="panel"><h2>Chi phí tháng ${month}</h2><div class="cost-breakdown"><div class="cost-chip">Chi phí quảng cáo<strong>${money(mb.ads)}</strong></div><div class="cost-chip">Chi phí khác<strong>${money(mb.other)}</strong></div><div class="cost-chip">Giá vốn hàng bán<strong>${money(mt.c)}</strong></div></div></section><section class="panel summary-panel"><h2>Tổng kết nhanh</h2><div class="summary-stat"><span>Doanh thu tuần này</span><strong>${money(wt.r)}</strong></div><div class="summary-stat"><span>Lợi nhuận tuần này</span><strong class="${wt.p<0?'negative':'positive'}">${money(wt.p)}</strong></div><div class="summary-stat"><span>Đơn hàng tuần này</span><strong>${we.length}</strong></div><div class="summary-stat"><span>Khách hàng</span><strong>${db.customers.length}</strong></div><button class="secondary full-btn" onclick="page='reports';render()">Xem báo cáo chi tiết →</button></section></div>
- <div class="grid2 lower-grid"><section class="panel"><div class="panel-heading"><h2>Đơn hàng gần đây</h2><button class="link-btn" onclick="page='orders';render()">Xem tất cả →</button></div>${recent.length?`<div class="tablewrap"><table><thead><tr><th>Ngày</th><th>Khách hàng</th><th>Doanh thu</th><th>Lợi nhuận</th></tr></thead><tbody>${recent.map(o=>`<tr><td>${dateFmt(o.date)}</td><td><strong>${esc(customer(o.customerId)?.name||'Khách lẻ')}</strong></td><td>${money(revenue(o))}</td><td class="${orderProfit(o)<0?'negative':'positive'}">${money(orderProfit(o))}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">Chưa có đơn hàng. Hãy tạo đơn đầu tiên.</div>'}</section><section class="panel"><h2>Khách hàng cần chăm sóc</h2>${overdue.length?overdue.map(c=>`<div class="customerbox"><div><strong>${esc(c.name)}</strong><div class="muted">${esc(c.area||c.address||'Chưa có địa chỉ')}</div></div><span class="tag warn">${Math.floor((Date.now()-new Date(c.last+'T00:00:00'))/86400000)} ngày</span></div>`).join(''):'<div class="empty">Chưa có khách nào quá 30 ngày chưa mua.</div>'}</section></div>`
+ const srow=(lab,n)=>{let d=new Date();d.setDate(d.getDate()-n);let f=d.toLocaleDateString('sv-SE'),t=totals(db.orders.filter(o=>inRange(o.date,f,now)),db.expenses.filter(e=>inRange(e.date,f,now)));return `<tr><td>${lab}</td><td>${money(t.r)}</td><td class="${t.p<0?'negative':'positive'}">${money(t.p)}</td></tr>`};
+ return `<div class="dash">
+ <details class="fold d-fin" open><summary>📅 Tài chính tháng này</summary><div class="fold-body"><div class="fin-grid"><div><small>Doanh thu</small><strong class="rev">${money(mt.r)}</strong></div><div><small>Lợi nhuận</small><strong class="${mt.p<0?'negative':'positive'}">${money(mt.p)}</strong></div></div>
+ <div class="summary-stat"><span>Số đơn hàng</span><strong>${mo.length}</strong></div><div class="summary-stat"><span>Giá vốn hàng bán</span><strong>${money(mt.c)}</strong></div><div class="summary-stat"><span>Chi phí quảng cáo</span><strong>${money(mb.ads)}</strong></div><div class="summary-stat"><span>Chi phí khác</span><strong>${money(mb.other)}</strong></div>
+ <button class="secondary full-btn" onclick="page='reports';render()">Xem báo cáo chi tiết →</button></div></details>
+ <details class="fold d-chart" open><summary>📊 Biểu đồ 7 ngày gần đây</summary><div class="fold-body">${analyticsChart(days,rp,true)}</div></details>
+ <details class="fold d-stat" open><summary>📋 Thống kê</summary><div class="fold-body"><div class="tablewrap"><table class="stat-table"><thead><tr><th>--</th><th>Doanh thu</th><th>Lợi nhuận</th></tr></thead><tbody>${srow('Hôm nay',0)}${srow('7 ngày',6)}${srow('30 ngày',29)}</tbody></table></div></div></details>
+ <details class="fold d-recent" open><summary>🧾 Đơn hàng gần đây</summary><div class="fold-body">${recent.length?`<div class="tablewrap"><table><thead><tr><th>Ngày</th><th>Khách hàng</th><th>Doanh thu</th><th>Lợi nhuận</th></tr></thead><tbody>${recent.map(o=>`<tr><td>${dateFmt(o.date)}</td><td><strong>${esc(customer(o.customerId)?.name||'Khách lẻ')}</strong></td><td>${money(revenue(o))}</td><td class="${orderProfit(o)<0?'negative':'positive'}">${money(orderProfit(o))}</td></tr>`).join('')}</tbody></table></div><button class="link-btn" onclick="page='orders';render()">Xem tất cả →</button>`:'<div class="empty">Chưa có đơn hàng. Hãy tạo đơn đầu tiên.</div>'}</div></details>
+ <details class="fold d-care" open><summary>📞 Khách hàng cần chăm sóc</summary><div class="fold-body">${overdue.length?overdue.map(c=>`<div class="customerbox"><div><strong>${esc(c.name)}</strong><div class="muted">${esc(c.area||c.address||'Chưa có địa chỉ')}</div></div><span class="tag warn">${Math.floor((Date.now()-new Date(c.last+'T00:00:00'))/86400000)} ngày</span></div>`).join(''):'<div class="empty">Chưa có khách nào quá 30 ngày chưa mua.</div>'}</div></details>
+ </div>`
 }
 function ordersPage(){let rows=[...db.orders].sort((a,b)=>b.date.localeCompare(a.date));return `<div class="toolbar"><input id="orderSearch" placeholder="Tìm khách hàng, mã đơn..."><button onclick="openOrder()">＋ Thêm đơn hàng</button></div><section class="panel"><div class="tablewrap"><table><thead><tr><th>Ngày</th><th>Mã đơn</th><th>Khách hàng</th><th>Sản phẩm</th><th>Doanh thu</th><th>Giá vốn</th><th>Lợi nhuận</th><th></th></tr></thead><tbody id="orderRows">${rows.map(orderRow).join('')||'<tr><td colspan="8" class="empty">Chưa có đơn hàng</td></tr>'}</tbody></table></div><p class="muted order-hint">Nhấn vào một dòng đơn hàng để xem toàn bộ chi tiết.</p></section>`}
 function orderRow(o){return `<tr class="order-row" tabindex="0" role="button" aria-label="Xem chi tiết đơn ${esc(o.id)}" onclick="showOrderDetail('${esc(o.id)}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showOrderDetail('${esc(o.id)}')}" data-search="${esc((customer(o.customerId)?.name||'')+' '+o.id).toLowerCase()}"><td>${dateFmt(o.date)}</td><td><strong>${esc(o.id)}</strong></td><td>${esc(customer(o.customerId)?.name||'Khách lẻ')}</td><td>${o.lines.map(l=>esc(l.name)+' × '+qtyVal(l.qty)).join(', ')}</td><td>${money(revenue(o))}</td><td>${money(cost(o))}</td><td class="${orderProfit(o)<0?'negative':'positive'}">${money(orderProfit(o))}</td><td><button class="small danger" onclick="event.stopPropagation();del('orders','${esc(o.id)}')">Xóa</button></td></tr>`}
@@ -492,11 +593,11 @@ function expensesPage(){return `<div class="toolbar"><button onclick="openExpens
 function reportsPage(){
  let mode=window.reportMode||'day',now=today(),anchor=window.reportDate||now,buckets=[];
  if(mode==='day'){
-  for(let i=6;i>=0;i--){let d=new Date(anchor+'T00:00:00');d.setDate(d.getDate()-i);let k=d.toISOString().slice(0,10);buckets.push({from:k,to:k,label:k.slice(8)+'/'+k.slice(5,7),caption:dateFmt(k)});}
+  for(let i=6;i>=0;i--){let d=new Date(anchor+'T00:00:00');d.setDate(d.getDate()-i);let k=d.toLocaleDateString('sv-SE');buckets.push({from:k,to:k,label:k.slice(8)+'/'+k.slice(5,7),caption:dateFmt(k)});}
  }else if(mode==='week'){
-  let end=weekStart(anchor);for(let i=6;i>=0;i--){let d=new Date(end+'T00:00:00');d.setDate(d.getDate()-7*i);let f=d.toISOString().slice(0,10),t=new Date(d.getTime()+6*86400000).toISOString().slice(0,10);buckets.push({from:f,to:t,label:'T'+(i+1),caption:dateFmt(f)+' – '+dateFmt(t)});}
+  let end=weekStart(anchor);for(let i=6;i>=0;i--){let d=new Date(end+'T00:00:00');d.setDate(d.getDate()-7*i);let f=d.toLocaleDateString('sv-SE'),t=new Date(d.getTime()+6*86400000).toLocaleDateString('sv-SE');buckets.push({from:f,to:t,label:'T'+(i+1),caption:dateFmt(f)+' – '+dateFmt(t)});}
  }else{
-  let base=new Date(anchor+'T00:00:00');base.setDate(1);for(let i=6;i>=0;i--){let d=new Date(base.getFullYear(),base.getMonth()-i,1),f=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-01',last=new Date(d.getFullYear(),d.getMonth()+1,0),t=last.toISOString().slice(0,10);buckets.push({from:f,to:t,label:String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear().toString().slice(-2),caption:f.slice(0,7)});}
+  let base=new Date(anchor+'T00:00:00');base.setDate(1);for(let i=6;i>=0;i--){let d=new Date(base.getFullYear(),base.getMonth()-i,1),f=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-01',last=new Date(d.getFullYear(),d.getMonth()+1,0),t=last.toLocaleDateString('sv-SE');buckets.push({from:f,to:t,label:String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear().toString().slice(-2),caption:f.slice(0,7)});}
  }
  let rows=buckets.map(b=>{let oo=db.orders.filter(o=>inRange(o.date,b.from,b.to)),ee=db.expenses.filter(e=>inRange(e.date,b.from,b.to)),tt=totals(oo,ee),bb=expenseBreakdown(oo,ee);return{...b,...tt,ads:bb.ads,other:bb.other,allCost:tt.c+bb.ads+bb.other}});
  let total={r:rows.reduce((a,x)=>a+x.r,0),c:rows.reduce((a,x)=>a+x.c,0),p:rows.reduce((a,x)=>a+x.p,0),n:rows.reduce((a,x)=>a+x.n,0),ads:rows.reduce((a,x)=>a+x.ads,0),other:rows.reduce((a,x)=>a+x.other,0),allCost:rows.reduce((a,x)=>a+x.allCost,0)};
@@ -623,5 +724,54 @@ function startCloudRealtime(){if(!cloud||!cloudUser)return;if(cloudChannel)cloud
 async function cloudPush(){if(cloudBusy||!cloudUser||!ensureCloud())return;let {error}=await cloud.from('mysales_data').upsert({id:cloudUser.id,data:db,updated_at:new Date().toISOString()});if(error)console.warn('MySales cloud sync:',error.message)}
 async function cloudSignOut(){if(!ensureCloud())return;await cloud.auth.signOut();cloudUser=null;alert('Đã đăng xuất khỏi Supabase. Dữ liệu trên thiết bị vẫn còn.');render()}
 ensureCloud();if(cloud){cloud.auth.getSession().then(async({data})=>{if(data.session){cloudUser=data.session.user;startCloudRealtime();let r=await cloud.from('mysales_data').select('data').eq('id',cloudUser.id).maybeSingle();if(r.data?.data){db=r.data.data;localStorage.setItem(KEY,JSON.stringify(db));render()}}})}
-document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{page=b.dataset.page;render()});document.getElementById('quickAdd').onclick=()=>openOrder();document.getElementById('page').addEventListener('input',e=>{if(e.target.id==='orderSearch'){let q=e.target.value.toLowerCase();document.querySelectorAll('#orderRows tr').forEach(r=>r.classList.toggle('hidden',!r.dataset.search?.includes(q)))}if(e.target.id==='customerSearch'){let q=e.target.value.toLowerCase();document.querySelectorAll('#customerRows tr').forEach(r=>r.classList.toggle('hidden',!r.dataset.search?.includes(q)))}});render();
+document.querySelectorAll('.menu button').forEach(b=>b.onclick=()=>{page=b.dataset.page;closeDrawer();render();scrollTo(0,0)});document.getElementById('quickAdd').onclick=()=>openOrder();const dr=document.getElementById('drawer'),bg=document.getElementById('drawerBg'),mb=document.getElementById('menuBtn');function closeDrawer(){dr.classList.remove('open');bg.classList.add('hidden');mb.setAttribute('aria-expanded','false')}mb.onclick=()=>{let o=!dr.classList.contains('open');dr.classList.toggle('open',o);bg.classList.toggle('hidden',!o);mb.setAttribute('aria-expanded',String(o))};bg.onclick=closeDrawer;document.getElementById('page').addEventListener('input',e=>{if(e.target.id==='orderSearch'){let q=e.target.value.toLowerCase();document.querySelectorAll('#orderRows tr').forEach(r=>r.classList.toggle('hidden',!r.dataset.search?.includes(q)))}if(e.target.id==='customerSearch'){let q=e.target.value.toLowerCase();document.querySelectorAll('#customerRows tr').forEach(r=>r.classList.toggle('hidden',!r.dataset.search?.includes(q)))}});render();
+/* ===== Trang tạo đơn toàn màn hình ===== */
+const G=id=>document.getElementById(id);
+let pickSel=new Set();
+const custOpts=sel=>'<option value="">Khách lẻ / chưa lưu</option>'+db.customers.map(c=>`<option value="${esc(c.id)}"${c.id===sel?' selected':''}>${esc(c.name)}${c.area?' · '+esc(c.area):''}</option>`).join('');
+function openOrder(){
+  orderLines=[];
+  G('orderPage').innerHTML=`<div class="fp-head"><button type="button" onclick="closeOrderPage(true)" aria-label="Quay lại">‹</button><h2>Thêm đơn bán</h2><button type="button" class="fp-save" onclick="saveOrder()">💾 Lưu</button></div>
+<div class="fp-body">
+ <div class="sec"><div class="sec-head"><strong>Hàng hóa</strong><button type="button" class="secondary" onclick="openPicker()">＋ Thêm</button></div><div id="orderLines"></div></div>
+ <div class="sec"><div class="sec-head"><div class="grow"><small class="muted">Khách hàng</small><select id="oCustomer" onchange="ocShow()">${custOpts('')}</select></div><button type="button" class="secondary" onclick="ocToggleNew()">＋ Thêm</button></div>
+  <div class="kv"><span>📞 SĐT</span><b id="ocPhone">Không có</b></div><div class="kv"><span>🏠 Địa chỉ</span><b id="ocAddr">Không có</b></div>
+  <div id="ocNew" class="hidden"><div class="kv"><span>Tên *</span><input id="nName"></div><div class="kv"><span>SĐT</span><input id="nPhone" inputmode="tel"></div><div class="kv"><span>Khu vực</span><input id="nArea" placeholder="Từ Sơn, Bắc Ninh"></div><div class="kv"><span>Địa chỉ</span><input id="nAddress"></div><button type="button" class="full-btn" onclick="ocSaveNew()">Lưu khách hàng</button></div></div>
+ <div class="sec"><div class="kv"><span>Ngày bán</span><input id="oDate" type="date" value="${today()}"></div><div class="kv"><span>Ghi chú</span><input id="oNote" placeholder="Giao sáng trước 9h..."></div></div>
+ <div class="sec"><div class="kv"><span>Chi phí riêng của đơn</span><input id="oExtra" inputmode="numeric" autocomplete="off" value="0" oninput="updateOrderSummary()"></div><div id="orderSummary"></div></div>
+</div>
+<div class="fp-foot"><span>Tổng tiền</span><strong id="ofTotal">0 ₫</strong></div>`;
+  G('orderPage').classList.remove('hidden');document.body.style.overflow='hidden';renderOrderLines();ocShow();
+}
+function closeOrderPage(ask){if(ask&&orderLines.length&&!confirm('Bỏ đơn đang tạo?'))return;G('orderPage').classList.add('hidden');G('orderPage').innerHTML='';document.body.style.overflow=''}
+function ocShow(){let c=customer(G('oCustomer').value);G('ocPhone').textContent=c?.phone||'Không có';G('ocAddr').textContent=[c?.area,c?.address].filter(Boolean).join(' · ')||'Không có'}
+function ocToggleNew(){G('ocNew').classList.toggle('hidden')}
+function ocSaveNew(){let name=G('nName').value.trim();if(!name)return alert('Vui lòng nhập tên khách hàng');let c={id:uid('KH'),name,phone:G('nPhone').value.trim(),area:G('nArea').value.trim(),address:G('nAddress').value.trim(),note:''};db.customers.push(c);save();G('oCustomer').innerHTML=custOpts(c.id);G('ocNew').classList.add('hidden');['nName','nPhone','nArea','nAddress'].forEach(k=>G(k).value='');ocShow()}
+const lineTotal=l=>money(num(l.price)*qtyVal(l.qty));
+function olHtml(l,i){let p=product(l.productId),img=p&&p.image?`<img src="${p.image}" alt="">`:'<div class="ph">📦</div>';
+  return `<div class="ol"><div>${img}</div><div><div class="ol-name">${i+1}. ${l.productId?esc(l.name):`<input class="ol-nm" placeholder="Tên sản phẩm ngoài..." value="${esc(l.name)}" oninput="orderLines[${i}].name=this.value">`}</div>
+<div class="stepper"><button type="button" onclick="olQty(${i},-1)">−</button><input inputmode="decimal" title="Số lượng (kg)" value="${l.qty}" oninput="olSet(${i},this.value)" onchange="olFix(${i},this)"><button type="button" onclick="olQty(${i},1)">+</button></div> <span class="muted">kg</span>
+${l.productId?'':`<input class="ol-cost" inputmode="numeric" autocomplete="off" placeholder="Giá vốn / 1kg" value="${fmtMoneyInput(l.cost)}" oninput="orderLines[${i}].cost=num(this.value);updateOrderSummary()">`}</div>
+<div class="ol-price"><button type="button" class="small danger" onclick="olDel(${i})">×</button><div class="ol-total" id="olt${i}">${lineTotal(l)}</div><input class="ol-unit" inputmode="numeric" autocomplete="off" placeholder="đ / 1kg" title="Đơn giá / 1kg (đ)" value="${fmtMoneyInput(l.price)}" oninput="olPrice(${i},this.value)"></div></div>`}
+function renderOrderLines(){let b=G('orderLines');if(!b)return;b.innerHTML=orderLines.map(olHtml).join('')||'<div class="empty">Chưa có hàng hóa. Bấm “＋ Thêm” để chọn.</div>';updateOrderSummary()}
+function olRefresh(i){let t=G('olt'+i);if(t)t.textContent=lineTotal(orderLines[i]);updateOrderSummary()}
+function olSet(i,v){orderLines[i].qty=Math.max(0,qtyVal(v));olRefresh(i)}
+function olFix(i,el){let q=qtyVal(orderLines[i].qty);if(!(q>0))q=1;orderLines[i].qty=q;el.value=q;olRefresh(i)}
+function olQty(i,d){let n=Math.round((qtyVal(orderLines[i].qty)+d)*100)/100;if(n<=0)n=0.5;orderLines[i].qty=n;renderOrderLines()}
+function olPrice(i,v){orderLines[i].price=num(v);olRefresh(i)}
+function olDel(i){orderLines.splice(i,1);renderOrderLines()}
+function updateOrderSummary(){let rev=orderLines.reduce((s,l)=>s+qtyVal(l.qty)*num(l.price),0),c=orderLines.reduce((s,l)=>s+qtyVal(l.qty)*num(l.cost),0),q=orderLines.reduce((s,l)=>s+qtyVal(l.qty),0),extra=num(G('oExtra')?.value),p=rev-c-extra;
+  let x=G('orderSummary');if(x)x.innerHTML=`<div class="summaryline"><span>Số lượng</span><strong>${q.toLocaleString('vi-VN')} kg</strong></div><div class="summaryline"><span>Tổng tiền hàng</span><strong>${money(rev)}</strong></div><div class="summaryline"><span>Giá vốn</span><strong>${money(c)}</strong></div><div class="summaryline"><strong>Lợi nhuận dự kiến</strong><strong class="${p<0?'negative':'positive'}">${money(p)}</strong></div>`;
+  let t=G('ofTotal');if(t)t.textContent=money(rev)}
+function saveOrder(){let lines=orderLines.filter(l=>l.name.trim()&&qtyVal(l.qty)>0);if(!lines.length)return alert('Thêm ít nhất một sản phẩm có tên và số lượng lớn hơn 0');let o={id:'DH-'+Date.now().toString().slice(-7),date:G('oDate').value||today(),customerId:G('oCustomer').value,lines:lines.map(l=>({...l,qty:qtyVal(l.qty)})),extraCost:num(G('oExtra').value),note:G('oNote').value.trim()};db.orders.push(o);closeOrderPage(false);save()}
+/* Chọn hàng hóa (toàn màn hình) */
+function openPicker(){pickSel=new Set(orderLines.filter(l=>l.productId).map(l=>l.productId));G('pickQ').value='';G('pickPage').classList.remove('hidden');renderPick()}
+function closePicker(){G('pickPage').classList.add('hidden')}
+function renderPick(){let q=G('pickQ').value.trim().toLowerCase(),ps=db.products.filter(p=>p.name.toLowerCase().includes(q));
+  G('pickList').innerHTML=ps.map(p=>`<div class="pk ${pickSel.has(p.id)?'on':''}" onclick="pickToggle('${p.id}')"><div class="th">${p.image?`<img src="${p.image}" alt="">`:'📦'}<div class="tick">✓</div></div><div class="nm">${esc(p.name)}</div><div class="pr">${money(p.price)}</div></div>`).join('')||'<div class="empty">Chưa có sản phẩm. Thêm ở mục Sản phẩm, hoặc bấm “＋ Sản phẩm ngoài”.</div>';
+  G('pickCount').textContent=pickSel.size}
+function pickToggle(id){pickSel.has(id)?pickSel.delete(id):pickSel.add(id);renderPick()}
+function pickApply(){orderLines=orderLines.filter(l=>!l.productId||pickSel.has(l.productId));pickSel.forEach(id=>{if(!orderLines.some(l=>l.productId===id)){let p=product(id);if(p)orderLines.push({productId:id,name:p.name,qty:1,price:num(p.price),cost:num(p.cost)})}})}
+function pickDone(){pickApply();closePicker();renderOrderLines()}
+function pickCustom(){pickApply();orderLines.push({productId:'',name:'',qty:1,price:0,cost:0});closePicker();renderOrderLines()}
 </script></body></html>
