@@ -573,9 +573,35 @@ html body .syncstat{margin-left:auto;background:transparent!important;box-shadow
 <div id="orderPage" class="fp hidden"></div>
 <div id="pickPage" class="fp hidden" style="z-index:75"><div class="fp-head"><button type="button" onclick="closePicker()" aria-label="Quay lại">‹</button><h2>Chọn hàng hóa</h2></div><div class="fp-search"><input id="pickQ" placeholder="Lọc theo tên hàng..." oninput="renderPick()"></div><div class="fp-body" id="pickList"></div><div class="fp-foot"><button type="button" class="secondary" onclick="pickCustom()">＋ Sản phẩm ngoài</button><button type="button" onclick="pickDone()">Tiếp tục (<span id="pickCount">0</span>)</button></div></div>
 <script>
-const KEY='mysales_v1';let db=load();let page='dashboard';let orderLines=[];let cloud=null,cloudUser=null,cloudBusy=false,cloudChannel=null;
+const KEY='mysales_v1';let db=load();let page='dashboard';let orderLines=[];let cloud=null,cloudUser=null,cloudBusy=false,cloudChannel=null; let pushTimer=null;
 function load(){let raw=null;try{raw=localStorage.getItem(KEY);let d=JSON.parse(raw)||{};for(const k of ['orders','customers','products','expenses'])if(!Array.isArray(d[k]))d[k]=[];return d}catch{if(raw){try{localStorage.setItem(KEY+'_corrupt',raw)}catch{}}return{orders:[],customers:[],products:[],expenses:[]}}}
-function save(){stamp();persist();if(cloudConfigured())setDirty(true);render();cloudPush();if(cloudConfigured()&&!navigator.onLine)toast('📴 Đã lưu trên máy — sẽ tự đồng bộ khi có mạng.')}
+// Hàm gom lệnh: đợi 2 giây sau thao tác cuối cùng mới thực hiện đẩy lên cloud
+function cloudPushDebounced(){
+  clearTimeout(pushTimer);
+  pushTimer = setTimeout(() => {
+    cloudPush();
+  }, 2000); // 2000 ms = 2 giây
+}
+
+function save(){
+  // Giới hạn mảng deleted không quá 50 mục để giữ file JSON luôn nhẹ (kết hợp tối ưu từ Chi tiết 3)
+  if(Array.isArray(db.deleted) && db.deleted.length > 50) {
+    db.deleted = db.deleted.slice(-50);
+  }
+  stamp();
+  persist();
+  if(cloudConfigured()) setDirty(true);
+  render();
+  
+  // Thay vì gọi trực tiếp cloudPush(), ta gọi hàm gom lệnh cloudPushDebounced()
+  if(cloudConfigured()) {
+    cloudPushDebounced();
+  }
+  
+  if(cloudConfigured() && !navigator.onLine) {
+    toast('📴 Đã lưu trên máy — sẽ tự đồng bộ khi có mạng.');
+  }
+}
 const money=n=>(Number(n)||0).toLocaleString('vi-VN')+'\u00a0₫';const num=v=>Number(String(v??'').replace(/[^0-9-]/g,''))||0;const qtyVal=v=>{let n=parseFloat(String(v??'').replace(',','.'));return Number.isFinite(n)?n:0};
 const fmtMoneyInput=v=>{let d=String(v??'').replace(/[^0-9]/g,'');return d?d.replace(/\B(?=(\d{3})+(?!\d))/g,'.'):''};
 document.addEventListener('input',e=>{if(e.target.matches('[data-money],#pCost,#pPrice,#eAmount,#oExtra')||((e.target.tagName==='INPUT')&&e.target.inputMode==='numeric'&&e.target.title!=='Số lượng'&&!e.target.title?.includes('Số lượng'))){let el=e.target,pos=el.selectionStart,old=el.value,next=fmtMoneyInput(old);if(next!==old){el.value=next;try{el.setSelectionRange(next.length,next.length)}catch(_){}}}});
@@ -668,7 +694,7 @@ function openCustomer(){openModal('Thêm khách hàng',`<div class="formgrid"><d
 function saveCustomer(id=null){let name=document.getElementById('cName').value.trim();if(!name)return alert('Vui lòng nhập tên khách hàng');let data={name,phone:cPhone.value.trim(),area:cArea.value.trim(),address:cAddress.value.trim(),note:cNote.value.trim()};if(id){let c=customer(id);if(!c)return alert('Không tìm thấy khách hàng');Object.assign(c,data)}else db.customers.push({id:uid('KH'),...data});closeModal();save()}
 function editCustomer(id){let c=customer(id);if(!c)return;openModal('Chỉnh sửa khách hàng',`<div class="formgrid"><div class="field"><label>Tên khách hàng *</label><input id="cName" required value="${esc(c.name)}"></div><div class="field"><label>Số điện thoại</label><input id="cPhone" value="${esc(c.phone||'')}"></div><div class="field"><label>Khu vực / tỉnh thành</label><input id="cArea" value="${esc(c.area||'')}" placeholder="Ví dụ: Từ Sơn, Bắc Ninh"></div><div class="field"><label>Địa chỉ chi tiết</label><input id="cAddress" value="${esc(c.address||'')}"></div><div class="field span2"><label>Ghi chú</label><textarea id="cNote" rows="2">${esc(c.note||'')}</textarea></div></div><div class="notice">Thông tin khách hàng được cập nhật tại hồ sơ hiện tại và các đơn hàng cũ liên kết với khách hàng này.</div><div class="actions"><button class="secondary" onclick="closeModal()">Hủy</button><button onclick="saveCustomer('${id}')">Lưu thay đổi</button></div>`)}
 function openProduct(){openModal('Thêm sản phẩm',`<div class="formgrid"><div class="field span2"><label>Tên sản phẩm *</label><input id="pName"></div><div class="field"><label>Giá vốn (đ)</label><input id="pCost" type="text" inputmode="numeric" autocomplete="off"></div><div class="field"><label>Giá bán mặc định (đ)</label><input id="pPrice" type="text" inputmode="numeric" autocomplete="off"></div><div class="field span2"><label>Ảnh sản phẩm</label><input id="pImage" type="file" accept="image/*"><small class="muted">Chọn ảnh từ điện thoại hoặc máy tính.</small><img id="pImagePreview" class="product-thumb hidden" style="width:100px;height:100px"></div><div class="field span2"><label>Ghi chú</label><input id="pNote"></div></div><div class="actions"><button class="secondary" onclick="closeModal()">Hủy</button><button onclick="saveProduct()">Lưu sản phẩm</button></div>`) ;document.getElementById('pImage').onchange=e=>{let f=e.target.files[0],img=document.getElementById('pImagePreview');if(!f)return;if(!f.type.startsWith('image/'))return alert('Vui lòng chọn tệp hình ảnh');let u=URL.createObjectURL(f);img.src=u;img.classList.remove('hidden')}}
-function compressProductImage(file){return new Promise((resolve,reject)=>{let r=new FileReader();r.onload=()=>{let im=new Image();im.onload=()=>{let scale=Math.min(1,500/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*scale);c.height=Math.round(im.height*scale);c.getContext('2d').drawImage(im,0,0,c.width,c.height);resolve(c.toDataURL('image/jpeg',.72))};im.onerror=reject;im.src=r.result};r.onerror=reject;im.readAsDataURL(file)})}
+function compressProductImage(file){return new Promise((resolve,reject)=>{let r=new FileReader();r.onload=()=>{let im=new Image();im.onload=()=>{let scale=Math.min(1,300/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*scale);c.height=Math.round(im.height*scale);c.getContext('2d').drawImage(im,0,0,c.width,c.height);resolve(c.toDataURL('image/jpeg',0.5))};im.onerror=reject;im.src=r.result};r.onerror=reject;r.readAsDataURL(file)})}
 async function saveProduct(){let name=document.getElementById('pName').value.trim();if(!name)return alert('Vui lòng nhập tên sản phẩm');let file=document.getElementById('pImage').files[0],image='';try{if(file)image=await compressProductImage(file)}catch(e){return alert('Không đọc được ảnh. Vui lòng chọn ảnh khác.')}db.products.push({id:uid('SP'),name,cost:num(pCost.value),price:num(pPrice.value),note:pNote.value.trim(),image});closeModal();save()}
 function editProduct(id){let p=product(id);if(!p)return;openModal('Chỉnh sửa sản phẩm',`<div class="formgrid"><div class="field span2"><label>Tên sản phẩm *</label><input id="pName" value="${esc(p.name)}"></div><div class="field"><label>Giá vốn hiện tại (đ)</label><input id="pCost" type="text" inputmode="numeric" autocomplete="off" value="${fmtMoneyInput(p.cost)}"></div><div class="field"><label>Giá bán mặc định hiện tại (đ)</label><input id="pPrice" type="text" inputmode="numeric" autocomplete="off" value="${fmtMoneyInput(p.price)}"></div><div class="field span2"><label>Ảnh sản phẩm</label><input id="pImage" type="file" accept="image/*"><small class="muted">Chọn ảnh mới nếu muốn thay ảnh hiện tại.</small><img id="pImagePreview" class="product-thumb ${p.image?'':'hidden'}" style="width:100px;height:100px" ${p.image?`src="${p.image}"`:''}></div><div class="field span2"><label>Ghi chú</label><input id="pNote" value="${esc(p.note||'')}"></div></div><div class="notice">Thay đổi giá chỉ áp dụng cho các đơn hàng tạo mới. Giá bán và giá vốn đã lưu trong đơn hàng cũ được giữ nguyên.</div><div class="actions"><button class="secondary" onclick="closeModal()">Hủy</button><button onclick="updateProduct('${id}')">Lưu thay đổi</button></div>`);document.getElementById('pImage').onchange=e=>{let f=e.target.files[0],img=document.getElementById('pImagePreview');if(!f)return;if(!f.type.startsWith('image/'))return alert('Vui lòng chọn tệp hình ảnh');img.src=URL.createObjectURL(f);img.classList.remove('hidden')}}
 async function updateProduct(id){let p=product(id);if(!p)return;let name=document.getElementById('pName').value.trim();if(!name)return alert('Vui lòng nhập tên sản phẩm');let file=document.getElementById('pImage').files[0],image=p.image||'';try{if(file)image=await compressProductImage(file)}catch(e){return alert('Không đọc được ảnh. Vui lòng chọn ảnh khác.')}Object.assign(p,{name,cost:num(pCost.value),price:num(pPrice.value),note:pNote.value.trim(),image});closeModal();save()}
