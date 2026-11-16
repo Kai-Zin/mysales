@@ -560,22 +560,18 @@ html body .rp-nav>button{width:44px;padding:0!important;font-size:22px!important
 html body .syncstat{margin-left:auto;background:transparent!important;box-shadow:none;font-size:12px!important;font-weight:700;min-height:32px!important;padding:4px 8px!important;border-radius:8px;white-space:nowrap}
 .syncstat.ok{color:#18a875!important}.syncstat.busy{color:#3478ee!important}.syncstat.err{color:#d64545!important}.syncstat.out{color:#8b98aa!important}
 </style>
-<style id="final-ui">
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:max(20px,env(safe-area-inset-bottom));width:max-content;max-width:88vw;background:#17243a;color:#fff;padding:10px 14px;border-radius:12px;font-size:13px;z-index:95;box-shadow:0 6px 20px #0004;text-align:center;line-height:1.4}
-.syncstat.warn{color:#e08a00!important}
-</style>
 </head>
 <body><div class="app">
 <div class="topbar"><button id="menuBtn" class="menu-btn" aria-label="Mở menu" aria-expanded="false"><span></span><span></span><span></span></button><span class="tb-brand">🤑 Kiếm được 10 tỷ sẽ nghỉ làm</span><button id="syncStat" type="button" class="syncstat out">☁</button></div><div id="drawerBg" class="drawer-bg hidden"></div><aside id="drawer" class="drawer"><div class="drawer-head">🤑 Kiếm được 10 tỷ sẽ nghỉ làm<small>Làm hết mình, nghỉ hưu thật sớm 😎</small></div><nav class="menu"><button class="active" data-page="dashboard">▦ Tổng quan</button><button data-page="orders">▤ Đơn hàng</button><button data-page="customers">♙ Khách hàng</button><button data-page="products">▣ Sản phẩm</button><button data-page="expenses">＋ Chi phí</button><button data-page="reports">▥ Báo cáo</button><button data-page="settings">⚙ Dữ liệu</button></nav><div class="drawer-note">💸 Mục tiêu: 10 tỷ rồi tính tiếp!</div></aside>
 <main class="main"><header class="app-topbar"><div class="searchbox">⌕ <input id="globalSearch" placeholder="Tìm kiếm đơn hàng, khách hàng, sản phẩm..."></div><div class="profile-chip"><span class="profile-avatar">M</span><span><strong>Team nghỉ hưu sớm 😎</strong><small>Quản lý bán hàng</small></span></div></header><div class="top"><div><div class="muted" id="today"></div><h1 id="pageTitle">Tổng quan</h1></div><button id="quickAdd">＋ Tạo đơn hàng</button></div><div id="page"></div></main></div>
 <div id="modal" class="modal hidden"><div class="dialog"><div class="dialoghead"><h2 id="modalTitle"></h2><button class="secondary small" id="closeModal">✕</button></div><div id="modalBody"></div></div></div>
-<div id="toast" class="toast hidden" role="status"></div>
 <div id="orderPage" class="fp hidden"></div>
 <div id="pickPage" class="fp hidden" style="z-index:75"><div class="fp-head"><button type="button" onclick="closePicker()" aria-label="Quay lại">‹</button><h2>Chọn hàng hóa</h2></div><div class="fp-search"><input id="pickQ" placeholder="Lọc theo tên hàng..." oninput="renderPick()"></div><div class="fp-body" id="pickList"></div><div class="fp-foot"><button type="button" class="secondary" onclick="pickCustom()">＋ Sản phẩm ngoài</button><button type="button" onclick="pickDone()">Tiếp tục (<span id="pickCount">0</span>)</button></div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const KEY='mysales_v1';let db=load();let page='dashboard';let orderLines=[];let cloud=null,cloudUser=null,cloudBusy=false,cloudChannel=null;
-function load(){let raw=null;try{raw=localStorage.getItem(KEY);let d=JSON.parse(raw)||{};for(const k of ['orders','customers','products','expenses'])if(!Array.isArray(d[k]))d[k]=[];return d}catch{if(raw){try{localStorage.setItem(KEY+'_corrupt',raw)}catch{}}return{orders:[],customers:[],products:[],expenses:[]}}}
-function save(){stamp();persist();if(cloudConfigured())setDirty(true);render();cloudPush();if(cloudConfigured()&&!navigator.onLine)toast('📴 Đã lưu trên máy — sẽ tự đồng bộ khi có mạng.')}
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{orders:[],customers:[],products:[],expenses:[]}}catch{return{orders:[],customers:[],products:[],expenses:[]}}}
+function save(){stamp();localStorage.setItem(KEY,JSON.stringify(db));render();cloudPush()}
 const money=n=>(Number(n)||0).toLocaleString('vi-VN')+'\u00a0₫';const num=v=>Number(String(v??'').replace(/[^0-9-]/g,''))||0;const qtyVal=v=>{let n=parseFloat(String(v??'').replace(',','.'));return Number.isFinite(n)?n:0};
 const fmtMoneyInput=v=>{let d=String(v??'').replace(/[^0-9]/g,'');return d?d.replace(/\B(?=(\d{3})+(?!\d))/g,'.'):''};
 document.addEventListener('input',e=>{if(e.target.matches('[data-money],#pCost,#pPrice,#eAmount,#oExtra')||((e.target.tagName==='INPUT')&&e.target.inputMode==='numeric'&&e.target.title!=='Số lượng'&&!e.target.title?.includes('Số lượng'))){let el=e.target,pos=el.selectionStart,old=el.value,next=fmtMoneyInput(old);if(next!==old){el.value=next;try{el.setSelectionRange(next.length,next.length)}catch(_){}}}});
@@ -644,7 +640,7 @@ function reportsPage(){
  <div class="cards report-metrics">${metric('Doanh thu',money(tt.r),label)}${metric('Tổng chi phí',money(allCost),'Giá vốn + quảng cáo + chi phí khác')}${metric('Chi phí quảng cáo',money(bb.ads))}${metric('Chi phí khác',money(bb.other))}</div><div class="report-profit-strip"><span><strong>Lợi nhuận ròng</strong><small>${tt.n} đơn hàng</small></span><strong class="${tt.p<0?'negative':'positive'}">${money(tt.p)}</strong></div>
  ${detail}`
 }
-function settingsPage(){let cfg=JSON.parse(localStorage.getItem('mysales_supabase_config')||'{}');return `${syncPanel()}${zoomPanel()}<section class="panel"><h2>Đồng bộ điện thoại và máy tính</h2><div class="notice">${cloudUser?`Đã đăng nhập: ${esc(cloudUser.email)} · Đồng bộ đám mây đang bật.`:'Kết nối Supabase một lần để dùng chung dữ liệu trên nhiều thiết bị. Mỗi thiết bị cần nhập cùng Project URL và publishable key, sau đó đăng nhập cùng tài khoản.'}</div><div class="formgrid"><div class="field span2"><label>Supabase Project URL</label><input id="sbUrl" placeholder="https://xxxxxxxx.supabase.co" value="${esc(cfg.url||'')}"></div><div class="field span2"><label>Supabase publishable key (hoặc anon key cũ)</label><input id="sbKey" placeholder="sb_publishable_... hoặc anon key" value="${esc(cfg.key||'')}"></div><div class="field"><label>Email</label><input id="sbEmail" type="email" placeholder="email của bạn"></div><div class="field"><label>Mật khẩu</label><input id="sbPass" type="password" placeholder="Mật khẩu tài khoản"></div></div><div class="toolbar"><button onclick="connectCloud()">Lưu cấu hình / kết nối</button><button class="secondary" onclick="cloudSignUp()">Tạo tài khoản</button><button class="secondary" onclick="cloudSignIn()">Đăng nhập & đồng bộ</button><button class="secondary" onclick="cloudSignOut()">Đăng xuất</button></div><p class="muted" style="font-size:12px">Không gửi mật khẩu cho bất kỳ ai. Mật khẩu chỉ được gửi trực tiếp tới Supabase Auth. Dữ liệu cục bộ vẫn được giữ làm bản dự phòng.</p><h3>Thiết lập cơ sở dữ liệu (chỉ làm một lần)</h3><p class="muted">Trong Supabase → SQL Editor → New query, chạy đoạn SQL sau:</p><pre style="white-space:pre-wrap;overflow-wrap:anywhere;background:#f5f7fb;padding:12px;border-radius:9px;font-size:12px">create table if not exists public.mysales_data (
+function settingsPage(){let cfg=JSON.parse(localStorage.getItem('mysales_supabase_config')||'{}');return `${zoomPanel()}<section class="panel"><h2>Đồng bộ điện thoại và máy tính</h2><div class="notice">${cloudUser?`Đã đăng nhập: ${esc(cloudUser.email)} · Đồng bộ đám mây đang bật.`:'Kết nối Supabase một lần để dùng chung dữ liệu trên nhiều thiết bị. Mỗi thiết bị cần nhập cùng Project URL và publishable key, sau đó đăng nhập cùng tài khoản.'}</div><div class="formgrid"><div class="field span2"><label>Supabase Project URL</label><input id="sbUrl" placeholder="https://xxxxxxxx.supabase.co" value="${esc(cfg.url||'')}"></div><div class="field span2"><label>Supabase publishable key (hoặc anon key cũ)</label><input id="sbKey" placeholder="sb_publishable_... hoặc anon key" value="${esc(cfg.key||'')}"></div><div class="field"><label>Email</label><input id="sbEmail" type="email" placeholder="email của bạn"></div><div class="field"><label>Mật khẩu</label><input id="sbPass" type="password" placeholder="Mật khẩu tài khoản"></div></div><div class="toolbar"><button onclick="connectCloud()">Lưu cấu hình / kết nối</button><button class="secondary" onclick="cloudSignUp()">Tạo tài khoản</button><button class="secondary" onclick="cloudSignIn()">Đăng nhập & đồng bộ</button><button class="secondary" onclick="cloudSignOut()">Đăng xuất</button></div><p class="muted" style="font-size:12px">Không gửi mật khẩu cho bất kỳ ai. Mật khẩu chỉ được gửi trực tiếp tới Supabase Auth. Dữ liệu cục bộ vẫn được giữ làm bản dự phòng.</p><h3>Thiết lập cơ sở dữ liệu (chỉ làm một lần)</h3><p class="muted">Trong Supabase → SQL Editor → New query, chạy đoạn SQL sau:</p><pre style="white-space:pre-wrap;overflow-wrap:anywhere;background:#f5f7fb;padding:12px;border-radius:9px;font-size:12px">create table if not exists public.mysales_data (
   id uuid primary key references auth.users(id) on delete cascade,
   data jsonb not null default '{}'::jsonb,
   updated_at timestamptz not null default now()
@@ -674,6 +670,75 @@ function editProduct(id){let p=product(id);if(!p)return;openModal('Chỉnh sửa
 async function updateProduct(id){let p=product(id);if(!p)return;let name=document.getElementById('pName').value.trim();if(!name)return alert('Vui lòng nhập tên sản phẩm');let file=document.getElementById('pImage').files[0],image=p.image||'';try{if(file)image=await compressProductImage(file)}catch(e){return alert('Không đọc được ảnh. Vui lòng chọn ảnh khác.')}Object.assign(p,{name,cost:num(pCost.value),price:num(pPrice.value),note:pNote.value.trim(),image});closeModal();save()}
 function openExpense(){openModal('Ghi nhận chi phí',`<div class="formgrid"><div class="field"><label>Ngày *</label><input id="eDate" type="date" value="${today()}"></div><div class="field"><label>Tên khoản chi *</label><input id="eName" placeholder="Facebook Ads, vận chuyển, đóng gói..."></div><div class="field"><label>Loại chi phí</label><select id="eType"><option value="ads">Chi phí quảng cáo</option><option value="other" selected>Chi phí khác</option></select></div><div class="field"><label>Nhóm chi phí</label><select id="eCat"><option>Vận chuyển</option><option>Đóng gói</option><option>Quảng cáo</option><option>Đi lại</option><option>Khác</option></select></div><div class="field"><label>Số tiền (đ) *</label><input id="eAmount" type="text" inputmode="numeric" autocomplete="off"></div><div class="field"><label>Gắn với đơn hàng (không bắt buộc)</label><select id="eOrder"><option value="">Chi phí chung</option>${db.orders.map(o=>`<option value="${o.id}">${o.id} · ${esc(customer(o.customerId)?.name||'Khách lẻ')}</option>`).join('')}</select></div><div class="field"><label>Ghi chú</label><input id="eNote"></div></div><div class="actions"><button class="secondary" onclick="closeModal()">Hủy</button><button onclick="saveExpense()">Lưu chi phí</button></div>`)}
 function saveExpense(){if(!eName.value.trim()||num(eAmount.value)<=0)return alert('Nhập tên khoản chi và số tiền hợp lệ');let obj={id:uid('CP'),date:eDate.value||today(),name:eName.value.trim(),category:eCat.value,type:eType.value,amount:num(eAmount.value),orderId:eOrder.value,note:eNote.value.trim()};db.expenses.push(obj);closeModal();save()}
+function toggleCustomerPicker(){document.getElementById('customerPickerList')?.classList.toggle('hidden')}
+function chooseOrderCustomer(id){let c=customer(id);document.getElementById('oCustomer').value=id;document.getElementById('customerPickerCurrent').textContent=c?c.name:'Khách lẻ / chưa lưu';document.getElementById('customerPickerList').classList.add('hidden')}
+function openOrder(){
+  orderLines=[];
+  openModal('Tạo đơn hàng',`
+    <div class="formgrid">
+      <div class="field"><label>Ngày bán *</label><input id="oDate" type="date" value="${today()}"></div>
+      <div class="field"><label>Khách hàng</label><input type="hidden" id="oCustomer" value="">
+        <div class="customer-picker">
+          <button type="button" class="customer-picker-trigger secondary" id="customerPickerTrigger" onclick="toggleCustomerPicker()">
+            <span id="customerPickerCurrent">Khách lẻ / chưa lưu</span><span aria-hidden="true">⌄</span>
+          </button>
+          <div id="customerPickerList" class="customer-picker-list hidden">
+            <button type="button" class="customer-option" onclick="chooseOrderCustomer('')"><strong>Khách lẻ / chưa lưu</strong></button>
+            ${db.customers.map(c=>{let addr=[c.area,c.address].filter(Boolean).join(' · ');return `<button type="button" class="customer-option" onclick="chooseOrderCustomer('${String(c.id).replace(/'/g,"&#39;")}')"><strong>${esc(c.name)}</strong><small>${esc(addr||'Chưa có địa chỉ')}</small></button>`}).join('')}
+          </div>
+        </div>
+      </div>
+      <div class="field span2"><label>Ghi chú đơn hàng</label><input id="oNote" placeholder="Ví dụ: Giao sáng trước 9h..."></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin:10px 0 8px">
+      <strong style="font-size:14px">Sản phẩm trong đơn</strong>
+      <button type="button" class="secondary small" onclick="addLine()" style="min-height:34px;padding:6px 10px;font-size:13px">＋ Thêm dòng</button>
+    </div>
+    <div class="lineitem-head">
+      <span>Sản phẩm</span>
+      <span>SL (kg)</span>
+      <span>Giá bán / 1kg</span>
+      <span></span>
+    </div>
+    <div id="orderLines"></div>
+    <div class="field" style="max-width:240px;margin-top:10px">
+      <label>Chi phí riêng của đơn (đ)</label>
+      <input id="oExtra" type="text" inputmode="numeric" autocomplete="off" value="0" oninput="updateOrderSummary()">
+    </div>
+    <div id="orderSummary"></div>
+    <div class="actions">
+      <button type="button" class="secondary" onclick="closeModal()">Hủy</button>
+      <button type="button" onclick="saveOrder()">Lưu đơn hàng</button>
+    </div>
+  `,()=>{addLine()});
+}
+function addLine(){orderLines.push({productId:'',name:'',qty:1,price:0,cost:0});renderLines()}
+function renderLines(){
+  let box=document.getElementById('orderLines');
+  if(!box)return;
+  box.innerHTML=orderLines.map((l,i)=>`
+    <div class="lineitem">
+      <select onchange="lineProduct(${i},this.value)">
+        <option value="">Chọn SP</option>
+        ${db.products.map(p=>`<option value="${p.id}" ${p.id===l.productId?'selected':''}>${esc(p.name)}</option>`).join('')}
+        <option value="__custom">+ Nhập tên khác</option>
+      </select>
+      <input type="number" step="any" min="0.01" value="${l.qty}" title="Số lượng (kg)" placeholder="kg" oninput="orderLines[${i}].qty=Math.max(0,qtyVal(this.value));updateOrderSummary()" onchange="orderLines[${i}].qty=Math.max(0.01,qtyVal(this.value));this.value=orderLines[${i}].qty;updateOrderSummary()">
+      <input type="text" inputmode="numeric" autocomplete="off" value="${fmtMoneyInput(l.price)}" title="Đơn giá trên 1kg (đ)" placeholder="đ / 1kg" oninput="orderLines[${i}].price=num(this.value);updateOrderSummary()" onchange="orderLines[${i}].price=num(this.value);updateOrderSummary()">
+      <button type="button" class="small danger" onclick="orderLines.splice(${i},1);renderLines()">×</button>
+      ${!l.productId?`
+        <div style="grid-column:1/4;display:flex;gap:6px;margin-top:2px">
+          <input style="flex:1" value="${esc(l.name)}" placeholder="Tên sản phẩm ngoài..." oninput="orderLines[${i}].name=this.value" onchange="orderLines[${i}].name=this.value">
+          <input style="width:44%" type="text" inputmode="numeric" autocomplete="off" value="${fmtMoneyInput(l.cost)}" placeholder="Giá vốn / 1kg" title="Giá vốn trên 1kg" oninput="orderLines[${i}].cost=num(this.value);updateOrderSummary()" onchange="orderLines[${i}].cost=num(this.value);updateOrderSummary()">
+        </div>
+      `:``}
+    </div>
+  `).join('');
+  updateOrderSummary();
+}
+function lineProduct(i,id){if(id==='__custom'){orderLines[i]={...orderLines[i],productId:'',name:'',price:0,cost:0}}else{let p=product(id);orderLines[i]={...orderLines[i],productId:id,name:p?.name||'',price:num(p?.price),cost:num(p?.cost)}}renderLines()}
+function updateOrderSummary(){let rev=orderLines.reduce((s,l)=>s+qtyVal(l.qty)*num(l.price),0),c=orderLines.reduce((s,l)=>s+qtyVal(l.qty)*num(l.cost),0),extra=num(document.getElementById('oExtra')?.value);let x=document.getElementById('orderSummary');if(x)x.innerHTML=`<div class="summaryline"><span>Doanh thu</span><strong>${money(rev)}</strong></div><div class="summaryline"><span>Giá vốn</span><strong>${money(c)}</strong></div><div class="summaryline"><span>Chi phí riêng</span><strong>${money(extra)}</strong></div><div class="summaryline"><strong>Lợi nhuận dự kiến</strong><strong class="${rev-c-extra<0?'negative':'positive'}">${money(rev-c-extra)}</strong></div>`}
+function saveOrder(){let lines=orderLines.filter(l=>l.name.trim()&&qtyVal(l.qty)>0);if(!lines.length)return alert('Thêm ít nhất một sản phẩm có tên và số lượng lớn hơn 0');let o={id:'DH-'+Date.now().toString().slice(-7),date:oDate.value||today(),customerId:oCustomer.value,lines:lines.map(l=>({...l,qty:qtyVal(l.qty)})),extraCost:num(oExtra.value),note:oNote.value.trim()};db.orders.push(o);closeModal();save()}
 function del(type,id){if(!confirm('Bạn chắc chắn muốn xóa mục này?'))return;let gone=[id];if(type==='orders'){gone.push(...db.expenses.filter(e=>e.orderId===id).map(e=>e.id));db.expenses=db.expenses.filter(e=>e.orderId!==id)}db[type]=db[type].filter(x=>x.id!==id);db.deleted=[...(db.deleted||[]),...gone];save()}
 function uid(prefix){return prefix+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,6)}
 function backup(){download('mysales-backup-'+today()+'.json',JSON.stringify(db,null,2),'application/json')}
@@ -682,110 +747,29 @@ function download(name,content,type){let a=document.createElement('a'),u=URL.cre
 function exportOrders(){let rows=[['Ngày','Mã đơn','Khách hàng','Sản phẩm','Doanh thu','Giá vốn','Chi phí riêng','Lợi nhuận'],...db.orders.map(o=>[o.date,o.id,customer(o.customerId)?.name||'Khách lẻ',o.lines.map(l=>`${l.name} x${qtyVal(l.qty)}`).join('; '),revenue(o),cost(o),o.extraCost,orderProfit(o)])];download('mysales-don-hang.csv','\ufeff'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\n'),'text/csv;charset=utf-8')}
 const CLOUD_SQL=`create table if not exists public.mysales_data (id uuid primary key references auth.users(id) on delete cascade, data jsonb not null default '{}'::jsonb, updated_at timestamptz not null default now()); alter table public.mysales_data enable row level security; grant select, insert, update, delete on public.mysales_data to authenticated; do $$ begin if not exists (select 1 from pg_policies where schemaname='public' and tablename='mysales_data' and policyname='user owns own MySales data') then create policy "user owns own MySales data" on public.mysales_data for all to authenticated using (auth.uid() = id) with check (auth.uid() = id); end if; end $$; do $$ begin if not exists (select 1 from pg_publication_tables where pubname='supabase_realtime' and schemaname='public' and tablename='mysales_data') then alter publication supabase_realtime add table public.mysales_data; end if; end $$;`;
 function copySql(){navigator.clipboard?.writeText(CLOUD_SQL).then(()=>alert('Đã sao chép SQL')).catch(()=>alert(CLOUD_SQL))}
-/* ===== ĐỒNG BỘ ĐÁM MÂY: lưu trên máy trước, có mạng thì tự đồng bộ ===== */
-const COLS=['orders','customers','products','expenses'],CFG_KEY='mysales_supabase_config',DIRTY_KEY='mysales_dirty',MODE_KEY='mysales_offline_mode',OK_KEY='mysales_lastok';
-const SB_SRC=['https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2','https://fastly.jsdelivr.net/npm/@supabase/supabase-js@2','https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js','https://gcore.jsdelivr.net/npm/@supabase/supabase-js@2'];
-let snap={},maxU=0,pushing=false,pushAgain=false,pulling=false,pullAgain=false,forcePush=false,rtT=0,syncState='out',syncMsg='',lastSeen=0,libLoading=false,dirty=false,lastOk=0,savingOrder=false;
-try{dirty=localStorage.getItem(DIRTY_KEY)==='1';lastOk=Number(localStorage.getItem(OK_KEY))||0}catch{}
-const tsn=x=>x?new Date(x).getTime():0;
-const cloudCfg=()=>{try{return JSON.parse(localStorage.getItem(CFG_KEY)||'{}')||{}}catch{return{}}};
-const cloudConfigured=()=>{let c=cloudCfg();return !!(c.url&&c.key)};
-const offlineMode=()=>localStorage.getItem(MODE_KEY)==='block'?'block':'queue';
-function persist(){try{localStorage.setItem(KEY,JSON.stringify(db));return true}catch(e){if(!persist.warned){persist.warned=true;alert('⚠️ Bộ nhớ trình duyệt đã đầy nên không lưu thêm được dữ liệu trên máy.\n\nHãy sao lưu rồi xóa bớt ảnh sản phẩm. Nếu đã bật đồng bộ và có mạng, dữ liệu vẫn được lưu lên đám mây.')}return false}}
-function setDirty(v){dirty=!!v;try{v?localStorage.setItem(DIRTY_KEY,'1'):localStorage.removeItem(DIRTY_KEY)}catch{}setSync()}
-function markOk(){lastOk=Date.now();try{localStorage.setItem(OK_KEY,String(lastOk))}catch{}setSync('ok')}
-/* --- đóng dấu thời gian từng bản ghi để gộp dữ liệu giữa các máy --- */
+function connectCloud(){let url=document.getElementById('sbUrl').value.trim(),key=document.getElementById('sbKey').value.trim();if(!/^https:\/\//.test(url)||!key)return alert('Nhập Project URL và publishable key hợp lệ');localStorage.setItem('mysales_supabase_config',JSON.stringify({url,key}));cloud=supabase.createClient(url,key);alert('Đã lưu cấu hình Supabase. Tiếp theo hãy tạo tài khoản hoặc đăng nhập.');render()}
+function ensureCloud(){if(cloud)return true;let cfg=JSON.parse(localStorage.getItem('mysales_supabase_config')||'{}');if(!cfg.url||!cfg.key||!window.supabase)return false;cloud=supabase.createClient(cfg.url,cfg.key);return true}
+async function cloudSignUp(){if(!ensureCloud())return alert('Hãy nhập và lưu cấu hình Supabase trước');let email=document.getElementById('sbEmail').value.trim(),password=document.getElementById('sbPass').value;if(!email||password.length<6)return alert('Nhập email và mật khẩu tối thiểu 6 ký tự');let {data,error}=await cloud.auth.signUp({email,password});if(error)return alert('Không tạo được tài khoản: '+error.message);if(data.session){cloudUser=data.user;startCloudRealtime();await cloudPush();alert('Đã tạo tài khoản và đồng bộ dữ liệu.')}else alert('Đã gửi yêu cầu đăng ký. Nếu Supabase bật xác nhận email, hãy xác nhận email rồi đăng nhập.');render()}
+/* ===== Đồng bộ đám mây: gộp theo từng bản ghi, không ghi đè cả kho ===== */
+const COLS=['orders','customers','products','expenses'];
+let snap={},pushing=false,pushAgain=false,pulling=false,forcePush=false,rtT=0,syncState='out',syncMsg='';
 const recJson=r=>{let {_u,...x}=r;return JSON.stringify(x)};
-function initSnap(){snap={};maxU=0;COLS.forEach(c=>(db[c]||[]).forEach(r=>{snap[c+r.id]=recJson(r);if((r._u||0)>maxU)maxU=r._u}))}
-function stamp(){let t=Math.max(Date.now(),maxU+1);COLS.forEach(c=>(db[c]||[]).forEach(r=>{let j=recJson(r);if(snap[c+r.id]!==j){r._u=t++;maxU=r._u;snap[c+r.id]=j}}))}
+function initSnap(){snap={};COLS.forEach(c=>(db[c]||[]).forEach(r=>{snap[c+r.id]=recJson(r)}))}
+function stamp(){COLS.forEach(c=>(db[c]||[]).forEach(r=>{let j=recJson(r);if(snap[c+r.id]!==j){r._u=Date.now();snap[c+r.id]=j}}))}
 const sig=d=>COLS.map(c=>(d[c]||[]).map(r=>r.id+':'+(r._u||0)).sort().join()).join('|')+'#'+[...new Set(d.deleted||[])].sort().join();
-function mergeDb(a,b){let del=new Set([...(a.deleted||[]),...(b.deleted||[])]),out={deleted:[...del]};COLS.forEach(c=>{let m=new Map();[...(b[c]||[]),...(a[c]||[])].forEach(r=>{if(!r||del.has(r.id))return;let o=m.get(r.id);if(!o){m.set(r.id,r);return}let ru=r._u||0,ou=o._u||0;if(ru>ou||(ru===ou&&ru>0))m.set(r.id,r)});out[c]=[...m.values()]});return{...b,...a,...out}}
-function newId(p){let id;do{id=p+'-'+Date.now().toString(36).toUpperCase()+Math.random().toString(36).slice(2,4).toUpperCase()}while(COLS.some(c=>(db[c]||[]).some(r=>r.id===id)));return id}
-/* --- thông báo trạng thái --- */
-function setSync(st,msg){if(st){syncState=st;syncMsg=msg||''}let b=document.getElementById('syncStat');if(!b)return;let s=syncState;if(!cloudConfigured())s='none';else if(!navigator.onLine)s='off';
- const T={ok:['☁ Đã đồng bộ','ok'],busy:['☁ Đang đồng bộ…','busy'],err:[dirty?'⚠ Chưa đồng bộ':'⚠ Lỗi đồng bộ','err'],out:['☁ Chưa đăng nhập','out'],none:['☁ Chưa bật đồng bộ','out'],nolib:['⚠ Chưa tải được thư viện','err'],off:[dirty?'📴 Offline · chờ đồng bộ':'📴 Không có mạng','warn']}[s]||['☁','out'];
- b.textContent=T[0];b.className='syncstat '+T[1];b.title=syncMsg}
-function chipClick(){if(!cloudConfigured()||syncState==='out'){page='settings';render();return}let t=!navigator.onLine?'📴 Máy đang không có mạng.\nDữ liệu vẫn được lưu trên máy và sẽ tự đồng bộ khi có mạng.':syncMsg?'Chi tiết: '+syncMsg:syncState==='ok'?'☁ Đã đồng bộ'+(lastOk?' lúc '+new Date(lastOk).toLocaleTimeString('vi-VN'):''):'';if(dirty)t+=(t?'\n\n':'')+'⏳ Có thay đổi chưa được đồng bộ lên đám mây — app sẽ tự thử lại.';if(t)alert(t);else{page='settings';render()}}
-document.getElementById('syncStat').onclick=chipClick;
-function toast(m,ms){let t=document.getElementById('toast');if(!t)return;t.textContent=m;t.classList.remove('hidden');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.add('hidden'),ms||4500)}
-function withTO(q,ms){try{let g=typeof AbortSignal!=='undefined'&&AbortSignal.timeout?AbortSignal.timeout(ms||25000):null;return g&&q.abortSignal?q.abortSignal(g):q}catch{return q}}
-function friendly(e){let m=(e&&e.message)||String(e||''),c=e&&e.code;if(/jwt|expired|not authenticated|invalid claim|refresh token/i.test(m)||(e&&e.status===401))return 'Phiên đăng nhập đã hết hạn — vào Dữ liệu và đăng nhập lại. ('+m+')';if(/failed to fetch|load failed|networkerror|network request/i.test(m))return 'Không kết nối được máy chủ Supabase (mạng yếu hoặc bị chặn, hoặc sai Project URL). ('+m+')';if(/timeout|timed out|abort/i.test(m))return 'Mạng chậm, máy chủ không phản hồi kịp. ('+m+')';if(c==='42P01'||c==='PGRST205'||/does not exist|schema cache/i.test(m))return 'Chưa tạo bảng mysales_data trên Supabase — chạy lại đoạn SQL cài đặt. ('+m+')';if(c==='42501'||/row-level security|permission denied/i.test(m))return 'Supabase từ chối quyền ghi/đọc — kiểm tra chính sách RLS. ('+m+')';return m}
-/* --- kết nối & đăng nhập --- */
-function ensureCloud(){if(cloud)return true;let c=cloudCfg();if(!c.url||!c.key||!window.supabase)return false;cloud=supabase.createClient(c.url,c.key);watchAuth();return true}
-function connectCloud(){let url=document.getElementById('sbUrl').value.trim(),key=document.getElementById('sbKey').value.trim();if(!/^https:\/\//.test(url)||!key)return alert('Nhập Project URL và publishable key hợp lệ');if(!window.supabase){loadSupabaseLib();return alert('Đang tải thư viện đồng bộ. Hãy đảm bảo có mạng rồi bấm lại sau vài giây.')}localStorage.setItem(CFG_KEY,JSON.stringify({url,key}));cloud=null;setUser(null);lastSeen=0;ensureCloud();setSync('out');alert('Đã lưu cấu hình Supabase. Tiếp theo hãy tạo tài khoản hoặc đăng nhập.');render()}
-function setUser(u){let changed=(cloudUser&&cloudUser.id)!==(u&&u.id);cloudUser=u||null;if(changed){lastSeen=0;if(u)startCloudRealtime()}}
-async function restoreSession(){if(cloudUser)return true;if(!ensureCloud())return false;try{let {data}=await cloud.auth.getSession();if(data&&data.session)setUser(data.session.user)}catch{}return !!cloudUser}
-function watchAuth(){if(!cloud||cloud._watch)return;cloud._watch=1;try{cloud.auth.onAuthStateChange((ev,session)=>{setTimeout(()=>{if(session&&session.user){let had=!!cloudUser;setUser(session.user);if(!had)trySync(true)}else if(ev==='SIGNED_OUT'){setUser(null);setSync('out')}},0)})}catch{}}
-async function cloudSignUp(){if(!ensureCloud())return alert('Hãy nhập và lưu cấu hình Supabase trước');let email=document.getElementById('sbEmail').value.trim(),password=document.getElementById('sbPass').value;if(!email||password.length<6)return alert('Nhập email và mật khẩu tối thiểu 6 ký tự');let {data,error}=await cloud.auth.signUp({email,password});if(error)return alert('Không tạo được tài khoản: '+error.message);if(data.session){setUser(data.user);setDirty(true);await cloudPush();alert('Đã tạo tài khoản và đồng bộ dữ liệu.')}else alert('Đã gửi yêu cầu đăng ký. Nếu Supabase bật xác nhận email, hãy xác nhận email rồi đăng nhập.');render()}
-async function cloudSignIn(){if(!ensureCloud())return alert('Hãy nhập và lưu cấu hình Supabase trước');let email=document.getElementById('sbEmail').value.trim(),password=document.getElementById('sbPass').value;if(!email||!password)return alert('Nhập email và mật khẩu');let {data,error}=await cloud.auth.signInWithPassword({email,password});if(error)return alert('Đăng nhập thất bại: '+error.message);setUser(data.user);lastSeen=0;await cloudPull(true);alert(syncState==='ok'?'Đã đăng nhập và đồng bộ. Dữ liệu trên máy và đám mây đã được gộp.':'Đăng nhập được nhưng đồng bộ chưa xong: '+syncMsg);render()}
-async function cloudSignOut(){if(!ensureCloud())return;await cloud.auth.signOut();setUser(null);lastSeen=0;setSync('out');alert('Đã đăng xuất khỏi Supabase. Dữ liệu trên thiết bị vẫn còn.');render()}
-function startCloudRealtime(){if(!cloud||!cloudUser)return;try{if(cloudChannel)cloud.removeChannel(cloudChannel);cloudChannel=cloud.channel('mysales-live-'+cloudUser.id).on('postgres_changes',{event:'*',schema:'public',table:'mysales_data',filter:'id=eq.'+cloudUser.id},()=>{clearTimeout(rtT);rtT=setTimeout(()=>cloudPull(),300)}).subscribe()}catch{}}
-/* --- kéo dữ liệu về (gộp) --- */
-async function pullOnce(force){
- let h=await withTO(cloud.from('mysales_data').select('updated_at').eq('id',cloudUser.id),15000).maybeSingle();if(h.error)throw h.error;
- if(!h.data){await cloudPush();return}
- if(!force&&lastSeen&&!dirty&&tsn(h.data.updated_at)===lastSeen){markOk();return}
- let r=await withTO(cloud.from('mysales_data').select('data,updated_at').eq('id',cloudUser.id)).maybeSingle();if(r.error)throw r.error;
- if(!r.data||!r.data.data){await cloudPush();return}
- let remote=r.data.data,before=sig(db);db=mergeDb(db,remote);initSnap();persist();if(sig(db)!==before)render();lastSeen=tsn(r.data.updated_at);
- if(sig(db)!==sig(remote))await cloudPush();else{setDirty(false);markOk()}}
-async function cloudPull(force){if(!cloudUser||!ensureCloud())return;if(pulling){pullAgain=true;return}pulling=true;try{let f=force===true;do{pullAgain=false;await pullOnce(f);f=false}while(pullAgain)}catch(e){setSync('err',friendly(e))}finally{pulling=false}}
-/* --- đẩy dữ liệu lên (gộp trước khi ghi, không ghi đè mù) --- */
-async function cloudPush(){if(!cloudUser||!ensureCloud())return;if(!dirty)setDirty(true);if(pushing){pushAgain=true;return}pushing=true;setSync('busy');
- try{do{pushAgain=false;
-  if(!forcePush){let h=await withTO(cloud.from('mysales_data').select('updated_at').eq('id',cloudUser.id),15000).maybeSingle();if(h.error)throw h.error;
-   if(h.data&&!(lastSeen&&tsn(h.data.updated_at)===lastSeen)){let r=await withTO(cloud.from('mysales_data').select('data,updated_at').eq('id',cloudUser.id)).maybeSingle();if(r.error)throw r.error;if(r.data&&r.data.data){let before=sig(db);db=mergeDb(db,r.data.data);initSnap();persist();if(sig(db)!==before)render()}}}
-  forcePush=false;let row={id:cloudUser.id,data:db,updated_at:new Date().toISOString()};let u=await withTO(cloud.from('mysales_data').upsert(row));if(u.error)throw u.error;lastSeen=tsn(row.updated_at)}while(pushAgain);
-  setDirty(false);markOk()}catch(e){setSync('err',friendly(e))}finally{pushing=false}}
-async function syncNow(){await cloudPush();for(let i=0;i<300&&(pushing||pushAgain);i++)await new Promise(r=>setTimeout(r,100));return !dirty&&syncState==='ok'}
-async function trySync(force){if(!cloudConfigured()||!navigator.onLine)return;if(!window.supabase){loadSupabaseLib();return}if(!cloudUser&&!(await restoreSession())){setSync('out');return}return cloudPull(force===true)}
-/* --- tải thư viện Supabase (không chặn việc mở app) --- */
-function loadScript(u,ms){return new Promise(res=>{let t=document.createElement('script'),done=false,tm,fin=ok=>{if(!done){done=true;clearTimeout(tm);res(ok)}};tm=setTimeout(()=>fin(false),ms||10000);t.src=u;t.onload=()=>fin(!!window.supabase);t.onerror=()=>fin(false);document.head.appendChild(t)})}
-async function loadSupabaseLib(){if(libLoading||window.supabase)return;libLoading=true;if(cloudConfigured())setSync('busy','Đang tải thư viện đồng bộ…');for(const u of SB_SRC){if(!navigator.onLine)break;if(await loadScript(u))break}libLoading=false;bootCloud()}
-function bootCloud(){if(!window.supabase){setSync('nolib','Không tải được thư viện Supabase (jsdelivr/unpkg). Mạng đang chặn hoặc quá yếu — thử đổi Wi‑Fi/4G rồi tải lại trang.');return}if(!cloudConfigured()){setSync('out');return}ensureCloud();restoreSession().then(ok=>{if(!ok)setSync('out');else if(navigator.onLine)cloudPull(true);else setSync()})}
-/* --- lưu đơn: offline thì lưu tạm hoặc báo lỗi theo chế độ đã chọn --- */
-async function saveOrder(){
-  if(savingOrder)return;
-  let lines=orderLines.filter(l=>l.name.trim()&&qtyVal(l.qty)>0);
-  if(!lines.length)return alert('Thêm ít nhất một sản phẩm có tên và số lượng lớn hơn 0');
-  let cfg=cloudConfigured(),mode=offlineMode();
-  if(cfg&&mode==='block'&&!navigator.onLine)return alert('📴 CHƯA LƯU ĐƯỢC ĐƠN\n\nMáy đang không có kết nối mạng. Vui lòng bật Wi‑Fi hoặc 4G rồi bấm Lưu lại.\n\nThông tin đơn vẫn được giữ nguyên trên màn hình.');
-  let o={id:newId('DH'),date:G('oDate').value||today(),customerId:G('oCustomer').value,lines:lines.map(l=>({...l,qty:qtyVal(l.qty)})),surcharge:num(G('oSur').value),shipFee:num(G('oShip').value),extraCost:num(G('oShip').value),note:G('oNote').value.trim()};
-  let btn=document.querySelector('#orderPage .fp-save');savingOrder=true;if(btn){btn.disabled=true;btn.textContent='Đang lưu…'}
-  try{
-    db.orders.push(o);stamp();persist();if(cfg)setDirty(true);
-    let synced=!cfg;
-    if(cfg&&navigator.onLine){if(cloudUser||await restoreSession())synced=await syncNow()}
-    if(cfg&&!synced&&mode==='block'){
-      db.orders=db.orders.filter(x=>x.id!==o.id);delete snap['orders'+o.id];db.deleted=[...(db.deleted||[]),o.id];persist();render();
-      return alert('⚠️ CHƯA LƯU ĐƯỢC ĐƠN\n\nKhông kết nối được tới máy chủ để đồng bộ. Vui lòng kiểm tra và bật mạng rồi bấm Lưu lại.\n\nThông tin đơn vẫn được giữ nguyên trên màn hình.'+(syncMsg?'\n\n('+syncMsg+')':''))}
-    closeOrderPage(false);render();
-    if(cfg&&!synced)toast('📴 Đã lưu đơn trên máy. Chưa đồng bộ được — app sẽ tự đồng bộ khi có mạng.',6000);
-  }finally{savingOrder=false;if(btn){btn.disabled=false;btn.textContent='💾 Lưu'}}
-}
-function restoreApply(d){let now=Date.now(),keep=new Set(COLS.flatMap(c=>(d[c]||[]).map(r=>r.id))),gone=COLS.flatMap(c=>(db[c]||[]).map(r=>r.id)).filter(id=>!keep.has(id));COLS.forEach(c=>(d[c]||[]).forEach(r=>{r._u=now}));d.deleted=[...new Set([...(d.deleted||[]).filter(id=>!keep.has(id)),...gone])];db=d;forcePush=true;initSnap();save()}
-/* --- bảng trạng thái & kiểm tra kết nối trong trang Dữ liệu --- */
-function setOfflineMode(m){localStorage.setItem(MODE_KEY,m);render()}
-async function syncBtn(){if(!cloudConfigured())return alert('Hãy nhập cấu hình Supabase và đăng nhập trước.');if(!navigator.onLine)return toast('📴 Máy đang không có mạng. Dữ liệu vẫn lưu trên máy.');setSync('busy');await trySync(true);toast(syncState==='ok'?'✅ Đã đồng bộ':'⚠ Chưa đồng bộ được: '+(syncMsg||'không rõ lỗi'),6000);render()}
-function syncPanel(){let m=offlineMode();return `<section class="panel" style="margin-bottom:15px"><h2>Trạng thái đồng bộ</h2><p class="muted" style="font-size:12px">${cloudConfigured()?(cloudUser?'Đã đăng nhập: '+esc(cloudUser.email||''):'Chưa đăng nhập'):'Chưa bật đồng bộ'} · ${dirty?'⏳ Có thay đổi chờ đồng bộ':'Không có thay đổi chờ'}${lastOk?' · Đồng bộ gần nhất: '+new Date(lastOk).toLocaleString('vi-VN'):''}</p><div class="toolbar"><button onclick="syncBtn()">🔄 Đồng bộ ngay</button><button class="secondary" onclick="cloudDiag()">🔍 Kiểm tra kết nối</button></div><h2 style="margin-top:14px">Khi tạo đơn mà mất mạng</h2><div class="toolbar"><button class="${m==='queue'?'':'secondary'}" onclick="setOfflineMode('queue')">Lưu tạm trên máy, tự đồng bộ sau</button><button class="${m==='block'?'':'secondary'}" onclick="setOfflineMode('block')">Báo lỗi, không lưu đơn</button></div><p class="muted" style="font-size:12px">${m==='queue'?'Đơn được lưu ngay trên máy, góc trên hiện “chờ đồng bộ” và tự đẩy lên đám mây khi có mạng (kể cả sau khi tắt rồi mở lại app).':'Mất mạng thì app báo chưa lưu được đơn và giữ nguyên thông tin để bạn bấm lưu lại khi có mạng.'} Chế độ này chỉ áp dụng cho máy này.</p><pre id="diagOut" style="white-space:pre-wrap;font-size:12px;margin:8px 0 0;overflow-wrap:anywhere">${esc(window.lastDiag||'')}</pre></section>`}
-async function cloudDiag(){let out=[],add=t=>{out.push(t);window.lastDiag=out.join('\n');let e=document.getElementById('diagOut');if(e)e.textContent=window.lastDiag};
- add('Thời gian: '+new Date().toLocaleString('vi-VN'));
- add('1. Mạng của máy: '+(navigator.onLine?'có':'KHÔNG CÓ'));
- add('2. Thư viện Supabase: '+(window.supabase?'đã tải':'CHƯA TẢI ĐƯỢC (mạng chặn jsdelivr/unpkg?)'));
- let cfg=cloudCfg();add('3. Cấu hình: URL '+(cfg.url?cfg.url.replace(/^https?:\/\//,''):'CHƯA CÓ')+' · Key '+(cfg.key?'có':'CHƯA CÓ'));
- add('4. Đăng nhập: '+(cloudUser?cloudUser.email:'CHƯA ĐĂNG NHẬP'));
- if(cfg.url){let t=Date.now();try{let g=typeof AbortSignal!=='undefined'&&AbortSignal.timeout?AbortSignal.timeout(12000):undefined;let r=await fetch(cfg.url+'/auth/v1/health',{headers:{apikey:cfg.key||''},signal:g});add('5. Gọi tới máy chủ Supabase: HTTP '+r.status+' ('+(Date.now()-t)+' ms)'+(r.ok?'':' — URL hoặc key có thể sai'))}catch(e){add('5. Gọi tới máy chủ Supabase: LỖI — '+friendly(e))}}
- if(cloudUser&&ensureCloud()){let t=Date.now();try{let r=await withTO(cloud.from('mysales_data').select('data,updated_at').eq('id',cloudUser.id),30000).maybeSingle();if(r.error)add('6. Đọc dữ liệu đám mây: LỖI — '+friendly(r.error));else if(!r.data)add('6. Đọc dữ liệu đám mây: OK nhưng chưa có dữ liệu (sẽ tạo khi bạn lưu)');else{let d=r.data.data||{};add('6. Đọc dữ liệu đám mây: OK ('+(Date.now()-t)+' ms, '+Math.round(JSON.stringify(d).length/1024)+' KB) · '+(d.orders||[]).length+' đơn, '+(d.customers||[]).length+' khách · cập nhật '+new Date(r.data.updated_at).toLocaleString('vi-VN'))}}catch(e){add('6. Đọc dữ liệu đám mây: LỖI — '+friendly(e))}}
- let kb=Math.round(JSON.stringify(db).length/1024);add('7. Trên máy này: '+db.orders.length+' đơn, '+db.customers.length+' khách, '+kb+' KB'+(kb>3000?' ⚠ SẮP ĐẦY bộ nhớ trình duyệt (~5 MB) — nên xóa bớt ảnh sản phẩm':''));
- add('8. Thay đổi chờ đồng bộ: '+(dirty?'CÓ':'không')+' · Chế độ khi mất mạng: '+(offlineMode()==='queue'?'lưu tạm trên máy':'báo lỗi'));
- add('9. Trạng thái đồng bộ: '+syncState+(syncMsg?' — '+syncMsg:''))}
-/* --- khởi động --- */
-window.addEventListener('online',()=>{setSync();if(cloudConfigured())toast('✅ Đã có mạng trở lại'+(dirty?', đang đồng bộ dữ liệu chờ…':''),3500);if(!window.supabase)loadSupabaseLib();else trySync(true)});
-window.addEventListener('offline',()=>{setSync();if(cloudConfigured())toast('📴 Mất kết nối internet. Bạn vẫn dùng được app — dữ liệu lưu trên máy và tự đồng bộ khi có mạng.',6000)});
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')trySync()});
-setInterval(()=>{if(document.visibilityState==='visible')trySync()},20000);
-initSnap();setSync('out');
-if(window.supabase)bootCloud();else loadSupabaseLib();
+function mergeDb(a,b){let del=new Set([...(a.deleted||[]),...(b.deleted||[])]),out={deleted:[...del]};COLS.forEach(c=>{let m=new Map();[...(b[c]||[]),...(a[c]||[])].forEach(r=>{if(del.has(r.id))return;let o=m.get(r.id);if(!o||(r._u||0)>=(o._u||0))m.set(r.id,r)});out[c]=[...m.values()]});return{...b,...a,...out}}
+function setSync(st,msg){if(st)syncState=st;syncMsg=msg||'';let b=document.getElementById('syncStat');if(!b)return;const T={ok:['☁ Đã đồng bộ','ok'],busy:['☁ Đang đồng bộ…','busy'],err:['⚠ Lỗi đồng bộ','err'],out:['☁ Chưa đăng nhập','out'],nolib:['⚠ Không kết nối được','err']}[syncState];b.textContent=T[0];b.className='syncstat '+T[1];b.title=syncMsg}
+document.getElementById('syncStat').onclick=()=>{if(syncMsg)alert('Chi tiết: '+syncMsg);else{page='settings';render()}};
+function restoreApply(d){let keep=new Set(COLS.flatMap(c=>(d[c]||[]).map(r=>r.id))),gone=COLS.flatMap(c=>(db[c]||[]).map(r=>r.id)).filter(id=>!keep.has(id));d.deleted=[...new Set([...(d.deleted||[]).filter(id=>!keep.has(id)),...gone])];db=d;forcePush=true;initSnap();save()}
+async function cloudSignIn(){if(!ensureCloud())return alert('Hãy nhập và lưu cấu hình Supabase trước');let email=document.getElementById('sbEmail').value.trim(),password=document.getElementById('sbPass').value;if(!email||!password)return alert('Nhập email và mật khẩu');let {data,error}=await cloud.auth.signInWithPassword({email,password});if(error)return alert('Đăng nhập thất bại: '+error.message);cloudUser=data.user;startCloudRealtime();await cloudPull();alert(syncState==='ok'?'Đã đăng nhập và đồng bộ. Dữ liệu trên máy và đám mây đã được gộp.':'Đăng nhập được nhưng đồng bộ chưa xong: '+syncMsg);render()}
+function startCloudRealtime(){if(!cloud||!cloudUser)return;if(cloudChannel)cloud.removeChannel(cloudChannel);cloudChannel=cloud.channel('mysales-live-'+cloudUser.id).on('postgres_changes',{event:'*',schema:'public',table:'mysales_data',filter:'id=eq.'+cloudUser.id},()=>{clearTimeout(rtT);rtT=setTimeout(cloudPull,300)}).subscribe()}
+async function cloudPull(){if(!cloudUser||!ensureCloud()||pulling)return;pulling=true;try{let r=await cloud.from('mysales_data').select('data').eq('id',cloudUser.id).maybeSingle();if(r.error)throw r.error;if(!r.data?.data){pulling=false;await cloudPush();return}let remote=r.data.data,before=sig(db);db=mergeDb(db,remote);initSnap();localStorage.setItem(KEY,JSON.stringify(db));if(sig(db)!==before)render();if(sig(db)!==sig(remote)){pulling=false;await cloudPush()}else setSync('ok')}catch(e){setSync('err',(e&&e.message)||String(e))}finally{pulling=false}}
+async function cloudPush(){if(!cloudUser||!ensureCloud())return;if(pushing){pushAgain=true;return}pushing=true;setSync('busy');try{do{pushAgain=false;if(!forcePush){let r=await cloud.from('mysales_data').select('data').eq('id',cloudUser.id).maybeSingle();if(r.error)throw r.error;if(r.data?.data){let before=sig(db);db=mergeDb(db,r.data.data);initSnap();localStorage.setItem(KEY,JSON.stringify(db));if(sig(db)!==before)render()}}forcePush=false;let u=await cloud.from('mysales_data').upsert({id:cloudUser.id,data:db,updated_at:new Date().toISOString()});if(u.error)throw u.error}while(pushAgain);setSync('ok')}catch(e){setSync('err',(e&&e.message)||String(e))}finally{pushing=false}}
+async function cloudSignOut(){if(!ensureCloud())return;await cloud.auth.signOut();cloudUser=null;setSync('out');alert('Đã đăng xuất khỏi Supabase. Dữ liệu trên thiết bị vẫn còn.');render()}
+ensureCloud();initSnap();
+if(!window.supabase)setSync('nolib','Không tải được thư viện Supabase (cdn.jsdelivr.net). Kiểm tra mạng hoặc tắt chặn quảng cáo rồi tải lại trang.');else setSync('out');
+if(cloud){cloud.auth.getSession().then(async({data})=>{if(data.session){cloudUser=data.session.user;startCloudRealtime();await cloudPull()}})}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')cloudPull()});window.addEventListener('online',()=>cloudPull());setInterval(()=>{if(document.visibilityState==='visible')cloudPull()},20000);
 document.querySelectorAll('.menu button').forEach(b=>b.onclick=()=>{page=b.dataset.page;closeDrawer();render();scrollTo(0,0)});document.getElementById('quickAdd').onclick=()=>openOrder();const dr=document.getElementById('drawer'),bg=document.getElementById('drawerBg'),mb=document.getElementById('menuBtn');function closeDrawer(){dr.classList.remove('open');bg.classList.add('hidden');mb.setAttribute('aria-expanded','false')}mb.onclick=()=>{let o=!dr.classList.contains('open');dr.classList.toggle('open',o);bg.classList.toggle('hidden',!o);mb.setAttribute('aria-expanded',String(o))};bg.onclick=closeDrawer;document.getElementById('page').addEventListener('input',e=>{if(e.target.id==='orderSearch'){let q=e.target.value.toLowerCase();document.querySelectorAll('#orderRows > *').forEach(r=>r.classList.toggle('hidden',!r.dataset.search?.includes(q)))}if(e.target.id==='customerSearch'){let q=e.target.value.toLowerCase();document.querySelectorAll('#customerRows > *').forEach(r=>r.classList.toggle('hidden',!r.dataset.search?.includes(q)))}});render();
 /* ===== Trang tạo đơn toàn màn hình ===== */
 const G=id=>document.getElementById(id);
@@ -825,6 +809,7 @@ function olDel(i){orderLines.splice(i,1);renderOrderLines()}
 function updateOrderSummary(){let goods=orderLines.reduce((s,l)=>s+qtyVal(l.qty)*num(l.price),0),c=orderLines.reduce((s,l)=>s+qtyVal(l.qty)*num(l.cost),0),q=orderLines.reduce((s,l)=>s+qtyVal(l.qty),0),sur=num(G('oSur')?.value),ship=num(G('oShip')?.value),total=goods+sur,p=total-c-ship;
   let x=G('orderSummary');if(x)x.innerHTML=`<div class="summaryline"><span>Số lượng</span><strong>${q.toLocaleString('vi-VN')} kg</strong></div><div class="summaryline"><span>Tiền hàng</span><strong>${money(goods)}</strong></div><div class="summaryline"><span>Phụ phí (thu thêm)</span><strong>+ ${money(sur)}</strong></div><div class="summaryline"><span>Tổng tiền khách trả</span><strong>${money(total)}</strong></div><div class="summaryline"><span>Giá vốn</span><strong>${money(c)}</strong></div><div class="summaryline"><span>Phí vận chuyển (trừ đi)</span><strong>− ${money(ship)}</strong></div><div class="summaryline"><strong>Lợi nhuận dự kiến</strong><strong class="${p<0?'negative':'positive'}">${money(p)}</strong></div>`;
   let t=G('ofTotal');if(t)t.textContent=money(total)}
+function saveOrder(){let lines=orderLines.filter(l=>l.name.trim()&&qtyVal(l.qty)>0);if(!lines.length)return alert('Thêm ít nhất một sản phẩm có tên và số lượng lớn hơn 0');let o={id:'DH-'+Date.now().toString().slice(-7),date:G('oDate').value||today(),customerId:G('oCustomer').value,lines:lines.map(l=>({...l,qty:qtyVal(l.qty)})),surcharge:num(G('oSur').value),shipFee:num(G('oShip').value),extraCost:num(G('oShip').value),note:G('oNote').value.trim()};db.orders.push(o);closeOrderPage(false);save()}
 /* Chọn hàng hóa (toàn màn hình) */
 function openPicker(){pickSel=new Set(orderLines.filter(l=>l.productId).map(l=>l.productId));G('pickQ').value='';G('pickPage').classList.remove('hidden');renderPick()}
 function closePicker(){G('pickPage').classList.add('hidden')}
