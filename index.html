@@ -109,7 +109,37 @@
   .analytics-chart svg { min-width: 0; }
   .toolbar { gap: 7px; }
 }
-
+/* Lớp phủ mờ toàn màn hình khi đang lưu/đồng bộ */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(23, 36, 58, 0.55);
+  backdrop-filter: blur(2px);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  gap: 14px;
+}
+.loading-spinner {
+  width: 44px;
+  height: 44px;
+  border: 4px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+.loading-text {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 </style>
 <style>
 :root{--bg:#f3f6fc;--card:#fff;--ink:#17243a;--muted:#7c899d;--line:#e8edf5;--green:#18a875;--green2:#e8f8f1;--red:#d94d5c;--amber:#b97819;--blue:#3478ee;--shadow:0 5px 22px rgba(34,67,115,.055)}
@@ -570,6 +600,10 @@ html body .syncstat{margin-left:auto;background:transparent!important;box-shadow
 <main class="main"><header class="app-topbar"><div class="searchbox">⌕ <input id="globalSearch" placeholder="Tìm kiếm đơn hàng, khách hàng, sản phẩm..."></div><div class="profile-chip"><span class="profile-avatar">M</span><span><strong>Team nghỉ hưu sớm 😎</strong><small>Quản lý bán hàng</small></span></div></header><div class="top"><div><div class="muted" id="today"></div><h1 id="pageTitle">Tổng quan</h1></div><button id="quickAdd">＋ Tạo đơn hàng</button></div><div id="page"></div></main></div>
 <div id="modal" class="modal hidden"><div class="dialog"><div class="dialoghead"><h2 id="modalTitle"></h2><button class="secondary small" id="closeModal">✕</button></div><div id="modalBody"></div></div></div>
 <div id="toast" class="toast hidden" role="status"></div>
+<div id="loadingOverlay" class="loading-overlay hidden">
+  <div class="loading-spinner"></div>
+  <div id="loadingText" class="loading-text">Đang lưu & đồng bộ đơn hàng...</div>
+</div>
 <div id="orderPage" class="fp hidden"></div>
 <div id="pickPage" class="fp hidden" style="z-index:75"><div class="fp-head"><button type="button" onclick="closePicker()" aria-label="Quay lại">‹</button><h2>Chọn hàng hóa</h2></div><div class="fp-search"><input id="pickQ" placeholder="Lọc theo tên hàng..." oninput="renderPick()"></div><div class="fp-body" id="pickList"></div><div class="fp-foot"><button type="button" class="secondary" onclick="pickCustom()">＋ Sản phẩm ngoài</button><button type="button" onclick="pickDone()">Tiếp tục (<span id="pickCount">0</span>)</button></div></div>
 <script>
@@ -776,18 +810,31 @@ async function saveOrder(){
   if(!lines.length)return alert('Thêm ít nhất một sản phẩm có tên và số lượng lớn hơn 0');
   let cfg=cloudConfigured(),mode=offlineMode();
   if(cfg&&mode==='block'&&!navigator.onLine)return alert('📴 CHƯA LƯU ĐƯỢC ĐƠN\n\nMáy đang không có kết nối mạng. Vui lòng bật Wi‑Fi hoặc 4G rồi bấm Lưu lại.\n\nThông tin đơn vẫn được giữ nguyên trên màn hình.');
+  
   let o={id:newId('DH'),date:G('oDate').value||today(),customerId:G('oCustomer').value,lines:lines.map(l=>({...l,qty:qtyVal(l.qty)})),surcharge:num(G('oSur').value),shipFee:num(G('oShip').value),extraCost:num(G('oShip').value),note:G('oNote').value.trim()};
-  let btn=document.querySelector('#orderPage .fp-save');savingOrder=true;if(btn){btn.disabled=true;btn.textContent='Đang lưu…'}
+  
+  let overlay = G('loadingOverlay');
+  let btn = document.querySelector('#orderPage .fp-save');
+  savingOrder = true;
+  if(btn) btn.disabled = true;
+  if(overlay) overlay.classList.remove('hidden'); // Bật lớp phủ mờ giữa màn hình
+
   try{
     db.orders.push(o);stamp();persist();if(cfg)setDirty(true);
     let synced=!cfg;
     if(cfg&&navigator.onLine){if(cloudUser||await restoreSession())synced=await syncNow()}
+    
     if(cfg&&!synced&&mode==='block'){
       db.orders=db.orders.filter(x=>x.id!==o.id);delete snap['orders'+o.id];db.deleted=[...(db.deleted||[]),o.id];persist();render();
       return alert('⚠️ CHƯA LƯU ĐƯỢC ĐƠN\n\nKhông kết nối được tới máy chủ để đồng bộ. Vui lòng kiểm tra và bật mạng rồi bấm Lưu lại.\n\nThông tin đơn vẫn được giữ nguyên trên màn hình.'+(syncMsg?'\n\n('+syncMsg+')':''))}
+    
     closeOrderPage(false);render();
     if(cfg&&!synced)toast('📴 Đã lưu đơn trên máy. Chưa đồng bộ được — app sẽ tự đồng bộ khi có mạng.',6000);
-  }finally{savingOrder=false;if(btn){btn.disabled=false;btn.textContent='💾 Lưu'}}
+  }finally{
+    savingOrder = false;
+    if(btn) btn.disabled = false;
+    if(overlay) overlay.classList.add('hidden'); // Tắt lớp phủ mờ khi hoàn tất
+  }
 }
 function restoreApply(d){let now=Date.now(),keep=new Set(COLS.flatMap(c=>(d[c]||[]).map(r=>r.id))),gone=COLS.flatMap(c=>(db[c]||[]).map(r=>r.id)).filter(id=>!keep.has(id));COLS.forEach(c=>(d[c]||[]).forEach(r=>{r._u=now}));d.deleted=[...new Set([...(d.deleted||[]).filter(id=>!keep.has(id)),...gone])];db=d;forcePush=true;initSnap();save()}
 /* --- bảng trạng thái & kiểm tra kết nối trong trang Dữ liệu --- */
